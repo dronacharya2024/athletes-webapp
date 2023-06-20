@@ -1,6 +1,6 @@
 
 #import necessary packages
-from flask import Flask
+from flask import Flask, render_template, request, redirect, url_for, make_response
 import db
 
 # instantiate the app
@@ -27,12 +27,23 @@ def test():
     db.collection.insert_one({"name": "John"})
     return "Connected to the data base!"
 
-#log in page
-def log_in():
+#login page
+@app.route("/login")
+def login():
     """
-    Route for log in page
+    Route for GET request to login page
+    Displays form for user
     """
-    return
+    return render_template('login.html')
+
+#sign up page
+@app.route("/sign_up")
+def sign_up():
+    """
+    Route for GET request to login page
+    Displays form for user
+    """
+    return render_template('sign_up.html')
 
 if __name__ == '__main__':
     app.run(debug = True, port=8000)

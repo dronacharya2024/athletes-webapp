@@ -6,7 +6,7 @@
 <title>Simple Gray, Professional free website template</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link href="template_style.css" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static', filename='css/template_style.css') }}" rel="stylesheet" type="text/css" />
 <script language="javascript" type="text/javascript">
 function clearText(field){
 
@@ -28,11 +28,11 @@ function clearText(field){
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
-	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-	<link href="css/bootstrap-social.css" rel="stylesheet" type="text/css">	
-	<link href="css/template_style.css" rel="stylesheet" type="text/css">	
+	<link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ url_for('static', filename='css/bootstrap-social.css') }}" rel="stylesheet" type="text/css">	
+	<link href="{{ url_for('static', filename='css/template_style.css') }}" rel="stylesheet" type="text/css">	
 </head>
 <body class="templatemo-bg-image-1">
 <head>
@@ -40,7 +40,7 @@ function clearText(field){
 <title>Simple Gray, Professional free website template</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static', filename='css/templatemo_style.css') }}" rel="stylesheet" type="text/css" />
 <script language="javascript" type="text/javascript">
 function clearText(field){
 
@@ -65,7 +65,7 @@ function clearText(field){
                   <li><a href="#">Gallery</a></li>
                   <li><a href="#">Company</a></li>
                   <li><a href="#">Contact</a></li>
-		  <li><a href="Login.html">Login</a></li>
+		  <li><a href="login">Login</a></li>
             </ul>    	
 		</div> <!-- end of menu -->
     
@@ -135,7 +135,7 @@ function clearText(field){
 				        </div>
 				        <div class="form-group">
 				          	<div class="col-md-12">
-				        	<a href="Login.html" class="text-center"><span style="color: white">Login</a></span>
+				        	<a href="login" class="text-center"><span style="color: white">Login</a></span>
 
 				       	 	</div>
 				    	</div>
