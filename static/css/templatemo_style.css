@@ -53,7 +53,7 @@ img {
 	width: 100px;
 	height: 23px;
 	padding-top: 5px;
-	background: url(images/templatemo_button_01.png) no-repeat;
+	background: url(/static/images/templatemo_button_01.png) no-repeat;
 	
 	
 	color: #000;
@@ -80,7 +80,7 @@ img {
 	font-size: 22px;
 	letter-spacing: 2px;
 	color: #000000;
-	background: url(images/templatemo_header_01_bg.jpg) left bottom no-repeat;	
+	background: url(/static/images/templatemo_header_01_bg.jpg) left bottom no-repeat;	
 }
 
 .header_03 {
@@ -88,8 +88,8 @@ img {
 	height: 35px;
 	padding: 15px 0 0 20px;
 	font-size: 18px;
-	color: #ffffff;
-	background: url(images/templatemo_header_02_bg.jpg) repeat-x;
+	color: hsl(0, 0%, 100%);
+	background: url(/static/images/templatemo_header_02_bg.jpg) repeat-x;
 }
 
 .header_04 {
@@ -115,7 +115,7 @@ img {
 	height: 24px;
 	padding: 3px 0 0 20px;
 	margin-bottom: 5px;
-	background:  url(images/templatemo_footer_title_bg.png) no-repeat;
+	background:  url(/static/images/templatemo_footer_title_bg.png) no-repeat;
 }
 
 
@@ -124,7 +124,7 @@ img {
 	width: 100%;
 	height: 90px;
 	margin: 0 auto;
-	background: #19446a url(images/templatemo_header_bg.jpg) repeat-x;
+	background: #19446a url(/static/images/templatemo_header_bg.jpg) repeat-x;
 }
 
 #templatemo_header {
@@ -138,7 +138,7 @@ img {
 	height: 84px;
 	font-size: 40px;
 	color: #ffffff;
-	background: url(images/templatemo_logo.jpg) no-repeat;
+	background: url(/static/images/templatemo_logo.jpg) no-repeat;
 }
 
 /* menu */
@@ -148,7 +148,7 @@ img {
 	float: right;
 	height: 47px;
 	margin: 20px 40px 0 0;
-	background: url(images/templatemo_menu_right.jpg) right no-repeat;
+	background: url(/static/images/templatemo_menu_right.jpg) right no-repeat;
 }
 
 #templatemo_menu #templatemo_menu_left{
@@ -157,7 +157,7 @@ img {
 	height: 47px;
 	top: 0px;
 	left: 0px;
-	background: url(images/templatemo_menu_left.jpg) no-repeat;
+	background: url(/static/images/templatemo_menu_left.jpg) no-repeat;
 }
 
 #templatemo_menu ul {
@@ -177,7 +177,7 @@ img {
 	display: block;
 	width: 100px;
 	padding: 5px 0;
-	background: url(images/templatemo_menu_divider.jpg) right repeat-y;
+	background: url(/static/images/templatemo_menu_divider.jpg) right repeat-y;
 	text-align: center;
 	font-size: 14px;
 	text-decoration: none;
@@ -203,7 +203,7 @@ img {
 	width: 100%;
 	height: 281px;
 	margin: 0 auto;
-	background: #454545 url(images/templatemo_banner_repeat.jpg) repeat-x;
+	background: #454545 url(/static/images/templatemo_banner_repeat.jpg) repeat-x;
 }
 
 #templatemo_banner {
@@ -211,7 +211,7 @@ img {
 	height: 251px;
 	margin: 0 auto;
 	padding: 30px 40px 0 40px;;
-	background:url(images/templatemo_banner_bg.jpg) bottom no-repeat;
+	background:url(/static/images/templatemo_banner_bg.jpg) bottom no-repeat;
 }
 
 #templatemo_banner #templatemo_banner_image {
@@ -236,7 +236,7 @@ img {
 	position: relative;
 	width: 413px;
 	height: 230px;
-	background:url(images/templatemo_banner_image_bg.png) no-repeat;
+	background:url(/static/images/templatemo_banner_image_bg.png) no-repeat;
 }
 
 #templatemo_banner_image_wrapper img {
@@ -306,7 +306,7 @@ img {
 .column_w300_section_01 {
 	clear: both;
 	padding: 20px 19px;
-	background: url(images/templatemo_side_column_divider.jpg) bottom repeat-x;
+	background: url(/static/images/templatemo_side_column_divider.jpg) bottom repeat-x;
 }
 
 .even_color {
@@ -351,7 +351,7 @@ img {
 #templatemo_footer_wrapper {
 	width: 100%;
 	margin: 0 auto;
-	background: url(images/templatemo_footer_bg.jpg) repeat-x;
+	background: url(/static/images/templatemo_footer_bg.jpg) repeat-x;
 }
 
 #templatemo_footer {
