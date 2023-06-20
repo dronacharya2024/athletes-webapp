@@ -45,5 +45,15 @@ def sign_up():
     """
     return render_template('sign_up.html')
 
+#index
+@app.route("/index")
+def index():
+    """
+    Route for GET request to index page
+    Displays form for user
+    """
+    return render_template('index.html')
+
+
 if __name__ == '__main__':
     app.run(debug = True, port=8000)
