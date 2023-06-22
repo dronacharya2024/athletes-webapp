@@ -40,7 +40,7 @@ def login():
 @app.route("/sign_up")
 def sign_up():
     """
-    Route for GET request to login page
+    Route for GET request to sign_up page
     Displays form for user
     """
     return render_template('sign_up.html')
@@ -54,6 +54,23 @@ def index():
     """
     return render_template('index.html')
 
+#sign_up_athletecoach
+@app.route("/sign_up_athletecoach")
+def sign_up_athletecoach():
+    """
+    Route for GET request to sign_up_athletecoach page
+    Displays form for user
+    """
+    return render_template('sign_up_athletecoach.html')
+
+#sign_up_sponsor
+@app.route("/sign_up_sponsor")
+def sign_up_sponsor():
+    """
+    Route for GET request to sign_up_sponsor page
+    Displays form for user
+    """
+    return render_template('sign_up_sponsor.html')
 
 if __name__ == '__main__':
     app.run(debug = True, port=8000)
