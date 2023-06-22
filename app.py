@@ -1,6 +1,7 @@
 
 #import necessary packages
 from flask import Flask, render_template, request, redirect, url_for, make_response
+#from datetime import date
 import db
 
 # instantiate the app
@@ -35,6 +36,28 @@ def login():
     Displays form for user
     """
     return render_template('login.html')
+
+'''
+#validate login
+@app.route('/login', methods=['POST'])
+def validate_login():
+    """
+    Route for POST requests to the login page
+    Validates login attempt
+    """
+    username = request.form['username']
+    password = request.form['password']
+
+
+    # check if username and password are in the users table
+    if db.collection.find({'username': { "$in": username}, 'password': { "$in": password}}).count() > 0:
+        #allow login and redirect
+        return redirect(url_for('home')) # tell the browser to make a request for the /home route
+        #but logged in version
+    else:
+        #return error message in login page
+        return
+'''
 
 #sign up page
 @app.route("/sign_up")
@@ -71,6 +94,30 @@ def sign_up_sponsor():
     Displays form for user
     """
     return render_template('sign_up_sponsor.html')
+
+'''
+@app.route('/sign_up_sponsor', methods=['POST'])
+def create_user():
+    """
+    Route for POST requests to the sign up pages.
+    Accepts the form submission data for a new document and saves the document to the database.
+    """
+    username = request.form['username']
+    password = request.form['password']
+    email = request.form['email']
+    user_type = 'sponsor'
+
+    # create a new document with the data the user entered
+    doc = {
+        "username": username,
+        "password": password,
+        "email": email, 
+        "user_type": user_type,
+        "created_at": date.today()
+    }
+    db.collection.insert_one(doc) # insert a new document for user
+    return redirect(url_for('home')) # tell the browser to make a request for the /home route
+'''
 
 if __name__ == '__main__':
     app.run(debug = True, port=8000)
