@@ -37,7 +37,6 @@ def login():
     """
     return render_template('login.html')
 
-'''
 #validate login
 @app.route('/login', methods=['POST'])
 def validate_login():
@@ -50,14 +49,13 @@ def validate_login():
 
 
     # check if username and password are in the users table
-    if db.collection.find({'username': { "$in": username}, 'password': { "$in": password}}).count() > 0:
+    if db.login_data.count_documents({'username': username, 'password': password}) != 0:
         #allow login and redirect
         return redirect(url_for('home')) # tell the browser to make a request for the /home route
         #but logged in version
     else:
         #return error message in login page
-        return
-'''
+        return redirect(url_for('login'))
 
 #sign up page
 @app.route("/sign_up")
@@ -78,10 +76,19 @@ def index():
     return render_template('index.html')
 
 #sign_up_athletecoach
-@app.route("/sign_up_athletecoach")
-def sign_up_athletecoach():
+@app.route("/sign_up_athlete")
+def sign_up_athlete():
     """
-    Route for GET request to sign_up_athletecoach page
+    Route for GET request to sign_up_athlete page
+    Displays form for user
+    """
+    return render_template('sign_up_athletecoach.html')
+
+#sign_up_athletecoach
+@app.route("/sign_up_coach")
+def sign_up_coach():
+    """
+    Route for GET request to sign_up_coach page
     Displays form for user
     """
     return render_template('sign_up_athletecoach.html')
@@ -95,9 +102,8 @@ def sign_up_sponsor():
     """
     return render_template('sign_up_sponsor.html')
 
-'''
 @app.route('/sign_up_sponsor', methods=['POST'])
-def create_user():
+def add_sponsor():
     """
     Route for POST requests to the sign up pages.
     Accepts the form submission data for a new document and saves the document to the database.
@@ -113,11 +119,35 @@ def create_user():
         "password": password,
         "email": email, 
         "user_type": user_type,
-        "created_at": date.today()
+        #"created_at": date.today()
     }
-    db.collection.insert_one(doc) # insert a new document for user
+    db.login_data.insert_one(doc) # insert a new document for user
     return redirect(url_for('home')) # tell the browser to make a request for the /home route
-'''
+
+@app.route('/sign_up_athlete', methods=['POST'])
+def add_athlete():
+    """
+    Route for POST requests to the sign up pages.
+    Accepts the form submission data for a new document and saves the document to the database.
+    """
+    username = request.form['username']
+    password = request.form['password']
+    email = request.form['email']
+    user_type = 'athlete'
+
+    # create a new document with the data the user entered
+    doc = {
+        "username": username,
+        "password": password,
+        "email": email, 
+        "user_type": user_type,
+        #"created_at": date.today()
+    }
+    db.login_data.insert_one(doc) # insert a new document for user
+    return redirect(url_for('home')) # tell the browser to make a request for the /home route
+
+# Rishi, add post method for /sign_up_coach route
+
 
 if __name__ == '__main__':
     app.run(debug = True, port=8000)

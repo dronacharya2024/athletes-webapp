@@ -6,4 +6,8 @@ connection_string = "mongodb+srv://anikaroy:8DTDLlwCsv7R9bTC@cluster0.gelqpzw.mo
 
 cluster = pymongo.MongoClient(connection_string, tlsCAFile=certifi.where())
 db = cluster["athletes_web_app"]
-collection = db["athletes_data"]
+athletes_data = db["athletes_data"]
+coach_data = db["coach_data"]
+sponsor_data = db["sponsor_data"]
+login_data = db["login_data"]
+request_data = db["request_data"]
