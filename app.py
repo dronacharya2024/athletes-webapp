@@ -157,7 +157,13 @@ def add_athlete():
     db.login_data.insert_one(doc) # insert a new document for user
     return redirect(url_for('home')) # tell the browser to make a request for the /home route
 
-# Rishi, add post method for /sign_up_coach route
+# Rishi, add post method for /sign_up_coach route according to the steps below:
+# create app route with method = post
+# retrieve variables from html using request.form['variable_name']
+# check if the email already exists in the login_data table, if it exists return the sign_up page with an error message
+# else create a doc with the data entered
+# add the doc to the login table using the insert_one function
+# end the function with the return keyword to provide an output (i.e. the webpage to output after signup)
 
 #athleteprofile
 @app.route("/athleteprofile")
