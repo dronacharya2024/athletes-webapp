@@ -148,6 +148,14 @@ def add_athlete():
 
 # Rishi, add post method for /sign_up_coach route
 
+#athleteprofile
+@app.route("/athleteprofile")
+def athleteprofile():
+    """
+    Route for GET request to athleteprofile page
+    Displays form for user
+    """
+    return render_template('athleteprofile.html')
 
 if __name__ == '__main__':
     app.run(debug = True, port=8000)
