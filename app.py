@@ -55,7 +55,8 @@ def validate_login():
         #but logged in version
     else:
         #return error message in login page
-        return redirect(url_for('login'))
+        error = "Invalid username or password. Please try again."
+        return render_template('login.html', error=error)
 
 #sign up page
 @app.route("/sign_up")
