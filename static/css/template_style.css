@@ -40,6 +40,16 @@ h2 {
 	color: #09F;
 }
 
+span {
+	font-weight: 500;
+	font-size: 20px;
+	line-height: normal;
+	margin: auto;
+	margin-bottom: 30px;
+	text-align: center;
+	color: #FFFFFF;
+}
+
 .green { color: #3C3; }
 .gray { color: #999; }
 

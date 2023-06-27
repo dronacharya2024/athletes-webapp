@@ -75,12 +75,10 @@ img {
 
 .header_02 {
 	clear: both;
-	padding-bottom: 20px;
-	margin-bottom: 15px;
-	font-size: 22px;
+	font-size: 26px;
 	letter-spacing: 2px;
 	color: #000000;
-	background: url(../images/templatemo_header_01_bg.jpg) left bottom no-repeat;	
+		
 }
 
 .header_03 {
