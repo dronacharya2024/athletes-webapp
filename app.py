@@ -114,6 +114,11 @@ def add_sponsor():
     email = request.form['email']
     user_type = 'sponsor'
 
+    #return error if their account already exists
+    if db.login_data.count_documents({'email': email}) != 0:
+        error = "An account with this email already exists."
+        return render_template('sign_up_sponsor.html', error = error)
+    
     # create a new document with the data the user entered
     doc = {
         "username": username,
@@ -136,6 +141,11 @@ def add_athlete():
     email = request.form['email']
     user_type = 'athlete'
 
+    #return error if their account already exists
+    if db.login_data.count_documents({'email': email}) != 0:
+        error = "An account with this email already exists."
+        return render_template('sign_up_athletecoach.html', error = error)
+    
     # create a new document with the data the user entered
     doc = {
         "username": username,
