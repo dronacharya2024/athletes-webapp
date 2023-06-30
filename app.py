@@ -35,7 +35,8 @@ def login():
     Route for GET request to login page
     Displays form for user
     """
-    return render_template('login.html')
+    title = 'Login'
+    return render_template('login.html', title = title)
 
 #validate login
 @app.route('/login', methods=['POST'])
