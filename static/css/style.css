@@ -449,7 +449,7 @@ button {
     text-align: center;
     margin: 20px 0px;
     padding: 0px 20px;
-    height: 200px;
+    height: 100px;
 }
 
 .btn_main {
@@ -462,7 +462,7 @@ button {
 
 .buy_bt {
     float: left;
-    width: 100%;
+    width: 200%;
 }
 
 .buy_bt ul {
