@@ -45,9 +45,9 @@ def validate_login():
     Route for POST requests to the login page
     Validates login attempt
     """
+    global username
     username = request.form['username']
     password = request.form['password']
-
 
     # check if username and password are in the users table
     if db.login_data.count_documents({'username': username, 'password': password}) != 0:
@@ -174,6 +174,16 @@ def athleteprofile():
     Displays form for user
     """
     return render_template('athleteprofile.html')
+
+#coach views players list
+@app.route("/viewathletes")
+def view_athletes():
+    """
+    Route for GET request to viewathletes page
+    Displays page where coach can view all athletes under them; only coach can access
+    """
+    #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
+    return render_template('viewplayers.html')
 
 if __name__ == '__main__':
     app.run(debug = True, port=8000)
