@@ -476,9 +476,11 @@ button {
     color: #252525;
     padding: 5px 10px;
     background-color: #ffffff;
-    text-transform: uppercase;
     margin-right: 5px;
+    margin-bottom: 5px;
     border-radius: 40px;
+    width:180px;
+    text-align:center;
 }
 
 .buy_bt li a:hover {
