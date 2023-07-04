@@ -1,0 +1,81 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Simple Gray, Professional free website template</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="{{ url_for('static', filename='css/template_style.css') }}" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript">
+function clearText(field){
+
+    if (field.defaultValue == field.value) field.value = '';
+    else if (field.value == '') field.value = field.defaultValue;
+
+}
+</script>
+</head>
+<head>
+	<!-- templatemo 418 form pack -->
+    <!-- 
+    Form Pack
+    http://www.templatemo.com/preview/templatemo_418_form_pack 
+    -->
+	<title>{{title}}</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
+	
+	<link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ url_for('static', filename='css/bootstrap-social.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ url_for('static', filename='css/template_style.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ url_for('static', filename='css/templatemo_style.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap_prods.min.css') }}">
+	
+</head>
+{% block body %}{% endblock body %}
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Simple Gray, Professional free website template</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="{{ url_for('static', filename='css/templatemo_style.css') }}" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript">
+function clearText(field){
+
+    if (field.defaultValue == field.value) field.value = '';
+    else if (field.value == '') field.value = field.defaultValue;
+
+}
+</script>
+</head>
+<body>
+<div id="templatemo_header_wrapper">
+<!--  Free Web Templates by TemplateMo.com  -->
+  <div id="templatemo_header">
+    
+   	<div id="site_logo"></div>
+        
+		<div id="templatemo_menu">
+      		<div id="templatemo_menu_left"></div>
+            <ul>
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Gallery</a></li>
+                  <li><a href="#">Company</a></li>
+                  <li><a href="#">Contact</a></li>
+		  <li><a href="login" class="current">Login</a></li>
+            </ul>    	
+		</div> <!-- end of menu -->
+    
+    </div>  <!-- end of header -->
+</div> <!-- end of header wrapper -->
+{% block main %}{% endblock main %}
+</body>
+</html>
