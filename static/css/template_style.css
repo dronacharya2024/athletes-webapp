@@ -152,7 +152,7 @@ span {
 	padding: 0 30px 30px 30px;
 	margin: 30px auto 0 auto;
 }
-.templatemo-login-form-2 h1 { color: #fff; margin-bottom: 40px; }
+.templatemo-login-form-2 h1 { color: #fff; margin-bottom: 20px; }
 .templatemo-login-form-2 a { color: #DBDBDB; }
 .templatemo-login-form-2 .form-control {
 	background-color: rgba(83, 78, 78, 0.35);
@@ -164,7 +164,6 @@ span {
 .templatemo-login-form-2 .btn {	width: 100%; }
 .templatemo-login-form-2 .btn-social { max-width: 220px; }
 .templatemo-login-form-2 label { font-weight: 400; }
-.templatemo-login-form-2 .templatemo-one-signin { border-right: 1px solid rgba(200, 200, 200, 0.5); }
 
 
 /*-------------------------------------

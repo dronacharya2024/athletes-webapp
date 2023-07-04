@@ -146,7 +146,6 @@ img {
 	float: right;
 	height: 47px;
 	margin: 20px 40px 0 0;
-	background: url(../images/templatemo_menu_right.jpg) right no-repeat;
 }
 
 #templatemo_menu #templatemo_menu_left{
@@ -155,7 +154,6 @@ img {
 	height: 47px;
 	top: 0px;
 	left: 0px;
-	background: url(../images/templatemo_menu_left.jpg) no-repeat;
 }
 
 #templatemo_menu ul {
@@ -462,8 +460,14 @@ img {
 	color: white;
   }
   
-
   
+  .row:after {
+	content: "";
+	display: table;
+	clear: both;
+	
+  }
+
   /* Six columns side by side */
   .column {
 	float: left;
@@ -471,13 +475,6 @@ img {
   padding: 10px;
   height: 190px;
   align-content:center;
-  }
-  
-  .row:after {
-	content: "";
-	display: table;
-	clear: both;
-	
   }
   
   /* Add a transparency effect for thumnbail images */
@@ -538,4 +535,8 @@ img {
 }
 .shadow-none {
     box-shadow: none!important;
+}
+
+.sign_up_button{
+	font-size: 16px;
 }

@@ -121,18 +121,6 @@ h6 a {
     opacity: 1
 }
 
-button:focus {
-    outline: none;
-}
-
-ul,
-li,
-ol {
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
-}
-
 p {
     margin: 20px;
     font-weight: 300;
@@ -202,13 +190,6 @@ img {
 blockquote {
     margin: 20px 0 20px;
     padding: 30px;
-}
-
-button {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
 }
 
 .full {
