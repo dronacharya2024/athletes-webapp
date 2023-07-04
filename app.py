@@ -95,6 +95,35 @@ def sign_up_coach():
     """
     return render_template('sign_up_athletecoach.html')
 
+@app.route('/sign_up_coach', methods=['POST'])
+def add_coach():
+    """
+    Route for POST requests to the sign up pages.
+    Accepts the form submission data for a new document and saves the document to the database.
+    """
+    username = request.form['username']
+    password = request.form['password']
+    email = request.form['email']
+    user_type = 'coach'
+
+    #return error if their account already exists
+    if db.login_data.count_documents({'email': email}) != 0:
+        error = "An account with this email already exists."
+        return render_template('sign_up_coach.html', error = error)
+     
+    
+    # create a new document with the data the user entered
+    doc = {
+        "username": username,
+        "password": password,
+        "email": email, 
+        "user_type": user_type,
+        #"created_at": date.today()
+    }
+    db.login_data.insert_one(doc) # insert a new document for user
+    return redirect(url_for('home')) # tell the browser to make a request for the /home route
+
+
 #sign_up_sponsor
 @app.route("/sign_up_sponsor")
 def sign_up_sponsor():
@@ -175,6 +204,16 @@ def athleteprofile():
     """
     return render_template('athleteprofile.html')
 
+<<<<<<< HEAD
+#athleteprofileedit
+@app.route("/athleteprofileedit")
+def athleteprofileedit():
+    """
+    Route for GET request to athleteprofileedit page
+    Displays form for user
+    """
+    return render_template('athleteprofileedit.html')
+=======
 #coach views players list
 @app.route("/viewathletes")
 def view_athletes():
@@ -184,6 +223,7 @@ def view_athletes():
     """
     #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
     return render_template('viewplayers.html')
+>>>>>>> 22a84cf95d7aa368c36122c3ad02037f78be4ad7
 
 if __name__ == '__main__':
     app.run(debug = True, port=8000)
