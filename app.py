@@ -22,12 +22,6 @@ def home():
     """
     return "this is the home page!"
 
-#test to insert data to the data base
-@app.route("/test")
-def test():
-    db.collection.insert_one({"name": "John"})
-    return "Connected to the data base!"
-
 #login page
 @app.route("/login")
 def login():
@@ -58,15 +52,6 @@ def validate_login():
         #return error message in login page
         error = "Invalid username or password. Please try again."
         return render_template('login.html', error=error)
-
-#sign up page
-@app.route("/sign_up")
-def sign_up():
-    """
-    Route for GET request to sign_up page
-    Displays form for user
-    """
-    return render_template('sign_up.html')
 
 #index
 @app.route("/index")
