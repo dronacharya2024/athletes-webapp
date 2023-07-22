@@ -200,5 +200,13 @@ def view_athletes():
     #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
     return render_template('viewplayers.html')
 
+@app.route("/createrequest")
+def create_request():
+    """
+    Route for GET request to createrequest page
+    Displays page where coach/athlete can create request
+    """
+    return render_template('requestform.html')
+
 if __name__ == '__main__':
     app.run(debug = True, port=8000)

@@ -165,6 +165,24 @@ span {
 .templatemo-login-form-2 .btn-social { max-width: 220px; }
 .templatemo-login-form-2 label { font-weight: 400; }
 
+.request-form {
+	background-color: rgb(254, 243, 232);
+	border-radius: 8px;
+	color: #fff;
+	font-weight: 300;
+	max-width: 650px;
+	padding: 0 30px 30px 30px;
+	margin: 30px auto 0 auto;
+}
+
+.request-form .control-label { margin-bottom: 10px; margin-top: 10px; color:rgb(0, 0, 0)}
+.request-form .control-label-bigger {color:rgb(0, 0, 0); font-size: 16px;}
+.request-form .form-control {
+	background-color: rgb(255, 255, 255);
+	border: 1px solid rgba(255, 255, 255, 0.27);
+	color: rgb(0, 0, 0);
+	text-decoration-color: black;
+}
 
 /*-------------------------------------
 4. inline-login
