@@ -221,6 +221,15 @@ def view_athletes():
     #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
     return render_template('viewplayers.html')
 
+#requests
+@app.route("/requests")
+def requests():
+    """
+    Route for GET request to requests page
+    Displays page where coach or sponsers can view all athlete requests
+    """
+    return render_template('requests.html')
+
 @app.route("/createrequest")
 def create_request():
     """
