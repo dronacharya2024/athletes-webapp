@@ -6,7 +6,9 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link href="{{ url_for('static', filename='css/templatemo_style.css') }}" rel="stylesheet" type="text/css">	
-<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">	
+<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
+<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
 <script language="javascript" type="text/javascript">
 function clearText(field){
 
@@ -34,7 +36,7 @@ function clearText(field){
                   <li><a href="#">Contact</a></li>
 		  <li><a href="login" class="last">Login</a></li>
             </ul>    	
-		</div> <!-- end of menu -->
+		      </div> <!-- end of menu -->
     
     </div>  <!-- end of header -->
 </div> <!-- end of header wrapper -->
@@ -46,6 +48,10 @@ function clearText(field){
   line-height: 1.5;
   font-family:verdana	
 }
+.x{
+    line-height: 0;
+  }
+
 
 </style>
 
@@ -65,25 +71,25 @@ function clearText(field){
     <div>
     
           <div class="row gutters-sm">
-             <div class="col-md-8">
+             
               <div class="card mb-3">
                 <div class="card-body">
-                  <div class="row">
+                  
                     <div class="col-sm-3">
                      
-                    <div class="row">
-                        <div class="col-sm-3">
-                          <h2 class="mb-0">About</h2>
-                        </div>
-                        <div class="col-sm-9 text-secondary" style="font-size:21px">
+                      <div class="row">
+                        
+                        <h2 class="mb-0" style="font-size:23px; padding-left:18px;">About</h2>
+                        
+                        <div class="x" style="font-size:19px;padding-left: 18px;">
                           xxx
                         </div>
-                     </div>
-                      <hr>
+                    </div>
+                    <hr>
+                      
 
-
-
-                  <div class="row">
+                  
+                  <div class="row" >
                     <div class="col-sm-12">
                       <a class="btn btn-info " target="__blank" href="sponsorprofileedit" style= "font-size:16px">Edit</a>
                     </div>
@@ -96,7 +102,7 @@ function clearText(field){
               
 
 
-            </div>
+            
           </div>
 
         </div>
@@ -110,7 +116,7 @@ function clearText(field){
   
       </div>
       </div>
-      <div class="product_section_2 layout_padding" style="border:2px solid red">
+      <div class="product_section_2 layout_padding" >
           <div class="row">
               <div class="col-lg-3 col-sm-6">
                   <div class="product_box">
@@ -127,10 +133,8 @@ function clearText(field){
                    </div>
                    </div>
                </div>
-          </div>
-
-          <div class="product_section_2 layout_padding" style="border:2px solid black">
-            <div class="row">
+          
+              <div class="row">
                 <div class="col-lg-3 col-sm-6">
                     <div class="product_box">
                     <h4 class="bursh_text">Player name</h4>
@@ -146,8 +150,7 @@ function clearText(field){
                     </div>
                     </div>
                 </div>
-          </div>
-            <div class="product_section_2 layout_padding" style="border:2px solid red">
+          
               <div class="row">
                   <div class="col-lg-3 col-sm-6">
                       <div class="product_box">
@@ -165,6 +168,8 @@ function clearText(field){
                       </div>
                   </div>
               </div>
+
+              
           <div class="seemore_bt"><a href="#">See More</a></div>
       </div>
       </div>
