@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Simple Gray, Professional free website template</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="{{ url_for('static', filename='css/templatemo_style.css') }}" rel="stylesheet" type="text/css">	
+<script language="javascript" type="text/javascript">
+function clearText(field){
+
+    if (field.defaultValue == field.value) field.value = '';
+    else if (field.value == '') field.value = field.defaultValue;
+
+}
+</script>
+</head>
+<body style= "background-color:#fef4ec">
+<div id="templatemo_header_wrapper">
+<!--  Free Web Templates by TemplateMo.com  -->
+  <div id="templatemo_header">
+    
+   	<div id="site_logo"></div>
+        
+		<div id="templatemo_menu">
+      		<div id="templatemo_menu_left"></div>
+            <ul>
+                  <li><a href="home" class="current">Home</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Gallery</a></li>
+                  <li><a href="#">Company</a></li>
+                  <li><a href="#">Contact</a></li>
+		  <li><a href="login" class="last">Login</a></li>
+            </ul>    	
+		</div> <!-- end of menu -->
+    
+    </div>  <!-- end of header -->
+</div> <!-- end of header wrapper -->
+<style>
+.text_02 {
+  font-size: 18px;
+	letter-spacing: 1px;
+	color: #000000;
+  line-height: 1.5;
+  font-family:verdana	
+}
+
+</style>
+
+    
+
+<br>
+<div class="row" style="position:relative;top:10%;left:40%">
+    <div style= "width:18%">
+      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" style="position:relative; top:10%; left:19%">
+    </div>
+</div>
+
+    <div class="column text_02">
+      <div style="margin-bottom: 10px; position:relative;top:10%;left:178%"><input type= "text" name= "name" value="Type Here"></input></div>
+      <div style="margin-bottom: 10px; position:relative;top:10%;left:178%"><input type= "text" name= "name" value="Type Here"></input></div>
+    </div>
+
+<div class="container">
+<div>
+
+      <div class="row gutters-sm">
+         <div class="col-md-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                 
+                <div class="row">
+                    <div class="col-sm-3">
+                      <h2 class="mb-0">About</h2>
+                    </div>
+                    <div class="col-sm-9 text-secondary" style="font-size:21px">
+                      <textarea name="About" rows="4" cols="50">Type Here</textarea>
+                    </div>
+                 </div>
+                  <hr>
+                
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <a class="btn btn-info " target="__blank" href="sponsorprofile" style= "font-size:16px">Finish</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              
+
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+
+<!-- templatemo 121 simple gray -->
+<!-- 
+Simple Gray Template 
+http://www.templatemo.com/preview/templatemo_121_simple_gray 
+-->
+
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+    
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("demo");
+      let captionText = document.getElementById("caption");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+      captionText.innerHTML = dots[slideIndex-1].alt;
+    }
+    </script>
+    
+    
+</body>
+</html>

@@ -14,13 +14,7 @@ if config['FLASK_ENV'] == 'development':
     app.debug = True # debug mode
 '''
 
-#home page
-@app.route('/')
-def home():
-    """
-    Route for the home page
-    """
-    return "this is the home page!"
+
 
 #login page
 @app.route("/login")
@@ -190,6 +184,33 @@ def athleteprofileedit():
     """
     return render_template('athleteprofileedit.html')
 
+#sponsorprofile
+@app.route("/sponsorprofile")
+def sponsorprofile():
+    """
+    Route for GET request to sponsorprofile page
+    Displays form for user
+    """
+    return render_template('sponsorprofile.html')
+
+#sponsorprofileedit
+@app.route("/sponsorprofileedit")
+def sponsorprofileedit():
+    """
+    Route for GET request to sponsorprofileedit page
+    Displays form for user
+    """
+    return render_template('sponsorprofileedit.html')
+
+#home
+@app.route("/home")
+def home():
+    """
+    Route for GET request to home page
+    Displays form for user
+    """
+    return render_template('home.html')
+
 #coach views players list
 @app.route("/viewathletes")
 def view_athletes():
@@ -199,6 +220,15 @@ def view_athletes():
     """
     #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
     return render_template('viewplayers.html')
+
+#requests
+@app.route("/requests")
+def requests():
+    """
+    Route for GET request to requests page
+    Displays page where coach or sponsers can view all athlete requests
+    """
+    return render_template('requests.html')
 
 @app.route("/createrequest")
 def create_request():
