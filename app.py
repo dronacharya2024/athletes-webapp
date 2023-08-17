@@ -1,5 +1,5 @@
 
-#import necessary packages
+# import necessary packages
 from flask import Flask, render_template, request, redirect, url_for, make_response
 #from datetime import date
 import db
@@ -15,8 +15,7 @@ if config['FLASK_ENV'] == 'development':
 '''
 
 
-
-#login page
+# login page
 @app.route("/login")
 def login():
     """
@@ -24,9 +23,11 @@ def login():
     Displays form for user
     """
     title = 'Login'
-    return render_template('login.html', title = title)
+    return render_template('login.html', title=title)
 
-#validate login
+# validate login
+
+
 @app.route('/login', methods=['POST'])
 def validate_login():
     """
@@ -39,15 +40,18 @@ def validate_login():
 
     # check if username and password are in the users table
     if db.login_data.count_documents({'username': username, 'password': password}) != 0:
-        #allow login and redirect
-        return redirect(url_for('home')) # tell the browser to make a request for the /home route
-        #but logged in version
+        # allow login and redirect
+        # tell the browser to make a request for the /home route
+        return redirect(url_for('home'))
+        # but logged in version
     else:
-        #return error message in login page
+        # return error message in login page
         error = "Invalid username or password. Please try again."
         return render_template('login.html', error=error)
 
-#index
+# index
+
+
 @app.route("/index")
 def index():
     """
@@ -56,7 +60,9 @@ def index():
     """
     return render_template('index.html')
 
-#sign_up_athletecoach
+# sign_up_athletecoach
+
+
 @app.route("/sign_up_athlete")
 def sign_up_athlete():
     """
@@ -65,7 +71,9 @@ def sign_up_athlete():
     """
     return render_template('sign_up_athletecoach.html')
 
-#sign_up_athletecoach
+# sign_up_athletecoach
+
+
 @app.route("/sign_up_coach")
 def sign_up_coach():
     """
@@ -73,6 +81,7 @@ def sign_up_coach():
     Displays form for user
     """
     return render_template('sign_up_athletecoach.html')
+
 
 @app.route('/sign_up_coach', methods=['POST'])
 def add_coach():
@@ -85,25 +94,25 @@ def add_coach():
     email = request.form['email']
     user_type = 'coach'
 
-    #return error if their account already exists
+    # return error if their account already exists
     if db.login_data.count_documents({'email': email}) != 0:
         error = "An account with this email already exists."
-        return render_template('sign_up_coach.html', error = error)
-     
-    
+        return render_template('sign_up_coach.html', error=error)
+
     # create a new document with the data the user entered
     doc = {
         "username": username,
         "password": password,
-        "email": email, 
+        "email": email,
         "user_type": user_type,
-        #"created_at": date.today()
+        # "created_at": date.today()
     }
-    db.login_data.insert_one(doc) # insert a new document for user
-    return redirect(url_for('home')) # tell the browser to make a request for the /home route
+    db.login_data.insert_one(doc)  # insert a new document for user
+    # tell the browser to make a request for the /home route
+    return redirect(url_for('home'))
 
 
-#sign_up_sponsor
+# sign_up_sponsor
 @app.route("/sign_up_sponsor")
 def sign_up_sponsor():
     """
@@ -111,6 +120,7 @@ def sign_up_sponsor():
     Displays form for user
     """
     return render_template('sign_up_sponsor.html')
+
 
 @app.route('/sign_up_sponsor', methods=['POST'])
 def add_sponsor():
@@ -123,21 +133,23 @@ def add_sponsor():
     email = request.form['email']
     user_type = 'sponsor'
 
-    #return error if their account already exists
+    # return error if their account already exists
     if db.login_data.count_documents({'email': email}) != 0:
         error = "An account with this email already exists."
-        return render_template('sign_up_sponsor.html', error = error)
-    
+        return render_template('sign_up_sponsor.html', error=error)
+
     # create a new document with the data the user entered
     doc = {
         "username": username,
         "password": password,
-        "email": email, 
+        "email": email,
         "user_type": user_type,
-        #"created_at": date.today()
+        # "created_at": date.today()
     }
-    db.login_data.insert_one(doc) # insert a new document for user
-    return redirect(url_for('home')) # tell the browser to make a request for the /home route
+    db.login_data.insert_one(doc)  # insert a new document for user
+    # tell the browser to make a request for the /home route
+    return redirect(url_for('requests'))
+
 
 @app.route('/sign_up_athlete', methods=['POST'])
 def add_athlete():
@@ -150,23 +162,26 @@ def add_athlete():
     email = request.form['email']
     user_type = 'athlete'
 
-    #return error if their account already exists
+    # return error if their account already exists
     if db.login_data.count_documents({'email': email}) != 0:
         error = "An account with this email already exists."
-        return render_template('sign_up_athletecoach.html', error = error)
-    
+        return render_template('sign_up_athletecoach.html', error=error)
+
     # create a new document with the data the user entered
     doc = {
         "username": username,
         "password": password,
-        "email": email, 
+        "email": email,
         "user_type": user_type,
-        #"created_at": date.today()
+        # "created_at": date.today()
     }
-    db.login_data.insert_one(doc) # insert a new document for user
-    return redirect(url_for('home')) # tell the browser to make a request for the /home route
+    db.login_data.insert_one(doc)  # insert a new document for user
+    # tell the browser to make a request for the /home route
+    return redirect(url_for('home'))
 
-#athleteprofile
+# athleteprofile
+
+
 @app.route("/athleteprofile")
 def athleteprofile():
     """
@@ -175,7 +190,9 @@ def athleteprofile():
     """
     return render_template('athleteprofile.html')
 
-#athleteprofileedit
+# athleteprofileedit
+
+
 @app.route("/athleteprofileedit")
 def athleteprofileedit():
     """
@@ -184,7 +201,9 @@ def athleteprofileedit():
     """
     return render_template('athleteprofileedit.html')
 
-#sponsorprofile
+# sponsorprofile
+
+
 @app.route("/sponsorprofile")
 def sponsorprofile():
     """
@@ -193,7 +212,9 @@ def sponsorprofile():
     """
     return render_template('sponsorprofile.html')
 
-#sponsorprofileedit
+# sponsorprofileedit
+
+
 @app.route("/sponsorprofileedit")
 def sponsorprofileedit():
     """
@@ -202,7 +223,9 @@ def sponsorprofileedit():
     """
     return render_template('sponsorprofileedit.html')
 
-#home
+# home
+
+
 @app.route("/home")
 def home():
     """
@@ -211,7 +234,9 @@ def home():
     """
     return render_template('home.html')
 
-#coach views players list
+# coach views players list
+
+
 @app.route("/viewathletes")
 def view_athletes():
     """
@@ -221,7 +246,9 @@ def view_athletes():
     #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
     return render_template('viewplayers.html')
 
-#requests
+# requests
+
+
 @app.route("/requests")
 def requests():
     """
@@ -229,6 +256,7 @@ def requests():
     Displays page where coach or sponsers can view all athlete requests
     """
     return render_template('requests.html')
+
 
 @app.route("/createrequest")
 def create_request():
@@ -238,5 +266,6 @@ def create_request():
     """
     return render_template('requestform.html')
 
+
 if __name__ == '__main__':
-    app.run(debug = True, port=8000)
+    app.run(debug=True, port=8000)
