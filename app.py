@@ -47,15 +47,6 @@ def validate_login():
         error = "Invalid username or password. Please try again."
         return render_template('login.html', error=error)
 
-#index
-@app.route("/index")
-def index():
-    """
-    Route for GET request to index page
-    Displays form for user
-    """
-    return render_template('index.html')
-
 #sign_up_athletecoach
 @app.route("/sign_up_athlete")
 def sign_up_athlete():
@@ -203,6 +194,15 @@ def sponsorprofileedit():
     return render_template('sponsorprofileedit.html')
 
 #home
+@app.route("/")
+def initial():
+    """
+    Route for GET request to home page
+    Displays form for user
+    """
+    return redirect('/home')
+
+#home
 @app.route("/home")
 def home():
     """
@@ -212,8 +212,8 @@ def home():
     return render_template('home.html')
 
 #coach views players list
-@app.route("/viewathletes")
-def view_athletes():
+@app.route("/viewplayers")
+def view_players():
     """
     Route for GET request to viewathletes page
     Displays page where coach can view all athletes under them; only coach can access
@@ -236,7 +236,7 @@ def create_request():
     Route for GET request to createrequest page
     Displays page where coach/athlete can create request
     """
-    return render_template('requestform.html')
+    return render_template('createrequest.html')
 
 if __name__ == '__main__':
     app.run(debug = True, port=8000)
