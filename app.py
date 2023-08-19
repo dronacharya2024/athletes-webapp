@@ -38,35 +38,26 @@ def validate_login():
     username = request.form['username']
     password = request.form['password']
 
-    # check if username and password are in the users table
-    if db.login_data.count_documents({'username': username, 'password': password}) != 0:
-        # allow login and redirect
-        # tell the browser to make a request for the /home route
-        return redirect(url_for('home'))
-        # but logged in version
+# Check if username and password are in the users table
+    user_data = db.login_data.find_one({'username': username, 'password': password})
+
+    if user_data:
+        user_type = user_data.get('user_type')
+        if user_type == 'athlete':
+            # Redirect athletes to their profile
+            return redirect(url_for('athleteprofile'))
+        elif user_type == 'coach':
+            # Redirect coaches to viewplayerspage
+            return redirect(url_for('viewplayers'))
+        elif user_type == 'sponsor':
+            # Redirect sponsors to requests page
+            return redirect(url_for('requests'))
     else:
         # return error message in login page
         error = "Invalid username or password. Please try again."
         return render_template('login.html', error=error)
 
-<<<<<<< HEAD
 #sign_up_athletecoach
-=======
-# index
-
-
-@app.route("/index")
-def index():
-    """
-    Route for GET request to index page
-    Displays form for user
-    """
-    return render_template('index.html')
-
-# sign_up_athletecoach
-
-
->>>>>>> 36108affbe4dcdc3bee2f5abb9869fa4dc8279bc
 @app.route("/sign_up_athlete")
 def sign_up_athlete():
     """
@@ -113,7 +104,7 @@ def add_coach():
     }
     db.login_data.insert_one(doc)  # insert a new document for user
     # tell the browser to make a request for the /home route
-    return redirect(url_for('home'))
+    return redirect(url_for('viewplayers'))
 
 
 # sign_up_sponsor
@@ -181,7 +172,7 @@ def add_athlete():
     }
     db.login_data.insert_one(doc)  # insert a new document for user
     # tell the browser to make a request for the /home route
-    return redirect(url_for('home'))
+    return redirect(url_for('athleteprofile'))
 
 # athleteprofile
 
@@ -227,7 +218,6 @@ def sponsorprofileedit():
     """
     return render_template('sponsorprofileedit.html')
 
-<<<<<<< HEAD
 #home
 @app.route("/")
 def initial():
@@ -238,11 +228,6 @@ def initial():
     return redirect('/home')
 
 #home
-=======
-# home
-
-
->>>>>>> 36108affbe4dcdc3bee2f5abb9869fa4dc8279bc
 @app.route("/home")
 def home():
     """
@@ -251,17 +236,9 @@ def home():
     """
     return render_template('home.html')
 
-<<<<<<< HEAD
 #coach views players list
 @app.route("/viewplayers")
 def view_players():
-=======
-# coach views players list
-
-
-@app.route("/viewathletes")
-def view_athletes():
->>>>>>> 36108affbe4dcdc3bee2f5abb9869fa4dc8279bc
     """
     Route for GET request to viewathletes page
     Displays page where coach can view all athletes under them; only coach can access
@@ -276,9 +253,17 @@ def view_athletes():
 def requests():
     """
     Route for GET request to requests page
-    Displays page where coach or sponsers can view all athlete requests
+    Displays page where users can view all athlete requests
     """
     return render_template('requests.html')
+
+@app.route("/ca_requests")
+def ca_requests():
+    """
+    Route for GET request to requests page
+    Displays page where coach or athletes can view or create athlete requests
+    """
+    return render_template('ca_requests.html')
 
 
 @app.route("/createrequest")
