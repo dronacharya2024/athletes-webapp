@@ -1,45 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Simple Gray, Professional free website template</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="{{ url_for('static', filename='css/templatemo_style.css') }}" rel="stylesheet" type="text/css">	
-<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
-<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-<script language="javascript" type="text/javascript">
-function clearText(field){
+{% extends 'base.html' %}
 
-    if (field.defaultValue == field.value) field.value = '';
-    else if (field.value == '') field.value = field.defaultValue;
-
-}
-</script>
-</head>
-
+{% block body %}
 <body style= "background-color:#fef4ec">
-<div id="templatemo_header_wrapper">
-<!--  Free Web Templates by TemplateMo.com  -->
-  <div id="templatemo_header">
-    
-   	<div id="site_logo"></div>
-        
-		<div id="templatemo_menu">
-      		<div id="templatemo_menu_left"></div>
-            <ul>
-                  <li><a href="home" class="current">Home</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Gallery</a></li>
-                  <li><a href="#">Company</a></li>
-                  <li><a href="#">Contact</a></li>
-		  <li><a href="login" class="last">Login</a></li>
-            </ul>    	
-		      </div> <!-- end of menu -->
-    
-    </div>  <!-- end of header -->
-</div> <!-- end of header wrapper -->
+{% endblock body %}
+
+{% block main %}
 <style>
 .text_02 {
   font-size: 18px;
@@ -55,125 +20,106 @@ function clearText(field){
 
 </style>
 
-    <br>
-    <div class="row" style="position:relative;top:10%;left:40%">
-        <div style= "width:18%">
-          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" style="position:relative; top:10%; left:19%">
-        </div>
-    </div>
+<br>
+<br>
 
-        <div class="column text_02">
-          <div style="margin-bottom: 10px; position:relative;top:10%;left:175%">Name/Company Name</div>
-          <div style="margin-bottom: 10px; position:relative;top:10%;left:179%">Individual/Group</div>
-        </div>
-    
-  <div class="container">
-    <div>
-    
-          <div class="row gutters-sm">
-             
-              <div class="card mb-3">
-                <div class="card-body">
-                  
-                    <div class="col-sm-3">
-                     
-                      <div class="row">
-                        
-                        <h2 class="mb-0" style="font-size:23px; padding-left:18px;">About</h2>
-                        
-                        <div class="x" style="font-size:19px;padding-left: 18px;">
-                          xxx
-                        </div>
-                    </div>
-                    <hr>
-                      
-
-                  
-                  <div class="row" >
-                    <div class="col-sm-12">
-                      <a class="btn btn-info " target="__blank" href="sponsorprofileedit" style= "font-size:16px">Edit</a>
-                    </div>
-                  </div>
-
-                 
-                </div>
-              </div>
-
-              
-
-
-            
-          </div>
-
-        </div>
-    </div>
-
-    <div class="product_section layout_padding">
-      <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <h1 class="product_taital">Sponsored athletes</h1>
-  
-      </div>
-      </div>
-      <div class="product_section_2 layout_padding" >
-          <div class="row">
-              <div class="col-lg-3 col-sm-6">
-                  <div class="product_box">
-                  <h4 class="bursh_text">Player name</h4>
-                  <p class="lorem_text">Sport</p>
-                  <img src="images/img-1.png" class="image_1">
-                  <div class="btn_main">
-                      <div class="buy_bt">
-                          <ul>
-                              <li><a href="#">Add data</a></li>
-                              <li><a href="#">Add request</a></li>
-                          </ul>
-                      </div>
-                   </div>
-                   </div>
-               </div>
-          
-              <div class="row">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="product_box">
-                    <h4 class="bursh_text">Player name</h4>
-                    <p class="lorem_text">Sport</p>
-                    <img src="images/img-1.png" class="image_1">
-                    <div class="btn_main">
-                        <div class="buy_bt">
-                            <ul>
-                                <li><a href="#">Add data</a></li>
-                                <li><a href="#">Add request</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-          
-              <div class="row">
-                  <div class="col-lg-3 col-sm-6">
-                      <div class="product_box">
-                      <h4 class="bursh_text">Player name</h4>
-                      <p class="lorem_text">Sport</p>
-                      <img src="images/img-1.png" class="image_1">
-                      <div class="btn_main">
-                          <div class="buy_bt">
-                              <ul>
-                                  <li><a href="#">Add data</a></li>
-                                  <li><a href="#">Add request</a></li>
-                              </ul>
-                          </div>
-                      </div>
-                      </div>
-                  </div>
-              </div>
-
-              
-          <div class="seemore_bt"><a href="#">See More</a></div>
-      </div>
-      </div>
+<div class="row" style="position:relative;top:10%;left:40%">
+  <div style= "width:18%">
+    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" style="position:relative; top:10%; left:19%">
   </div>
-    
+</div>
+
+<div class="column text_02">
+  <div style="margin-bottom: 10px; position:relative;top:10%;left:175%">Name/Company Name</div>
+  <div style="margin-bottom: 10px; position:relative;top:10%;left:179%">Individual/Group</div>
+</div>
+
+<div class="container">
+  <div>
+    <div class="row gutters-sm">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="col-sm-3">
+            <div class="row">
+              <h2 class="mb-0" style="font-family: 'Open Sans', sans-serif; padding-left:18px; font-size:23px;">About</h2>
+              <br>
+              <div class="x" style="font-size:19px;padding-left: 28px;">xxx</div>
+            </div>
+            <hr>
+            <div class="row" >
+              <div class="col-sm-12">
+                <a class="btn btn-info " target="__blank" href="sponsorprofileedit" style= "font-size:16px">Edit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="product_section layout_padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1 class="product_taital">Sponsored athletes</h1>
+      </div>
+    </div>
+    <div class="product_section_2 layout_padding">
+      <div class="row">
+        <div class="col-lg-3 col-sm-6">
+          <div class="product_box">
+            <h4 class="bursh_text">Player name</h4>
+            <p class="lorem_text">Sport</p>
+            <img src="images/img-1.png" class="image_1">
+            <div class="btn_main">
+              <div class="buy_bt">
+                <ul>
+                  <li><a href="#">Add data</a></li>
+                  <li><a href="#">Add request</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-3 col-sm-6">
+            <div class="product_box">
+              <h4 class="bursh_text">Player name</h4>
+              <p class="lorem_text">Sport</p>
+              <img src="images/img-1.png" class="image_1">
+              <div class="btn_main">
+                <div class="buy_bt">
+                  <ul>
+                    <li><a href="#">Add data</a></li>
+                    <li><a href="#">Add request</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-sm-6">
+              <div class="product_box">
+                <h4 class="bursh_text">Player name</h4>
+                <p class="lorem_text">Sport</p>
+                <img src="images/img-1.png" class="image_1">
+                <div class="btn_main">
+                  <div class="buy_bt">
+                    <ul>
+                      <li><a href="#">Add data</a></li>
+                      <li><a href="#">Add request</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
-</html>
+{% endblock main %}

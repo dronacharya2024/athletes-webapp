@@ -190,6 +190,10 @@ img {
 	background: none;
 }
 
+#templatemo_menu .active {
+    color:            #BFD05C;
+}
+
 /* end of menu*/
 
 /* end of header */
@@ -493,9 +497,6 @@ img {
 }
 .card {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
-}
-
-.card {
     position: relative;
     display: flex;
     flex-direction: column;

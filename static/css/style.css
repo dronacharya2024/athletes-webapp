@@ -250,6 +250,15 @@ blockquote {
     margin-top: 30px;
 }
 
+.view_box {
+    width: 100%;
+    background-color: #ffffff;
+    height: auto;
+    border: 1px solid #7d7d7c;
+    padding: 20px 0px 20px 0px;
+    margin-top: 30px;
+}
+
 .bursh_text {
     width: 100%;
     font-size: 20px;
@@ -272,6 +281,14 @@ blockquote {
     margin: 20px 0px;
     padding: 0px 20px;
     height: 100px;
+}
+
+.image_1_view {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0px;
+    padding: 0px 20px;
+    height: 140px;
 }
 
 .btn_main {

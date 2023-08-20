@@ -219,7 +219,31 @@ def view_athletes():
     Displays page where coach can view all athletes under them; only coach can access
     """
     #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
-    return render_template('viewplayers.html')
+    title = 'Athletes'
+    athlete_class='current'
+    return render_template('viewplayers.html', title=title, athlete_class=athlete_class, username=username)
+
+@app.route("/viewsponsors")
+def view_sponsors_():
+    """
+    Route for GET request to viewathletes page
+    Displays page where coach can view all athletes under them; only coach can access
+    """
+    #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
+    title = 'Sponsors'
+    sponsor_class='current'
+    return render_template('viewsponsors.html', title=title, sponsor_class=sponsor_class)
+
+@app.route("/viewcoaches")
+def view_coaches__():
+    """
+    Route for GET request to viewathletes page
+    Displays page where coach can view all athletes under them; only coach can access
+    """
+    #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
+    title = 'Coaches'
+    coach_class='current'
+    return render_template('viewcoaches.html', title=title, sponsor_class=coach_class)
 
 #requests
 @app.route("/requests")

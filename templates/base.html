@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Simple Gray, Professional free website template</title>
+<title>{{title}}</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link href="{{ url_for('static', filename='css/templatemo_style.css') }}" rel="stylesheet" type="text/css" />
@@ -17,7 +17,6 @@ function clearText(field){
 </script>
 </head>
 <head>
-	<title>{{title}}</title>
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<meta charset="UTF-8">
@@ -31,6 +30,7 @@ function clearText(field){
 	<link href="{{ url_for('static', filename='css/template_style.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ url_for('static', filename='css/templatemo_style.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/javascript" href="{{ url_for('static', filename='js/current_page.js') }}">
 	
 </head>
 {% block body %}{% endblock body %}
@@ -59,17 +59,32 @@ function clearText(field){
 		<div id="templatemo_menu">
       		<div id="templatemo_menu_left"></div>
             <ul>
-                  <li><a href="home">Home</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Requests</a></li>
-                  <li><a href="viewathletes">Athletes</a></li>
-                  <li><a href="#">Contact</a></li>
-		  		  <li><a href="login">Login</a></li>
+                <li><a href="home">Home</a></li>
+                <li><a href="requests">Requests</a></li>
+                <li><a href="viewathletes">Athletes</a></li>
+                <li><a href="viewsponsors">Sponsors</a></li>
+                <li><a href="viewcoaches">Coaches</a></li>
+                {% if username == null %}
+		  		<li><a href="login">Login</a></li>
+                {% else %}
+                <li><a href="login">Hello!</a></li>
+                {% endif %}
             </ul>    	
 		</div> 
     
     </div>
 </div>
+
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+    $(function(){
+        $('a').each(function(){
+            if ($(this).prop('href') == window.location.href) {
+                $(this).addClass('active'); $(this).parents('li').addClass('active');
+            }
+        });
+    });
+</script>
 {% block main %}{% endblock main %}
 </body>
 </html>
