@@ -12,14 +12,20 @@
         </div>
         <div class="product_section_2 layout_padding">
             <div class="row">
+
+                {% for item in docs %}
+                        
+                      
+
                 <div class="col-lg-3 col-sm-6">
                     <div class="view_box"><a href="sponsorprofile">
-                    <h4 class="bursh_text">Sponsor name</h4>
-                    <p class="lorem_text">Individual/Company</p>
+                    <h4 class="bursh_text">{{item.companyname}} </h4>
+                    <p class="lorem_text">{{item.phoneno}} </p>
                     <img src="images/img-1.png" class="image_1_view">
                     </a>
                     </div>
                 </div>
+                {% endfor %}
             </div>
             <div class="seemore_bt"><a href="#" style="color:white">See More</a></div>
         </div>
