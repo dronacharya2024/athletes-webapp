@@ -7,7 +7,7 @@
 {% block main %}
 <style>
 .text_02 {
-  font-size: 18px;
+  font-size: 14px;
 	letter-spacing: 1px;
 	color: #000000;
   line-height: 1.5;
@@ -16,16 +16,19 @@
 
 </style>
 
-    
-    <div class="row" style="position:relative;top:10%;left:20%">
-        <div class="column" style= "width:18%">
-          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" style="position:relative; top:10%; left:19%">
+<form  role="form"  action="#" method="post" enctype="multipart/form-data">
+    <div class="row" style="position:relative;top:10%;left:20%;border:2px solid red">
+        <div class="column" style= "width:30%">
+          <div style="margin-bottom: 10px">Enter Fullname:<input type= "text" name= "fullname" id= "fullname" placeholder="Full Name"></input></div>
+          <div style="margin-bottom: 10px"><input type= "text" name= "phoneno" id= "phoneno" placeholder="Phone No"></input></div>
+          <div style="margin-bottom: 10px"><input type= "email" name= "email" id= "email" placeholder="Email"></input></div>
+          <div style="margin-bottom: 10px"><input type= "text" name= "age" id= "age" placeholder="Age"></input></div>
+          
         </div>
         <div class="column text_02"><br>
-          <div style="margin-bottom: 10px"><input type= "text" name= "name" value="Type Here"></input></div>
-          <div style="margin-bottom: 10px"><input type= "text" name= "name" value="Type Here"></input></div>
-          <div style="margin-bottom: 10px"><input type= "text" name= "name" value="Type Here"></input></div>
-          <div style="margin-bottom: 10px"><input type= "text" name= "name" value="Type Here"></input></div>
+          <div style="margin-bottom: 10px"><input type= "text" name= "sport" id= "sport" placeholder="Sport"></input></div>
+          <div style="margin-bottom: 10px"><input type= "text" name= "rank" id= "rank" placeholder="Rank"></input></div>
+          <div style="margin-bottom: 10px">Choose a Profile Picture<input type= "file" name="profileimg" id= "profileimg" onchange="fileValidation('profileimg')"></input></div>
         </div>
       </div>
  
@@ -36,34 +39,11 @@
 
     <!-- Full-width images with number text -->
     
-    <div class="mySlides">
-      <div class="numbertext">1 / 2</div>
-        <img src="{{ url_for('static', filename='images/templatemo-bg-1.jpg') }}" style="width:100%">
-    </div>
-  
-    <div class="mySlides">
-      <div class="numbertext">2 / 2</div>
-        <img src="{{ url_for('static', filename='images/templatemo-bg-2.jpg') }}" style="width:100%">
-    </div>
-  
-    <!-- Next and previous buttons -->
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-  
-    <!-- Image text -->
-    <div class="caption-container">
-      <p id="caption"></p>
-    </div>
-  
-    <!-- Thumbnail images -->
-    <div class="row">
-      <div class="column">
-         <img class="demo cursor" src="{{ url_for('static', filename='images/templatemo-bg-1.jpg') }}" style="width:100%;height:80px;" onclick="currentSlide(1)">
-      </div>
-      <div class="column">
-        <img class="demo cursor" src="{{ url_for('static', filename='images/templatemo-bg-2.jpg') }}" style="width:100%;height:80px;" onclick="currentSlide(2)">
-      </div>
-    </div>
+    <div style="margin-bottom: 10px">Choose Images to Upload <input type= "file" name="filename1" id= "filename1"></input></div>
+    <div style="margin-bottom: 10px"><input type= "file" name="filename2" id= "filename2"></input></div>
+    <div style="margin-bottom: 10px"><input type= "file" name="filename3" id= "filename3"></input></div>
+    <div style="margin-bottom: 10px"><input type= "file" name="filename4" id= "filename4"></input></div>
+    <div style="margin-bottom: 10px"><input type= "file" name="filename5" id= "filename5"></input></div>
   </div>
   
 
@@ -76,34 +56,34 @@
             <div class="row">
               <h2 class="mb-0">Achievements</h2>
               <div class="col-sm-9 text-secondary">
-                <textarea name="Achievements" rows="4" cols="50">Type Here</textarea>
+                <textarea name="achievements" id="achievements" rows="4" cols="50">Type Here</textarea>
               </div>
             </div>
             <hr>
             <div class="row">
               <h2 class="mb-0">Best Record</h2>
               <div class="col-sm-9 text-secondary">
-                <textarea name="Achievements" rows="4" cols="50">Type Here</textarea>
+                <textarea name="bestrecord" id="bestrecord" rows="4" cols="50">Type Here</textarea>
               </div>
             </div>
             <hr>                  
             <div class="row">
               <h2 class="mb-0">Coach</h2>
               <div class="col-sm-9 text-secondary">
-                <textarea name="Achievements" rows="4" cols="50">Type Here</textarea>
+                <textarea name="coach" rows="4" cols="50">Type Here</textarea>
               </div>
             </div>
             <hr>
             <div class="row">
               <h2 class="mb-0">Coach Contact</h2  >
               <div class="col-sm-9 text-secondary">
-                <textarea name="Achievements" rows="4" cols="50">Type Here</textarea>
+                <textarea name="coachcontact" rows="4" cols="50">Type Here</textarea>
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-12">
-                <a class="btn btn-info " target="__blank" href="athleteprofile" style= "font-size:16px">Finish</a>
+                <input type="submit"  value="Finish" class="btn btn-info" style= "font-size:16px">
               </div>
             </div>
           </div>
@@ -132,7 +112,7 @@
     </div>
   </div>
 </div>
-
+</form>
 <!-- templatemo 121 simple gray -->
 <!-- 
 Simple Gray Template 
@@ -140,35 +120,27 @@ http://www.templatemo.com/preview/templatemo_121_simple_gray
 -->
 
 <script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
-    
-    function plusSlides(n) {
-      showSlides(slideIndex += n);
+ 
+    function fileValidation(filename) {
+
+        var fileInput =
+            document.getElementById(filename);
+         
+        var filePath = (fileInput.value).toLowerCase();
+     
+        // Allowing file type
+        var allowedExtensions =
+                /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+         
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Invalid file type. Please enter only image files.');
+            fileInput.value = '';
+            
+        }
+       
     }
-    
-    function currentSlide(n) {
-      showSlides(slideIndex = n);
-    }
-    
-    function showSlides(n) {
-      let i;
-      let slides = document.getElementsByClassName("mySlides");
-      let dots = document.getElementsByClassName("demo");
-      let captionText = document.getElementById("caption");
-      if (n > slides.length) {slideIndex = 1}
-      if (n < 1) {slideIndex = slides.length}
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-      }
-      slides[slideIndex-1].style.display = "block";
-      dots[slideIndex-1].className += " active";
-      captionText.innerHTML = dots[slideIndex-1].alt;
-    }
-    </script>
+
+  </script>
     
     
 </body>

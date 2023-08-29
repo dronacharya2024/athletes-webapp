@@ -1,11 +1,18 @@
 
 # import necessary packages
 from flask import Flask, render_template, request, redirect, url_for, make_response
-#from datetime import date
+# from datetime import date
 import db
+from bson.objectid import ObjectId
+from werkzeug.utils import secure_filename
+import os
+from datetime import datetime
 
 # instantiate the app
 app = Flask(__name__)
+app.config['UPLOAD_DIRECTORY'] = 'static/uploads/'
+app.config['MAX_CONTANT_LENGTH'] = 16*500*500
+app.config['ALLOWED_EXTENSION'] = ['.jpg', '.jpeg', '.png', '.gif']
 
 '''
 # turn on debugging if in development mode
@@ -55,15 +62,18 @@ def validate_login():
     username = request.form['username']
     password = request.form['password']
 
-    # Check if username and password are in the users table
-    user_data = db.login_data.find_one({'username': username, 'password': password})
+# Check if username and password are in the users table
+    user_data = db.login_data.find_one(
+        {'username': username, 'password': password})
 
     if user_data:
         global user_type
         user_type = user_data.get('user_type')
+        user_id = user_data.get('_id')
         if user_type == 'athlete':
             # Redirect athletes to their profile
-            return redirect(url_for('athleteprofile'))
+            athlete_data = db.athletes_data.find_one({user_id})
+            return redirect(url_for('athleteprofile', athlete_data=athlete_data))
         elif user_type == 'coach':
             # Redirect coaches to viewplayerspage
             return redirect(url_for('viewathletes'))
@@ -75,7 +85,9 @@ def validate_login():
         error = "Invalid username or password. Please try again."
         return render_template('login.html', error=error)
 
-#sign_up_athletecoach
+# sign_up_athletecoach
+
+
 @app.route("/sign_up_athlete")
 def sign_up_athlete():
     """
@@ -102,6 +114,7 @@ def add_coach():
     username = request.form['username']
     password = request.form['password']
     email = request.form['email']
+    phoneno = request.form['phoneno']
     user_type = 'coach'
 
     # return error if their account already exists
@@ -117,9 +130,23 @@ def add_coach():
         "user_type": user_type,
         # "created_at": date.today()
     }
+
+    doc1 = {
+        "username": username,
+        "password": password,
+        "email": email,
+        "phoneno": phoneno,
+        "created_at": datetime.now(),
+    }
+
     db.login_data.insert_one(doc)  # insert a new document for user
     # tell the browser to make a request for the /home route
-    return redirect(url_for('viewplayers'))
+    db.coach_data.insert_one(doc1)
+
+    docs = db.athletes_data.find()
+    title = 'Athletes'
+    athlete_class = 'current'
+    return render_template('viewplayers.html', title=title, docs=list(docs))
 
 
 # sign_up_sponsor
@@ -142,6 +169,9 @@ def add_sponsor():
     password = request.form['password']
     email = request.form['email']
     user_type = 'sponsor'
+    companyname = request.form['companyname']
+    phoneno = request.form['phoneno']
+    address = request.form['address']
 
     # return error if their account already exists
     if db.login_data.count_documents({'email': email}) != 0:
@@ -157,6 +187,16 @@ def add_sponsor():
         # "created_at": date.today()
     }
     db.login_data.insert_one(doc)  # insert a new document for user
+
+    docsponsor = {
+        "companyname": companyname,
+        "email": email,
+        "phoneno": phoneno,
+        "address": address,
+        # "created_at": date.today()
+    }
+    db.sponsor_data.insert_one(docsponsor)  # insert a new document for user
+
     # tell the browser to make a request for the /home route
     return redirect(url_for('requests'))
 
@@ -187,7 +227,7 @@ def add_athlete():
     }
     db.login_data.insert_one(doc)  # insert a new document for user
     # tell the browser to make a request for the /home route
-    return redirect(url_for('athleteprofile'))
+    return redirect(url_for('athleteprofileedit'))
 
 # athleteprofile
 
@@ -198,7 +238,9 @@ def athleteprofile():
     Route for GET request to athleteprofile page
     Displays form for user
     """
-    return render_template('athleteprofile.html')
+    id = str(request.args.get('id'))
+    docs = db.athletes_data.find({'_id': ObjectId(id)})
+    return render_template('athleteprofile.html', docs=docs)
 
 # athleteprofileedit
 
@@ -214,7 +256,83 @@ def athleteprofileedit():
 # sponsorprofile
 
 
-@app.route("/sponsorprofile")
+@app.route('/athleteprofileedit', methods=['POST'])
+def validate_athleteprofileedit():
+    fullname = request.form['fullname']
+    age = request.form['age']
+    email = request.form['email']
+    phoneno = request.form['phoneno']
+    sport = request.form['sport']
+    rank = request.form['rank']
+    achievements = request.form['achievements']
+    bestrecord = request.form['bestrecord']
+    file = request.files['profileimg']
+    profilefilename = secure_filename(file.filename)
+    file1 = request.files['filename1']
+    filename1 = secure_filename(file1.filename)
+    file2 = request.files['filename2']
+    filename2 = secure_filename(file2.filename)
+    file3 = request.files['filename3']
+    filename3 = secure_filename(file3.filename)
+    file4 = request.files['filename4']
+    filename4 = secure_filename(file4.filename)
+    file5 = request.files['filename5']
+    filename5 = secure_filename(file5.filename)
+
+    if file:
+        file.save(os.path.join(
+            app.config['UPLOAD_DIRECTORY'], profilefilename))
+
+    if file1:
+        file1.save(os.path.join(
+            app.config['UPLOAD_DIRECTORY'], filename1))
+        i = 1
+
+    if file2:
+        file2.save(os.path.join(
+            app.config['UPLOAD_DIRECTORY'], filename2))
+        i = i+1
+
+    if file3:
+        file3.save(os.path.join(
+            app.config['UPLOAD_DIRECTORY'], filename3))
+        i = i+1
+
+    if file4:
+        file4.save(os.path.join(
+            app.config['UPLOAD_DIRECTORY'], filename4))
+        i = i+1
+    if file5:
+        file5.save(os.path.join(
+            app.config['UPLOAD_DIRECTORY'], filename5))
+        i = i+1
+
+    doc = {
+        "fullname": fullname,
+        "age": age,
+        "phoneno": phoneno,
+        "email": email,
+        "achievements": achievements,
+        "bestrecord": bestrecord,
+        "profileimg": profilefilename,
+        "filename1": filename1,
+        "filename2": filename2,
+        "filename3": filename3,
+        "filename4": filename4,
+        "filename5": filename5,
+        "counter": i,
+
+    }
+
+    insert_result = db.athletes_data.insert_one(
+        doc)  # insert a new document for user
+    # tell the browser to make a request for the /home route
+
+    docs = db.athletes_data.find({'_id': insert_result.inserted_id})
+    return render_template('athleteprofile.html', docs=docs)
+
+
+@ app.route("/sponsorprofile")
 def sponsorprofile():
     """
     Route for GET request to sponsorprofile page
@@ -223,7 +341,9 @@ def sponsorprofile():
     return render_template('sponsorprofile.html')
 
 # sponsorprofileedit
-@app.route("/sponsorprofileedit")
+
+
+@ app.route("/sponsorprofileedit")
 def sponsorprofileedit():
     """
     Route for GET request to sponsorprofileedit page
@@ -242,45 +362,55 @@ def view_athletes():
     title = 'Athletes'
     return render_template('viewathletes.html', title=title)
 
-'''
-@app.route("/viewathletes")
-def view_athletes():
+
+
+#coach views players list
+@app.route("/viewplayers")
+def view_players():
     """
     Route for GET request to viewathletes page
     Displays page where coach can view all athletes under them; only coach can access
     """
-    #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
+    # docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
+    page = request.args.get('page', 1, type=int)
+    doccount = db.athletes_data.find()
+    docs = db.athletes_data.find().skip(12 * page).limit(12)
+    count = len(list(doccount.clone()))
     title = 'Athletes'
-    if user_type == "coach":
-        return render_template('viewathletes.html', title=title)
-    else:
-        return render_template('viewathletes.html', title=title)
-'''
+    athlete_class = 'current'
+    return render_template('viewplayers.html', title=title, docs=list(docs), count=count)
 
-@app.route("/viewsponsors")
+
+@ app.route("/viewsponsors")
 def view_sponsors_():
     """
     Route for GET request to viewathletes page
     Displays page where coach can view all athletes under them; only coach can access
     """
-    #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
+    # docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
+    docs = db.sponsor_data.find()
     title = 'Sponsors'
-    return render_template('viewsponsors.html', title=title)
+    sponsor_class = 'current'
+    return render_template('viewsponsors.html', title=title, docs=list(docs))
 
-@app.route("/viewcoaches")
+
+@ app.route("/viewcoaches", methods=['GET'])
 def view_coaches__():
     """
     Route for GET request to viewathletes page
     Displays page where coach can view all athletes under them; only coach can access
     """
-    #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
+    # docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
+    docs = db.coach_data.find()
     title = 'Coaches'
-    return render_template('viewcoaches.html', title=title)
+    coach_class = 'current'
+
+    return render_template('viewcoaches.html', title=title, docs=list(docs))
 
 # requests
 
 
-@app.route("/requests")
+@ app.route("/requests")
 def requests():
     """
     Route for GET request to requests page
@@ -288,7 +418,8 @@ def requests():
     """
     return render_template('requests.html')
 
-@app.route("/ca_requests")
+
+@ app.route("/ca_requests")
 def ca_requests():
     """
     Route for GET request to requests page
@@ -311,13 +442,42 @@ def requests():
         return render_template('requests.html')
 '''
 
-@app.route("/createrequest")
+@ app.route("/createrequest")
 def create_request():
     """
     Route for GET request to createrequest page
     Displays page where coach/athlete can create request
     """
-    return render_template('createrequest.html')
+    docs = db.athletes_data.find()
+    return render_template('createrequest.html', docs=docs)
+
+
+@ app.route("/createrequest", methods=['POST'])
+def validate_create_request():
+    """
+    Route for GET request to createrequest page
+    Displays page where coach/athlete can create request
+    """
+    athlete_id = ObjectId(request.form['athlete_id'])
+    request_amt = request.form['request_amt']
+    request_enddate = request.form['request_enddate']
+    request_subject = request.form['request_subject']
+    description = request.form['description']
+
+    doc = {
+        "athlete_id": athlete_id,
+        "request_amt": request_amt,
+        "request_enddate": request_enddate,
+        "request_subject": request_subject,
+        "description": description,
+
+    }
+
+    insert_result = db.request_data.insert_one(
+        doc)  # insert a new document for user
+    # tell the browser to make a request for the /home route
+
+    return render_template('ca_requests.html')
 
 
 if __name__ == '__main__':

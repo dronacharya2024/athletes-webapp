@@ -2,37 +2,56 @@
 
 {% block main %}
 <body style= "background-color:#fef4ec">
+
     <div class="product_section layout_padding">
         <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h1 class="product_taital">Our athletes</h1>
-                <p class="product_text">insert text?</p>
-            </div>
-        </div>
-        <div class="product_section_2 layout_padding">
+            
             <div class="row">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="product_box"><a href="athleteprofile">
-                    <h4 class="bursh_text">Player name</h4>
-                    <p class="lorem_text">Sport</p>
-                    <img src="images/img-1.png" class="image_1">
-                    </a>
-                    <div class="btn_main">
-                        <div class="buy_bt">
-                            <ul>
-                                <li><a href="#">Add data</a></li>
-                                <li><a href="createrequest">Add request</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    </div>
+                <div class="col-sm-12">
+                    <h1 class="product_taital">Our athletes</h1>
+                    <p class="product_text">insert text?</p>
                 </div>
             </div>
-            <div class="seemore_bt"><a href="#" style="color:white">See More</a></div>
+
+
+        
+               
+                        
+         <div class="product_section_2 layout_padding">
+            <div class="row">
+                {% for item in docs %}
+                <div class="col-lg-3 col-sm-6">
+                    <div class="product_box"><a href="athleteprofile">
+                        <h4 class="bursh_text">{{item.fullname}}</h4>
+                        <p class="lorem_text">{{item.email}}</p>
+                        <a href= {{url_for('athleteprofile',id=item._id)}}><img src="images/img-1.png" class="image_1"></a>
+                        <div class="btn_main">
+                            <div class="buy_bt">
+                                <ul>
+                                    <li><a href="#">Add data</a></li>
+                                    <li><a href="createrequest">Add request</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+            <div>
+                    {% set n= (count/12)|round|int %}
+                    {% set n = n+1 %}
+                    {% for i in range(1,n) %}
+                      <a href="{{url_for('view_players',page=i)}}">{{i}}</a> &nbsp;
+                     {% endfor %}
+                 
+            </div>
         </div>
+
+        
         </div>
     </div>
+    
     <!-- Javascript files-->
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
