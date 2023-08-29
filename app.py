@@ -14,6 +14,23 @@ if config['FLASK_ENV'] == 'development':
     app.debug = True # debug mode
 '''
 
+#home
+@app.route("/")
+def initial():
+    """
+    Route for GET request to home page
+    Displays form for user
+    """
+    return redirect('/home')
+
+#home
+@app.route("/home")
+def home():
+    """
+    Route for GET request to home page
+    Displays form for user
+    """
+    return render_template('home.html')
 
 # login page
 @app.route("/login")
@@ -38,17 +55,18 @@ def validate_login():
     username = request.form['username']
     password = request.form['password']
 
-# Check if username and password are in the users table
+    # Check if username and password are in the users table
     user_data = db.login_data.find_one({'username': username, 'password': password})
 
     if user_data:
+        global user_type
         user_type = user_data.get('user_type')
         if user_type == 'athlete':
             # Redirect athletes to their profile
             return redirect(url_for('athleteprofile'))
         elif user_type == 'coach':
             # Redirect coaches to viewplayerspage
-            return redirect(url_for('viewplayers'))
+            return redirect(url_for('viewathletes'))
         elif user_type == 'sponsor':
             # Redirect sponsors to requests page
             return redirect(url_for('requests'))
@@ -67,8 +85,6 @@ def sign_up_athlete():
     return render_template('sign_up_athletecoach.html')
 
 # sign_up_athletecoach
-
-
 @app.route("/sign_up_coach")
 def sign_up_coach():
     """
@@ -76,7 +92,6 @@ def sign_up_coach():
     Displays form for user
     """
     return render_template('sign_up_athletecoach.html')
-
 
 @app.route('/sign_up_coach', methods=['POST'])
 def add_coach():
@@ -208,8 +223,6 @@ def sponsorprofile():
     return render_template('sponsorprofile.html')
 
 # sponsorprofileedit
-
-
 @app.route("/sponsorprofileedit")
 def sponsorprofileedit():
     """
@@ -218,35 +231,31 @@ def sponsorprofileedit():
     """
     return render_template('sponsorprofileedit.html')
 
-#home
-@app.route("/")
-def initial():
-    """
-    Route for GET request to home page
-    Displays form for user
-    """
-    return redirect('/home')
-
-#home
-@app.route("/home")
-def home():
-    """
-    Route for GET request to home page
-    Displays form for user
-    """
-    return render_template('home.html')
-
 #coach views players list
-@app.route("/viewplayers")
-def view_players():
+@app.route("/viewathletes")
+def view_athletes():
     """
     Route for GET request to viewathletes page
     Displays page where coach can view all athletes under them; only coach can access
     """
     #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
     title = 'Athletes'
-    athlete_class='current'
-    return render_template('viewplayers.html', title=title, athlete_class=athlete_class, username=username)
+    return render_template('viewathletes.html', title=title)
+
+'''
+@app.route("/viewathletes")
+def view_athletes():
+    """
+    Route for GET request to viewathletes page
+    Displays page where coach can view all athletes under them; only coach can access
+    """
+    #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
+    title = 'Athletes'
+    if user_type == "coach":
+        return render_template('viewathletes.html', title=title)
+    else:
+        return render_template('viewathletes.html', title=title)
+'''
 
 @app.route("/viewsponsors")
 def view_sponsors_():
@@ -256,8 +265,7 @@ def view_sponsors_():
     """
     #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
     title = 'Sponsors'
-    sponsor_class='current'
-    return render_template('viewsponsors.html', title=title, sponsor_class=sponsor_class)
+    return render_template('viewsponsors.html', title=title)
 
 @app.route("/viewcoaches")
 def view_coaches__():
@@ -267,8 +275,7 @@ def view_coaches__():
     """
     #docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
     title = 'Coaches'
-    coach_class='current'
-    return render_template('viewcoaches.html', title=title, sponsor_class=coach_class)
+    return render_template('viewcoaches.html', title=title)
 
 # requests
 
@@ -289,6 +296,20 @@ def ca_requests():
     """
     return render_template('ca_requests.html')
 
+'''
+@app.route("/requests")
+def requests():
+    """
+    Route for GET request to requests page
+    Displays page where users can view all athlete requests
+    """
+    if user_type == 'athlete':
+        return render_template('ca_requests.html')
+    elif user_type == 'coach':
+        return render_template('ca_requests.html')
+    else:
+        return render_template('requests.html')
+'''
 
 @app.route("/createrequest")
 def create_request():
