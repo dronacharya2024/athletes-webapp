@@ -56,16 +56,32 @@ def validate_login():
             # Redirect athletes to their profile
             athlete_data = db.athletes_data.find_one({user_id})
             return redirect(url_for('athleteprofile', athlete_data=athlete_data))
+        elif user_type == 'coach' and username == 'superuser':
+            # Redirect coaches to viewplayerspage
+            return redirect(url_for('admintemplate'))
         elif user_type == 'coach':
             # Redirect coaches to viewplayerspage
-            return redirect(url_for('viewplayers'))
+            return redirect(url_for('requests'))
         elif user_type == 'sponsor':
             # Redirect sponsors to requests page
             return redirect(url_for('requests'))
+
     else:
         # return error message in login page
         error = "Invalid username or password. Please try again."
         return render_template('login.html', error=error)
+
+
+# login page
+@app.route("/admintemplate")
+def admintemplate():
+    """
+    Route for GET request to login page
+    Displays form for user
+    """
+    title = 'Admin Template'
+    return render_template('admintemplate.html', title=title)
+
 
 # sign_up_athletecoach
 
@@ -113,7 +129,8 @@ def add_coach():
         "password": password,
         "email": email,
         "user_type": user_type,
-        # "created_at": date.today()
+        "status": 0,
+        "created_at":  datetime.now()
     }
 
     doc1 = {
@@ -208,11 +225,12 @@ def add_athlete():
         "password": password,
         "email": email,
         "user_type": user_type,
-        # "created_at": date.today()
+        "status": 0,
+        "created_at":  datetime.now(),
     }
     db.login_data.insert_one(doc)  # insert a new document for user
     # tell the browser to make a request for the /home route
-    return redirect(url_for('athleteprofileedit'))
+    return redirect(url_for('athleteprofileedit', username=username))
 
 # athleteprofile
 
@@ -230,13 +248,14 @@ def athleteprofile():
 # athleteprofileedit
 
 
-@app.route("/athleteprofileedit")
+@app.route("/athleteprofileedit", methods=['GET'])
 def athleteprofileedit():
     """
     Route for GET request to athleteprofileedit page
     Displays form for user
     """
-    return render_template('athleteprofileedit.html')
+    username = request.args.get('username')
+    return render_template('athleteprofileedit.html', username=username)
 
 # sponsorprofile
 
@@ -397,7 +416,7 @@ def view_coaches__():
     Displays page where coach can view all athletes under them; only coach can access
     """
     # docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
-    docs = db.coach_data.find()
+    docs = db.login_data.find()
     title = 'Coaches'
     coach_class = 'current'
 
@@ -412,7 +431,8 @@ def requests():
     Route for GET request to requests page
     Displays page where users can view all athlete requests
     """
-    return render_template('requests.html')
+    docs = db.request_data.find()
+    return render_template('requests.html', docs=docs)
 
 
 @ app.route("/ca_requests")
