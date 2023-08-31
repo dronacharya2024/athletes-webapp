@@ -21,8 +21,31 @@ if config['FLASK_ENV'] == 'development':
     app.debug = True # debug mode
 '''
 
+# home
+
+
+@app.route("/")
+def initial():
+    """
+    Route for GET request to home page
+    Displays form for user
+    """
+    return redirect('/home')
+
+# home
+
+
+@app.route("/home")
+def home():
+    """
+    Route for GET request to home page
+    Displays form for user
+    """
+    return render_template('home.html')
 
 # login page
+
+
 @app.route("/login")
 def login():
     """
@@ -50,6 +73,7 @@ def validate_login():
         {'username': username, 'password': password})
 
     if user_data:
+        global user_type
         user_type = user_data.get('user_type')
         user_id = user_data.get('_id')
         if user_type == 'athlete':
@@ -80,13 +104,52 @@ def admintemplate():
     Displays form for user
     """
     title = 'Admin Template'
-    return render_template('admintemplate.html', title=title)
+    type = int(request.args.get('type'))
+
+    if type == 1:
+        docs = db.login_data.find({'user_type': 'coach', 'status': 0})
+        return render_template('admintemplate.html', title=title, docs=docs)
+
+
+@ app.route('/admintemplate', methods=['GET'])
+def process_admintemplate():
+    """
+    Route for GET request to login page
+    Displays form for user
+    """
+    title = 'Admin Template'
+    type = str(request.args.get('type'))
+    if type == 1:
+        docs = db.coach_data.aggregate([
+            {
+                '$lookup': {
+                    'from': 'login_data',  # You can directly specify on which collection you want to lookup
+                    'localField': '_id',
+                    'foreignField': '_id',
+                    'as': 'coachdata',
+                }
+            },
+            {
+                '$unwind': '$coachdata'
+            },
+            {
+                '$project': {
+                    'firstname': '$firstname',
+                    'surame': '$surname',
+                    'status': 0,
+                    'phoneno': '$phoneno',
+                    '_id': 0
+                }
+            }
+        ])
+
+        return type
 
 
 # sign_up_athletecoach
 
 
-@app.route("/sign_up_athlete")
+@ app.route("/sign_up_athlete")
 def sign_up_athlete():
     """
     Route for GET request to sign_up_athlete page
@@ -97,7 +160,7 @@ def sign_up_athlete():
 # sign_up_athletecoach
 
 
-@app.route("/sign_up_coach")
+@ app.route("/sign_up_coach")
 def sign_up_coach():
     """
     Route for GET request to sign_up_coach page
@@ -106,7 +169,7 @@ def sign_up_coach():
     return render_template('sign_up_athletecoach.html')
 
 
-@app.route('/sign_up_coach', methods=['POST'])
+@ app.route('/sign_up_coach', methods=['POST'])
 def add_coach():
     """
     Route for POST requests to the sign up pages.
@@ -114,8 +177,11 @@ def add_coach():
     """
     username = request.form['username']
     password = request.form['password']
+    firstname = request.form['firstname']
+    surname = request.form['surname']
     email = request.form['email']
     phoneno = request.form['phoneno']
+    additional_info = request.form['additional_info']
     user_type = 'coach'
 
     # return error if their account already exists
@@ -127,32 +193,34 @@ def add_coach():
     doc = {
         "username": username,
         "password": password,
-        "email": email,
         "user_type": user_type,
         "status": 0,
         "created_at":  datetime.now()
     }
 
+    insert_result = db.login_data.insert_one(
+        doc)  # insert a new document for user
+    # tell the browser to make a request for the /home route
+
     doc1 = {
-        "username": username,
-        "password": password,
+        '_id': insert_result.inserted_id,
+        'firstname': firstname,
+        'surname': surname,
         "email": email,
         "phoneno": phoneno,
-        "created_at": datetime.now(),
+        "additional_info": additional_info,
     }
 
-    db.login_data.insert_one(doc)  # insert a new document for user
-    # tell the browser to make a request for the /home route
     db.coach_data.insert_one(doc1)
 
     docs = db.athletes_data.find()
     title = 'Athletes'
     athlete_class = 'current'
-    return render_template('viewplayers.html', title=title, docs=list(docs))
+    return render_template('viewathletes.html', title=title, docs=list(docs))
 
 
 # sign_up_sponsor
-@app.route("/sign_up_sponsor")
+@ app.route("/sign_up_sponsor")
 def sign_up_sponsor():
     """
     Route for GET request to sign_up_sponsor page
@@ -161,7 +229,7 @@ def sign_up_sponsor():
     return render_template('sign_up_sponsor.html')
 
 
-@app.route('/sign_up_sponsor', methods=['POST'])
+@ app.route('/sign_up_sponsor', methods=['POST'])
 def add_sponsor():
     """
     Route for POST requests to the sign up pages.
@@ -203,7 +271,7 @@ def add_sponsor():
     return redirect(url_for('requests'))
 
 
-@app.route('/sign_up_athlete', methods=['POST'])
+@ app.route('/sign_up_athlete', methods=['POST'])
 def add_athlete():
     """
     Route for POST requests to the sign up pages.
@@ -235,7 +303,7 @@ def add_athlete():
 # athleteprofile
 
 
-@app.route("/athleteprofile")
+@ app.route("/athleteprofile")
 def athleteprofile():
     """
     Route for GET request to athleteprofile page
@@ -248,7 +316,7 @@ def athleteprofile():
 # athleteprofileedit
 
 
-@app.route("/athleteprofileedit", methods=['GET'])
+@ app.route("/athleteprofileedit", methods=['GET'])
 def athleteprofileedit():
     """
     Route for GET request to athleteprofileedit page
@@ -260,7 +328,7 @@ def athleteprofileedit():
 # sponsorprofile
 
 
-@app.route('/athleteprofileedit', methods=['POST'])
+@ app.route('/athleteprofileedit', methods=['POST'])
 def validate_athleteprofileedit():
     fullname = request.form['fullname']
     age = request.form['age']
@@ -355,31 +423,21 @@ def sponsorprofileedit():
     """
     return render_template('sponsorprofileedit.html')
 
-# home
-
-
-@ app.route("/")
-def initial():
-    """
-    Route for GET request to home page
-    Displays form for user
-    """
-    return redirect('/home')
-
-# home
-
-
-@ app.route("/home")
-def home():
-    """
-    Route for GET request to home page
-    Displays form for user
-    """
-    return render_template('home.html')
-
 # coach views players list
 
 
+@ app.route("/viewathletes")
+def view_athletes():
+    """
+    Route for GET request to viewathletes page
+    Displays page where coach can view all athletes under them; only coach can access
+    """
+    # docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
+    title = 'Athletes'
+    return render_template('viewathletes.html', title=title)
+
+
+# coach views players list
 @ app.route("/viewplayers")
 def view_players():
     """
@@ -442,6 +500,22 @@ def ca_requests():
     Displays page where coach or athletes can view or create athlete requests
     """
     return render_template('ca_requests.html')
+
+
+'''
+@app.route("/requests")
+def requests():
+    """
+    Route for GET request to requests page
+    Displays page where users can view all athlete requests
+    """
+    if user_type == 'athlete':
+        return render_template('ca_requests.html')
+    elif user_type == 'coach':
+        return render_template('ca_requests.html')
+    else:
+        return render_template('requests.html')
+'''
 
 
 @ app.route("/createrequest")
