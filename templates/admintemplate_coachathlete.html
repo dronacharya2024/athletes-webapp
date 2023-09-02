@@ -7,7 +7,11 @@
     width: 50px;
     margin: 0 auto;
     padding-top: 60px;
-}    
+}  
+
+.dropdown {
+    font-size: 16px;
+}
 </style>
 <body style= "background-color:#fef4ec">
     <div class="product_section layout_padding">
@@ -32,41 +36,60 @@
         <svg width="1000" height="1000" style="position:relative;top:-501px;left:495px">
             <g>
                 <rect x="5" y="20" rx="20" ry="20" width="500" height="400" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
-                <text x="80px" y="5%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Coach Name</text>
-                <text x="80px" y="10%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Coach Name</text>
-                <text x="80px" y="15%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Coach Name</text>
+                <text x="140px" y="5%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Athlete Name</text>
+                <text x="140px" y="10%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Athlete Name</text>
+                <text x="140px" y="15%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Athlete Name</text>
             </g>
             
-            <foreignObject x="200px" y="-3%" width="300" height="150">
+            <foreignObject x="280px" y="38px" width="300" height="150">
                 <body>
-                    <div class="seemore_bt"><a href="" style="color:white">&#x2713</a></div>
+                    <div class="dropdown">
+                        <form action="/action_page.php">
+                        <label for="Coach">Coach:</label>
+                        <span style="color: black; font-size:15px">
+                        <select name="Coach" id="Coach">
+                        <option value="Company">Coach 1</option>
+                        <option value="Individual">Coach 2</option>
+                
+                        </select>
+                        <br><br>
+                        </span>
+                        </form>
+                    </div>                     
                 </body>
             </foreignObject>
-            <foreignObject x="265px" y="-3%" width="300" height="150">
+            <foreignObject x="280px" y="88px" width="300" height="150">
                 <body>
-                    <div class="seemore_bt"><a href="" style="color:white">&#10005</a></div>
+                    <div class="dropdown">
+                        <form action="/action_page.php">
+                        <label for="Coach">Coach:</label>
+                        <span style="color: black; font-size:15px">
+                        <select name="Coach" id="Coach">
+                        <option value="Company">Coach 1</option>
+                        <option value="Individual">Coach 2</option>
+                
+                        </select>
+                        <br><br>
+                        </span>
+                        </form>
+                    </div>                     
                 </body>
             </foreignObject>
-
-            <foreignObject x="250px" y="2%" width="200" height="150">
+            <foreignObject x="280px" y="138px" width="300" height="150">
                 <body>
-                    <div class="seemore_bt"><a href="" style="color:white">&#x2713</a></div>
-                </body>
-            </foreignObject>
-            <foreignObject x="265px" y="2%" width="300" height="150">
-                <body>
-                    <div class="seemore_bt"><a href="" style="color:white">&#10005</a></div>
-                </body>
-            </foreignObject>
-
-            <foreignObject x="250px" y="7%" width="200" height="150">
-                <body>
-                    <div class="seemore_bt"><a href="" style="color:white">&#x2713</a></div>
-                </body>
-            </foreignObject>
-            <foreignObject x="265px" y="7%" width="300" height="150">
-                <body>
-                    <div class="seemore_bt"><a href="" style="color:white">&#10005</a></div>
+                    <div class="dropdown">
+                        <form action="/action_page.php">
+                        <label for="Coach">Coach:</label>
+                        <span style="color: black; font-size:15px">
+                        <select name="Coach" id="Coach">
+                        <option value="Company">Coach 1</option>
+                        <option value="Individual">Coach 2</option>
+                
+                        </select>
+                        <br><br>
+                        </span>
+                        </form>
+                    </div>                     
                 </body>
             </foreignObject>
         </svg>
