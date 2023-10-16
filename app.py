@@ -1,6 +1,10 @@
 
 # import necessary packages
+<<<<<<< Updated upstream
 from flask import Flask, render_template, request, redirect, url_for, make_response, session, jsonify
+=======
+from flask import Flask, render_template, request, redirect, url_for, make_response, session
+>>>>>>> Stashed changes
 from flask_session import Session
 # from datetime import date
 import db
@@ -20,11 +24,14 @@ app.config['ALLOWED_EXTENSION'] = ['.jpg', '.jpeg', '.png', '.gif']
 app.config['SECRET_KEY'] = "super_secret_key"
 app.config['SESSION_TYPE'] = 'filesystem'
 
+<<<<<<< Updated upstream
 EMAIL_ADDRESS = "dronacharyaramesh@gmail.com"
 EMAIL_PASSWORD = "fqnwskuchpsqjrax"
 
 GENERIC_PASSWORD = "dronacharya"
 
+=======
+>>>>>>> Stashed changes
 Session(app)
 
 '''
@@ -111,7 +118,11 @@ def validate_login():
             session['id'] = user_id
             session['role'] = user_type
             session['username'] = username
+<<<<<<< Updated upstream
             return redirect(url_for('coachtemplate'))
+=======
+            return redirect(url_for('requests', id=user_id))
+>>>>>>> Stashed changes
         elif user_type == 'sponsor':
             # Redirect sponsors to requests page
             return redirect(url_for('requests'))
@@ -133,6 +144,7 @@ def admintemplate():
     type = str(request.args.get('type'))
 
     if type == "1":
+<<<<<<< Updated upstream
 
         logins_with_status_zero = db.login_data.find(
             {"status": 0, "user_type": 'coach'})
@@ -192,6 +204,42 @@ def process_admintemplate():
             with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
                 smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
                 smtp.send_message(msg)
+=======
+        docs = db.coach_data.aggregate([
+
+            {
+                '$lookup': {
+                    'from': 'login_data',  # You can directly specify on which collection you want to lookup
+                    'localField': '_id',
+                    'foreignField': '_id',
+                    'as': 'coachdata',
+                }
+            },
+            {
+                '$unwind': '$coachdata'
+            },
+
+        ])
+        return render_template('admintemplate.html', title=title, docs=docs)
+    else:
+        return render_template('admintemplate.html', title=title)
+
+
+@ app.route('/admintemplate', methods=['POST'])
+def process_admintemplate():
+    """
+    Route for GET request to login page
+    Displays form for user
+    """
+    title = 'Admin Template'
+    type = str(request.args.get('type'))
+    coachID = request.form['coachID']
+    if type == "1":
+        db.login_data.update_one({'_id': ObjectId(coachID)}, {
+                                 "$set": {'status': 1}}, upsert=False)
+        return redirect(url_for('admintemplate', title=title, type=1))
+    return coachID
+>>>>>>> Stashed changes
 
             result = db.coach_data.delete_one({"_id": ObjectId(coachID)})
             result = db.login_data.delete_one({"_id": ObjectId(coachID)})
@@ -553,6 +601,7 @@ def sponsorprofileedit():
 # coach views players list
 
 
+<<<<<<< Updated upstream
 def get_coach_name(athlete_id):
     # Query the db.coach_athlete collection for coach_id using athlete_id
     relation = db.coach_athlete_data.find_one({"athleteID": athlete_id})
@@ -603,14 +652,21 @@ def validate_athletetemplate():
         return render_template('athleteprofile.html', details=details)
 
 
+=======
+# coach views players list
+>>>>>>> Stashed changes
 @ app.route("/viewathletes")
 def view_athletes():
     """
     Route for GET request to viewathletes page
     Displays page where coach can view all athletes under them; only coach can access
     """
+<<<<<<< Updated upstream
 
     coachID = request.args.get('coachID')
+=======
+    # docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
+>>>>>>> Stashed changes
     page = request.args.get('page', 1, type=int)
     doccount = db.athletes_data.find()
     docs = db.athletes_data.find().skip(12 * page).limit(12)
@@ -641,8 +697,7 @@ def view_coaches__():
     """
     # docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
 
-   # docs = db.coach_data.find()
-    db.sponsor_request_data.delete_many({})
+    docs = db.coach_data.find()
     title = 'Coaches'
     coach_class = 'current'
 
