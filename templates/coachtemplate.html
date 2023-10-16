@@ -1,0 +1,514 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+
+<body style= "background-color:#fef4ec">
+    <div class="product_section layout_padding">
+        <div class="container">
+        <div class="row">
+            <div class="col-sm-12" style="position:relative;top:5%;left:2%;">
+                <h1>{{title}}</h1>
+            </div>
+        </div>
+   
+            <div class="row" style="background-color:#fef4ec"></div>
+           <!-- 
+            <script>
+              const textElement = document.getElementById("dynamicText");
+              const initialTextLength = 0.05; // Initial textLength as a percentage of the SVG width
+          
+              function adjustTextLength() {
+                  const svgWidth = 1500; // SVG width
+                  const textContent = textElement.textContent.trim();
+                  const textLengthPercentage = initialTextLength + (textContent.length / 100);
+          
+                  textElement.setAttribute("textLength", svgWidth * textLengthPercentage);
+              }
+          
+              // Call the adjustTextLength function when the page loads and if the text content changes dynamically
+              adjustTextLength();
+          </script>        
+-->
+
+          <div class="row" >
+            {% if  session['role'] == 'coach' %}
+            <div class="col-lg-3 col-sm-6">
+                <svg width="1000" height="400" style="position:relative;top:8%;left:-150px">
+                    <g>
+                        <rect x="5" y="20" rx="20" ry="20" width="270" height="260" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
+                        <text x="102px" y="15%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px"> <a href="coachtemplate?type=1">Add Athlete</a></text>
+                        <text x="105px" y="25%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px"><a href="coachtemplate?type=2">Add Request</a></text>
+                        <text x="122px" y="35%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px"><a href="coachtemplate?type=3">Pending Requests</a></text>
+                        <text x="105px" y="45%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px"><a href="coachtemplate?type=4">Add Sponsor</a></text>
+                        <text x="105px" y="54%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px"><a href="coachtemplate?type=5">List Sponsors</a></text>
+                        <text x="135px" y="64%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px"><a href="coachtemplate?type=6">Sponsorship Request</a></text>
+                  
+                    </g>
+                </svg>
+            </div>
+
+            <div class="col-lg-6 col-sm-12" style="position:relative;top:0%;left:100px;">
+                {% if request.args.get('type') == "1" %}
+
+                <form  name="requestForm1" id="requestForm1" action="{{ 
+                    url_for('validate_coachtemplate') }}" method="post">
+                    <input type="hidden" name="type" id="type" value=1>
+                    <svg width="1000" height="1000" style="position:relative;top:-5px;left:-200px">
+                        <g>
+                            <rect x="50" y="20" rx="20" ry="20" width="600" height="400" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
+                            <text x="34%" y="17%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Enter Username</text>
+                        </g>
+                    
+                    <foreignObject x="25%" y="18%" width="300" height="150">
+                        <body>
+                            <div class="dropdown">
+                                <span style="color: black; font-size:15px">
+                                    <input type= "text" name= "username" id= "username" placeholder="Username"></input>
+                                <br><br>
+                                </span>
+                                </div>       
+                                             
+                        </body>
+                    </foreignObject>
+                    <foreignObject x="23%" y="24%" width="300" height="150">
+                        <body>
+                              <ul class="assignbt">
+                              <li><a href="#" id="submitLink1" id="submitLink1" onclick="submitForm('requestForm1')">Add Athlete</a></li>
+                                
+                            </ul>
+                        </body>
+                    </foreignObject>
+                        
+                  
+       
+                    {% if request.args.get('txtMsg') == "1" %}
+                    <foreignObject x="20%" y="30%" width="300" height="150">
+                        <body>
+                    <p class="lorem_text"> Athlete has been added Successfully</p>
+                        </body>
+                    </foreignObject>
+                   {% endif %}
+                 </form>
+                </svg>
+                </div>
+       
+
+            {% elif request.args.get('type') == "2" %}
+
+            {% if request.args.get('txtMsg')=="2" %}
+            <div class="row"  style="position:relative;top:1%;left:10%;"><div class="col-lg-6 col-sm-12" ><p class="lorem_text" style="color:red; font-weight: bold;" > Request has been Created</p></div></div>
+             {% endif %}
+
+            <form class="request-form" role="form" name="requestForm2" id="requestForm2" action="#" method="post">
+                <input type="hidden" name="type" id="type" value=2>
+                <input type="hidden" name="actionID" id="actionID" value={{request.args.get('actionID')}}>
+                <input type="hidden" name="requestID" id="rquestID" value={{request.args.get('requestID')}}>
+                
+            <div class="form-group" >
+                <div class="col-md-12">	
+                    <br>
+                    <label for="athlete_id" class="control-label">Select Athlete</label>
+                    <select id="athlete_id" name="athlete_id" class="form-control">
+                        
+                    {% for item in docs %}
+                
+                        <option value={{item._id}}>{{item.firtname}} {{item.surname}}</option>
+                    {% endfor %}
+                    </select>
+                </div>              
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                <label for="amount" class="control-label">How much money do you need?</label>
+                <div class="templatemo-input-icon-container">
+                    <i class="fa fa-inr" style="color: black;"></i>
+                    <input type="number" class="form-control" id="request_amt" name="request_amt" placeholder="" value="{{reqdoc.request_amt}}">
+                </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                <label for="date" class="control-label">When do you need this money by?</label>
+                <input type="date" class="form-control" id="request_enddate" name="request_enddate" placeholder="" value="{{reqdoc.request_enddate}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                <label for="title" class="control-label">What is the subject of your request?</label>
+                <input type="text" class="form-control" id="request_subject" name="request_subject" placeholder="" value="{{reqdoc.request_subject}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                <label for="description" class="control-label">Please add a short description of your request</label>
+                <textarea type="text" class="form-control" id="description" name="description">{{reqdoc.description}}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                <br>
+                <label for="contact" class="control-label-bigger">Who should the sponsor contact?</label>
+                <br>
+                <label for="contact-name" class="control-label">Contact name</label>
+                <input type="text" class="form-control" id="contact_name" name="contact_name" value="{{reqdoc.contact_name}}">
+                <label for="contact-phone" class="control-label">Contact phone</label>
+                <input type="tel" class="form-control" id="contact_phone" name="contact_phone"  value="{{reqdoc.contact_phone}}">
+                </div>
+            </div>
+           
+            <div class="row">
+                <div class="col-sm-12"> <br>
+                    <ul class="assignbt">
+                        <li><a href="#" id="submitLink1" id="submitLink1" onclick="submitForm('requestForm2')" >Submit Request</a></li>
+                        
+                    </ul>
+                </div>
+              </div>
+
+                    </form>		      		      
+
+                </div>	
+            </div>
+             
+            
+                {% elif request.args.get('type') == "3" %}
+                
+                <form  name="requestForm3" id="requestForm3" action="{{ url_for('validate_coachtemplate') }}" method="post">
+                             
+                        {% for item in docs %}
+                        <svg width="1500" height="160" style="position:relative;top:10%;left:-230px">
+                            <g>
+                            
+                                <rect x="50" y="20" rx="20" ry="20" width="970" height="80" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
+                                <text x="8%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item.request_subject}}</text>
+                                <text x="17%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item.request_amt}}</text>
+                                <text x="28%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item.request_enddate}}</text>
+                               
+                                <foreignObject x="52%" y="-6%" width="200" height="150">
+                                    <body>
+                                        <div class="seemore_bt"><a href="coachtemplate?type=2&actionID=2&requestID={{item._id}}"  id="submitLink1" id="submitLink1">Edit</a></div>
+                                    </body>
+                                </foreignObject>
+                            
+                            </g>
+                        </svg>
+                        {% endfor %}
+                        
+                </form>
+                
+                {% elif request.args.get('type') == '4' %}
+
+                <form  name="requestForm4" id="requestForm4" action="{{ url_for('validate_coachtemplate') }}" method="post">
+                    <input type="hidden" name="type" id="type" value=4>
+                    <input type="hidden" name="actionID" id="actionID" value={{request.args.get('actionID')}}>
+                    <input type="hidden" name="sponsorID" id="sponsorID" value={{request.args.get('sponsorID')}}>
+                        <div class="templatemo-one-signin col-md-15">
+                                    <div class="form-group">
+                                      <div class="col-md-12">		          	
+                                        <label for="E-Mail" class="control-label">E-Mail</label>
+                                        <div class="templatemo-input-icon-container">
+                                            <i class="fa fa-envelope"></i>
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="" value="{{sponsordoc.email}}">
+                                        </div>		            		            		            
+                                      </div>              
+                                    </div>
+                                <div class="templatemo-one-signin col-md-15">
+                                    <div class="form-group">
+                                      <div class="col-md-12">		          	
+                                        <label for="username" class="control-label">Company/Individual Name</label>
+                                        <div class="templatemo-input-icon-container">
+                                            <i class="fa fa-user"></i>
+                                            <input type="text" class="form-control" id="companyname" name="companyname" placeholder="" value="{{sponsordoc.companyname}}">
+                                        </div>		            		            		            
+                                      </div>              
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">		          	
+                                          <label for="username" class="control-label">Phone Number</label>
+                                          <div class="templatemo-input-icon-container">
+                                              <i class="fa fa-user"></i>
+                                              <input type="text" class="form-control" id="phoneno" name="phoneno" placeholder="" value="{{sponsordoc.phoneno}}">
+                                          </div>		            		            		            
+                                        </div>              
+                                      </div>
+                                      <div class="form-group">
+                                        <div class="col-md-12">		          	
+                                          <label for="username" class="control-label">Address</label>
+                                          <div class="templatemo-input-icon-container">
+                                              <i class="fa fa-user"></i>
+                                              <textarea id="address" class="form-control" name="address" rows="5" cols="33">{{sponsordoc.address}}
+                                              </textarea>
+                                             
+                                          </div>		            		            		            
+                                        </div>              
+                                      </div>
+                                      
+                                      
+                                    
+                                      <div class="row">
+                                        <div class="col-sm-12"> <br>
+                                            <ul class="assignbt">
+                                                <li><a href="#" id="submitLink1" id="submitLink1" onclick="submitForm('requestForm4')" >Submit Sponsor</a></li>
+                                                
+                                            </ul>
+                                        </div>
+                                      </div>
+                                
+                                </div>
+                                
+                                        
+            
+                                    </a>
+                                   
+                            </div>				 	
+                          </form>	
+
+                          {% if request.args.get('txtMsg')=="4" %}
+                          <div class="row"><div class="col-lg-6 col-sm-12"><p class="lorem_text"><br><br> Sponsor has been Added</p></div></div>
+                           {% endif %}
+
+
+                {% elif request.args.get('type') == "5" %}
+                
+                           <form  name="requestForm3" id="requestForm3" action="{{ url_for('validate_coachtemplate') }}" method="post">
+                                        
+                                   {% for item in docs %}
+                                   <svg width="1500" height="140" style="position:relative;top:10%;left:-230px">
+                                       <g>
+                                       
+                                           <rect x="50" y="20" rx="20" ry="20" width="980" height="80" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
+                                           <text x="19%" y="79%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item.company_name}}</text>
+                                           <text x="17%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item.email}}</text>
+                                           <text x="28%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item.phoneno}}</text>
+                                           <text x="41%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item.address}}</text>
+                                       
+                                           <foreignObject x="52%" y="-15%" width="200" height="110">
+                                               <body>
+                                                   <div class="seemore_bt"><a href="coachtemplate?type=4&actionID=2&sponsorID={{item._id}}" style="color:white"  id="submitLink1">Edit</a></div>
+                                               </body>
+                                           </foreignObject>
+                                       
+                                       </g>
+                                   </svg>
+                                   {% endfor %}
+                               
+                           </form>
+
+             
+
+                {% elif request.args.get('type') == "6" %}
+
+                <div class="row">
+                    <div class="col-sm-12" style="position:relative;top:5%;left:-15%;">
+                        <h1>Approved Requests</h1>
+                    </div>
+                </div>
+                {% for item1 in approveddocs %}
+              
+                <svg width="1500" height="160" style="position:relative;top:60%;left:-230px">
+                    <g>
+                    
+                        <rect x="50" y="20" rx="20" ry="20" width="920" height="80" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
+                        <text x="8%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item1.request_subject}}</text>
+                        <text x="17%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item1.request_amt}}</text>
+                        <text x="28%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item1.request_enddate}}</text>
+                       
+                        <foreignObject x="42%" y="-6%" width="200" height="150">
+                            <body>
+                                <div class="seemore_bt"><a href="coachtemplate?type=7&requestID={{item1._id}}&actionID=1"  id="submitLink1" id="submitLink1">Edit</a></div>
+                            </body>
+                        </foreignObject>
+                        <foreignObject x="52%" y="-6%" width="200" height="150">
+                            <body>
+                                <div class="seemore_bt"><a href="coachtemplate?type=7&requestID={{item1._id}}"  id="submitLink1" id="submitLink1">Add</a></div>
+                            </body>
+                        </foreignObject>
+                    
+                    </g>
+                </svg>
+                {% endfor %}
+            
+
+
+                {% elif request.args.get('type') == "7" %}
+                <div class="row">
+                    <div class="col-sm-12" style="position:relative;top:0;left:20%;margin-bottom:10px;" >
+                        <h1 >Sponsor Request Update</h1>
+                    </div>
+                </div>
+                <form  name="requestForm7" id="requestForm7" action="{{url_for('validate_coachtemplate')}}" method="post">
+                    <input type="hidden" name="type" id="type" value=7>
+                    <input type="hidden" name="athleteID" id="athleteID" value="{{athletedoc._id}}"">
+                    <input type="hidden" name="requestID" id="requestID" value="{{requestdoc._id}}"">
+                    <input type="hidden" name="actionID" id="actionID" value={{request.args.get('actionID')}}>
+                <div class="container" style="position:relative;top:-5px;left:-45px;width:800px;">
+                    <div width="100%">
+                      <div class="row gutters-sm" >
+                        <div class="card mb-3">
+                          <div class="card-body">
+                            <div class="col-sm-14">
+                              <div class="row" >
+                                <div class="col-sm-3">
+                                <h4 class="mb-0" >Request Subject:</h4></div>
+                                <div class="col-sm-9 text-secondary">{{requestdoc.request_subject}}</div>
+                                
+                              </div>
+                              <hr>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                <h4 class="mb-0">Athlete Name:</h4></div>
+                                <div class="col-sm-9 text-secondary">
+                                  {{athletedoc.firstname}} {{athletedoc.surname}}
+                                </div>
+                              </div>
+                              <hr>                  
+                              <div class="row">
+                                <div class="col-sm-3">
+                                <h4 class="mb-0" style="margin-left:8px;">Amount Requested:</h4></div>
+                                <div class="col-sm-3 text-secondary">{{requestdoc.request_amt}}</div>
+                            
+                            <div class="col-sm-3">
+                            <h4 class="mb-0" style="margin-left:8px;">Amount Pending </h4></div>
+                            <div class="col-sm-2 text-secondary"><input type="text" class="form-control" id="amtPending" name="amtPending" value={{amtRemaining}} readonly>
+                            </div>
+                              </div>
+                              <hr>
+                              <div class="row">
+                                <div class="col-md-3">
+                                <h4 class="mb-0" style="margin-left:8px;">Amount Recieved </h4>
+                                <div class="col-md-9 text-secondary"><input type="text" class="form-control" id="amtRecieved1" name="amtRecieved1"  onblur="updateResult('{{requestdoc.request_amt}}')" value={% if sponsorAmtdocs[0] is defined %} {{sponsorAmtdocs[0]}} {% else %} "" {% endif %}>
+                                </div>
+                                 </div>
+                                <div class="col-md-3">
+                                    <h4 class="mb-0" style="margin-left:8px;">Sponsor </h4>
+                                    <div class="col-md-5 text-secondary">
+                                           <select id="sponsorID1" name="sponsorID1">
+                                        {% for item in sponsordoc %}
+                                
+                                        <option value="{{item._id}}"
+                                            {% if sponsorIDdocs[0] is defined and item._id|string in sponsorIDdocs[0]  %}
+                                                selected
+                                            {% endif %}
+                                        >{{item.companyname}}</option>
+                                        {% endfor %}                                 
+                                    </select></div>
+                                    </div>
+                                    <div class="col-sm-2" style="display:inline-block;position:relative;top:25px;left:40px;"><img src="static/images/plussign.jpg"   id="plusimg1" width="30" onclick="displayRow('hideDisp2','plusimg1')"></div>
+                                      
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="row" id="hideDisp2"  style={% if sponsorIDdocs[1] is defined %} "display:block;" {% else %}"display:none;" {% endif %}>
+                                <div class="col-md-3">
+                                <h4 class="mb-0" style="margin-left:8px;">Amount Recieved</h4>
+                                <div class="col-md-9 text-secondary"><input type="text" class="form-control" id="amtRecieved2" name="amtRecieved2" value={% if sponsorAmtdocs[1] is defined %} {{sponsorAmtdocs[1]}} {% endif %}></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <h4 class="mb-0" style="margin-left:8px;">Sponsor</h4>
+                                    <div class="col-md-5 text-secondary">
+                                        <select id="sponsorID2" name="sponsorID2">
+                                        {% for item2 in sponsordoc %}
+                                           <option value={{item2._id}}
+                                           {% if sponsorIDdocs[1] is defined and item2._id|string in sponsorIDdocs[1]  %}
+                                           selected
+                                       {% endif %}
+                                           >{{item2.companyname}}</option>
+                                        {% endfor %}                                 
+                                    </select></div>
+                                    </div>
+                                    <div class="col-sm-2" style="display:inline-block;position:relative;top:25px;left:30px;"><img src="static/images/plussign.jpg"   id="plusimg2" width="30" onclick="displayRow('hideDisp3','plusimg2')"></div>
+                                
+                                </div>
+                                <hr>
+                                 <div class="row" id="hideDisp3"  style= {% if sponsorIDdocs[2] is defined %} "display:block;" {% else %}"display:none;" {% endif %}>
+                                  <div class="col-md-3">
+                                  <h4 class="mb-0" style="margin-left:8px;">Amount Recieved</h4>
+                                  <div class="col-md-9 text-secondary"><input type="text" class="form-control" id="amtRecieved3" name="amtRecieved3" value={% if sponsorAmtdocs[2] is defined %} {{sponsorAmtdocs[2]}}{% endif %}></div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <h4 class="mb-0" style="margin-left:8px;">Sponsor</h4>
+                                      <div class="col-md-5 text-secondary">
+                                          <select id="sponsorID3" name="sponsorID3">
+                                          {% for item2 in sponsordoc %}
+                                          <option value={{item2._id}}
+                                          {% if sponsorIDdocs[2] is defined and item2._id|string in sponsorIDdocs[2]  %}
+                                           selected
+                                          {% endif %}
+                                          >{{item2.companyname}}</option>
+                                          {% endfor %}                                 
+                                      </select></div>
+                                  </div>
+                                  <div class="col-sm-2" style="display:inline-block;position:relative;top:25px;left:30px;"><img src="static/images/plussign.jpg"   id="plusimg3" width="30" onclick="displayRow('hideDisp4','plusimg3')"></div>
+                                  </div>
+                                  <hr>
+                                  <div class="row" id="hideDisp4"  style= {% if sponsorIDdocs[3] is defined %} "display:block;" {% else %}"display:none;" {% endif %}>
+                                    <div class="col-md-3">
+                                    <h4 class="mb-0" style="margin-left:8px;">Amount Recieved</h4>
+                                    <div class="col-md-9 text-secondary"><input type="text" class="form-control" id="amtRecieved4" name="amtRecieved4" value={% if sponsorAmtdocs[3] is defined %} {{sponsorAmtdocs[3]}}{% endif %}></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4 class="mb-0" style="margin-left:8px;">Sponsor</h4>
+                                        <div class="col-md-5 text-secondary">
+                                            <select id="sponsorID4" name="sponsorID4">
+                                            {% for item2 in sponsordoc %}
+                                            <option value={{item2._id}}
+                                            {% if sponsorIDdocs[3] is defined and item2._id|string in sponsorIDdocs[3]  %}
+                                                selected
+                                            {% endif %}
+                                            
+                                            >{{item2.companyname}}</option>
+                                            {% endfor %}                                 
+                                        </select></div>
+                                    </div>
+                                    <div class="col-sm-2" style="display:inline-block;position:relative;top:25px;left:30px;"><img src="static/images/plussign.jpg"   id="plusimg4" width="30" onclick="displayRow('hideDisp5','plusimg4')"></div>
+                                    </div>
+                                    <hr>
+                                    <div class="row" id="hideDisp5"  style= {% if sponsorIDdocs[4] is defined %} "display:block;" {% else %}"display:none;" {% endif %}>
+                                        <div class="col-md-3">
+                                        <h4 class="mb-0" style="margin-left:8px;">Amount Recieved</h4>
+                                        <div class="col-md-9 text-secondary"><input type="text" class="form-control" id="amtRecieved5" name="amtRecieved5" value={% if sponsorAmtdocs[4] is defined %} {{sponsorAmtdocs[4]}}{% endif %}></div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h4 class="mb-0" style="margin-left:8px;">Sponsor</h4>
+                                            <div class="col-md-5 text-secondary">
+                                                <select id="sponsorID5" name="sponsorID5">
+                                                {% for item2 in sponsordoc %}
+                                                <option value={{item2._id}}
+                                                {% if sponsorIDdocs[4] is defined and item2._id|string in sponsorIDdocs[4]  %}
+                                                        selected
+                                                {% endif %}
+                                                
+                                                >{{item2.companyname}}</option>
+                                                {% endfor %}                                 
+                                            </select></div>
+                                        </div>
+                                        
+                                        </div>
+                                        <hr>
+                                        
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                             <div class="seemore_bt" style="display:inline-block;position:relative;top:-25px;left:290px;height:2px"><a href="#"  id="submitLink7"  onclick="submitForm('requestForm7')">Submit</a></div>
+                                           </div>
+                                         </div>
+                                        </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+         {% endif %}
+
+        {% endif %}
+        </div>
+        </div>
+        </div>
+    </div>
+   
+    <script src="static/js/formscripts.js"></script> 
+</body>
+{% endblock main %}

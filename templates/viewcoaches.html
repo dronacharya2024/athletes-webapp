@@ -6,56 +6,27 @@
         <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="product_taital">Our coaches</h1>
-                <p class="product_text">insert text?</p>
+                <h1>Our Coaches</h1>
+               
             </div>
         </div>
         <div class="product_section_2 layout_padding">
             <div class="row">
+                {% for item in docs %}
                 <div class="col-lg-3 col-sm-6">
-                    <div class="view_box"><a href="coachprofile">
-
-                            testingA
-
-                        {% for item in docs %}
-                        
-                             TITLE:  {{item}}  <br>  EMAIL:  {{item.email}}   
-                        
-                        {% endfor %}
-
-
-                    <h4 class="bursh_text">Coach name</h4>
-                    <p class="lorem_text">Sport</p>
-                    <img src="images/img-1.png" class="image_1_view">
+                    <div class="view_box">
+                    <p class="lorem_text">{{item.firstname}}&nbsp;{{item.surname}}</p>
+                    <p class="lorem_text">{{item.email}}</p>
+                    <img src="static/uploads/{{item.profilepic}}" class="image_1_view">
                     </a>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            <div class="seemore_bt"><a href="#" style="color:white">See More</a></div>
+            
         </div>
         </div>
     </div>
-    <!-- Javascript files-->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery-3.0.0.min.js"></script>
-    <script src="js/plugin.js"></script>
-    <!-- sidebar -->
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/custom.js"></script>
-    <!-- javascript --> 
-    <script src="js/owl.carousel.js"></script>
-    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>  
-    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-    <script>
-        function openNav() {
-        document.getElementById("mySidenav").style.width = "100%";
-        }
-        
-        function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-        }
-    </script> 
+
 </body>
 {% endblock main %}

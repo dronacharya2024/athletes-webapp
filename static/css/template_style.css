@@ -126,7 +126,7 @@ span {
 .templatemo-login-form-1 { max-width: 500px; }
 .templatemo-login-form-1 a { color: gray; }
 .templatemo-login-form-1 a:hover {
-	color: black;
+	color: #FFFFFF;
 	text-decoration: none;
 	cursor: pointer;
 }
@@ -180,7 +180,8 @@ span {
 .request-form .form-control {
 	background-color: rgb(255, 255, 255);
 	border: 1px solid rgba(255, 255, 255, 0.27);
-	color: rgb(0, 0, 0);
+	/*color: rgb(0, 0, 0);*/
+	color: #FFFFFF;
 	text-decoration-color: black;
 }
 
@@ -202,9 +203,8 @@ span {
 .logo { margin: 18px; }
 
 
-/*-------------------------------------
-5. create-account
----------------------------------------*/
+/*
+
 .templatemo-create-account {
 	background-color: #fff;
 	border: none;
@@ -219,9 +219,6 @@ span {
 .templatemo-radio-group { margin-top: 30px; }
 
 
-/*-------------------------------------
-6. forgot-password
----------------------------------------*/
 .templatemo-forgot-password-form {
 	background-color: #fff;	
 	max-width: 550px;
@@ -230,9 +227,6 @@ span {
 }
 
 
-/*-------------------------------------
-7. contact-form-1
----------------------------------------*/
 .templatemo-contact-form-1 {
 	background: rgba(0,0,0,0.6);
 	border-radius: 8px;
@@ -273,9 +267,6 @@ span {
 }
 
 
-/*-------------------------------------
-8. contact form 2
----------------------------------------*/
 .templatemo-contact-form-2 {
 	border-radius: 8px;
 	max-width: 960px;
@@ -287,9 +278,7 @@ span {
 .templatemo-contact-form-2 textarea { min-height: 225px; }
 
 
-/*-------------------------------------
-9. payment-form
----------------------------------------*/
+
 .templatemo-payment-form {
 	background-color: #fff;	
 	margin: 0 auto;
@@ -320,6 +309,7 @@ span {
 .radio-inline+.radio-inline { margin-left: 0; }
 .templatemo-radio-container { margin-left: 15px; }
 
+*/
 
 /*-------------------------------------
 10. Media Queries

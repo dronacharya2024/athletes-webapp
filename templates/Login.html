@@ -26,8 +26,9 @@
 						<label for="username" class="control-label">Username</label>
 						<div class="templatemo-input-icon-container">
 							<i class="fa fa-user"></i>
-							<input type="text" class="form-control" id="username" name="username" placeholder="">
-						</div>		            		            		            
+							<input type="text" class="form-control" id="username" name="username" placeholder="" required>
+						</div>		
+						           		            		            
 						</div>              
 					</div>
 					<div class="form-group">
@@ -35,19 +36,11 @@
 						<label for="password" class="control-label">Password</label>
 						<div class="templatemo-input-icon-container">
 							<i class="fa fa-lock"></i>
-							<input type="password" class="form-control" id="password" name="password" placeholder="">
+							<input type="password" class="form-control" id="password" name="password" placeholder="" required>
 						</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<div class="col-md-12">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox"> Remember me
-							</label>
-						</div>
-						</div>
-					</div>
+					
 					<div class="form-group">
 						<div class="col-md-12">
 						<input type="submit" value="LOG IN" class="btn btn-warning">
@@ -68,11 +61,7 @@
 								</div>
 								<div class="row" align="center">
 				
-									<li>
-									<button type="button" class = "sign_up_button">
-										<a href="sign_up_athlete">Athlete</a>
-									</button>
-									</li>
+									
 				
 									<li>
 									<button type="button" class = "sign_up_button">
@@ -80,11 +69,7 @@
 									</button>
 									</li>
 				
-									<li>
-									<button type="button" class = "sign_up_button">
-										<a href="sign_up_sponsor">Sponsor</a>
-									</button>
-									</li>
+									
 								</div>	
 							</form>		      		      
 
@@ -96,4 +81,6 @@
 		</form>		      		      
 	</div>
 </div>
+
+
 {% endblock main %}

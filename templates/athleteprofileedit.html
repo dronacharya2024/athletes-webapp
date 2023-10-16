@@ -5,150 +5,25 @@
 {% endblock body %}
 
 {% block main %}
-<style>
-.text_02 {
-  font-size: 14px;
-	letter-spacing: 1px;
-	color: #000000;
-  line-height: 1.5;
-  font-family:verdana	
-}
 
-</style>
-<div class="row" style="position:relative;top:10%;left:20%;">
-  <div class="column" style= "width:80%">
-    {% if username!="" %}
-    "Welcome {{username}}
+<div class="row" style="position:relative;top:10%;left:10%;">
+  <div class="column" style= "width:80%;margin-top:50px;" >
+    <h5 class="bursh_text"> Please Enter your Profile Details</h1>
+    {% if session['username'] %}
+    <br><div class="lorem_text">
+    Welcome {{session['username']}}
+    </div>
     {% endif %}
   </div>
 </div>
+<div class="col-lg-8 col-sm-14" style="position:relative;top:0;left:30%">
+<form  role="form"  name="athleteform" id="athleteForm" action="#" method="post" enctype="multipart/form-data">
+ <div class="col-lg-6 col-sm-12" style="position:relative;top:0%;left:100px">
+ {% include "athleteprofiletemplate.html" %}
+ </form>
+ </div>
 
-<form  role="form"  action="#" method="post" enctype="multipart/form-data">
-  <div class="row" style="position:relative;top:10%;left:20%;border:2px solid red">
-    <div class="column" style= "width:30%">
-          <div style="margin-bottom: 10px">Enter Fullname:<input type= "text" name= "fullname" id= "fullname" placeholder="Full Name"></input></div>
-          <div style="margin-bottom: 10px"><input type= "text" name= "phoneno" id= "phoneno" placeholder="Phone No"></input></div>
-          <div style="margin-bottom: 10px"><input type= "email" name= "email" id= "email" placeholder="Email"></input></div>
-          <div style="margin-bottom: 10px"><input type= "text" name= "age" id= "age" placeholder="Age"></input></div>
-          
-        </div>
-        <div class="column text_02"><br>
-          <div style="margin-bottom: 10px"><input type= "text" name= "sport" id= "sport" placeholder="Sport"></input></div>
-          <div style="margin-bottom: 10px"><input type= "text" name= "rank" id= "rank" placeholder="Rank"></input></div>
-          <div style="margin-bottom: 10px">Choose a Profile Picture<input type= "file" name="profileimg" id= "profileimg" onchange="fileValidation('profileimg')"></input></div>
-        </div>
-      </div>
- 
-<br>
-
-<!-- Container for the image gallery -->
-<div class="container">
-
-    <!-- Full-width images with number text -->
-    
-    <div style="margin-bottom: 10px">Choose Images to Upload <input type= "file" name="filename1" id= "filename1"></input></div>
-    <div style="margin-bottom: 10px"><input type= "file" name="filename2" id= "filename2"></input></div>
-    <div style="margin-bottom: 10px"><input type= "file" name="filename3" id= "filename3"></input></div>
-    <div style="margin-bottom: 10px"><input type= "file" name="filename4" id= "filename4"></input></div>
-    <div style="margin-bottom: 10px"><input type= "file" name="filename5" id= "filename5"></input></div>
-  </div>
-  
-
-<div class="container">
-  <div>
-    <div class="row gutters-sm">
-      <div class="card mb-3">
-        <div class="card-body">
-          <div class="col-sm-3">                    
-            <div class="row">
-              <h2 class="mb-0">Achievements</h2>
-              <div class="col-sm-9 text-secondary">
-                <textarea name="achievements" id="achievements" rows="4" cols="50">Type Here</textarea>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <h2 class="mb-0">Best Record</h2>
-              <div class="col-sm-9 text-secondary">
-                <textarea name="bestrecord" id="bestrecord" rows="4" cols="50">Type Here</textarea>
-              </div>
-            </div>
-            <hr>                  
-            <div class="row">
-              <h2 class="mb-0">Coach</h2>
-              <div class="col-sm-9 text-secondary">
-                <textarea name="coach" rows="4" cols="50">Type Here</textarea>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <h2 class="mb-0">Coach Contact</h2  >
-              <div class="col-sm-9 text-secondary">
-                <textarea name="coachcontact" rows="4" cols="50">Type Here</textarea>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-12">
-                <input type="submit"  value="Finish" class="btn btn-info" style= "font-size:16px">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="container">
-  <div>
-    <div class="row gutters-sm">
-      <div class="card mb-3">
-        <div class="card-body">
-          <div class="col-sm-3">                
-            <div class="row">
-              <h2 class="mb-0">Coach's Comments</h2>
-              <div class="x" style="font-size:21px">
-                xxx
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</form>
-<!-- templatemo 121 simple gray -->
-<!-- 
-Simple Gray Template 
-http://www.templatemo.com/preview/templatemo_121_simple_gray 
--->
-
-<script>
- 
-    function fileValidation(filename) {
-
-        var fileInput =
-            document.getElementById(filename);
-         
-        var filePath = (fileInput.value).toLowerCase();
-     
-        // Allowing file type
-        var allowedExtensions =
-                /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-         
-        if (!allowedExtensions.exec(filePath)) {
-            alert('Invalid file type. Please enter only image files.');
-            fileInput.value = '';
-            
-        }
-       
-    }
-
-  </script>
-    
+ <script src="static/js/formscripts.js"></script> 
     
 </body>
 {% endblock main %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+
+
+<body style= "background-color:#fef4ec">
+
+    <div class="product_section layout_padding">
+        <div class="container">
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1>{{title}}</h1>
+                </div>
+            </div>
+
+
+                        
+         <div class="product_section_2 layout_padding">
+            <div class="row">
+
+                {% if  session['role'] == 'athlete' %}
+
+                <div class="col-lg-3 col-sm-6">
+                    <svg width="1000" height="500" style="position:relative;top:8%;left:-150px">
+                        <g>
+                            <rect x="5" y="20" rx="20" ry="20" width="250" height="170" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
+                            <text x="120px" y="10%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px"> <a href="athletetemplate?type=1">Change Password</a></text>
+                            <text x="95px" y="20%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px"><a href="athletetemplate?type=2&id={{session['id'] }}">Edit Profile</a></text>
+                            <text x="93px" y="30%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px"><a href="athletetemplate?type=3">Blog Post</a></text>
+                        </g>
+                    </svg>
+                </div>
+
+                
+            <div class="col-lg-7 col-sm-14" style="position:relative;top:0%;left:100px">
+                {% if request.args.get('type') == "1" %}
+
+                <form  name="athleteForm1" id="athleteForm1" action="{{ url_for('validate_athletetemplate') }}" method="post">
+                    <input type="hidden" name="type" id="type" value=1>
+                    <svg width="1000" height="1000" style="position:relative;top:-5px;left:-200px">
+                        <g>
+                            <rect x="50" y="20" rx="20" ry="20" width="600" height="400" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
+                            <text x="34%" y="17%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Enter New Password</text>
+                        </g>
+                    <foreignObject x="25%" y="18%" width="300" height="150">
+                        <body>
+                            <div class="dropdown">
+                                <span style="color: black; font-size:15px">
+                                    <input type= "password" name= "password" id= "password" placeholder="Password"></input>
+                                <br><br>
+                                </span>
+                                </div>       
+                                             
+                        </body>
+                    </foreignObject>
+                    <foreignObject x="23%" y="24%" width="300" height="150">
+                        <body>
+                              <ul class="assignbt">
+                                <li><a href="#" id="submitLink1" id="submitLink1" onclick="submitForm('athleteForm1')">Change Passsword</a></li>
+                                
+                            </ul>
+                        </body>
+                    </foreignObject>
+                    </g>
+                </svg>
+                    {% if request.args.get('txtMsg')=="1" %}
+                    <div class="row"><div class="col-lg-6 col-sm-12"><p class="lorem_text"><br><br>Your Password has been changed Successfully</p></div></div>
+                   {% endif %}
+                 </form>
+                 {% elif request.args.get('type') == "2" %}
+                 <form  role="form"  name="athleteform" id="athleteForm" action="#" method="post" enctype="multipart/form-data">
+
+                  <input type="hidden" name="type" id="type" value=2>
+                      {% include "athleteprofiletemplate.html" %}
+                 </form>
+                 {% endif %}
+
+
+              
+        {% endif %}
+        </div>
+    </div>
+    
+
+    <script src="static/js/formscripts.js"></script> 
+</body>
+{% endblock main %}

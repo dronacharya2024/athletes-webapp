@@ -1,132 +1,54 @@
 {% extends 'base.html' %}
 
-{% block body %}
-<body style= "background-color:#fef4ec">
-{% endblock body %}
 
 {% block main %}
-<style>
-.text_02 {
-  font-size: 18px;
-	letter-spacing: 1px;
-	color: #000000;
-  line-height: 1.5;
-  font-family:verdana	
-}
-.x{
-    line-height: 0;
-  }
-  .product_box {
-    width: 70%;
-    background-color: #ffffff;
-    height: auto;
-    border: 1px solid #7d7d7c;
-    padding: 20px 0px 0px 0px;
-    margin-top: 30px;
-}
 
-</style>
+<body style= "background-color:#fef4ec">
 
 <br>
 <br>
 
-<div class="row" style="position:relative;top:10%;left:41.5%">
-  <div style= "width:18%">
-    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" style="position:relative; top:10%; left:19%">
+<div class="row" style="position:relative;top:10%;left:5%;">
+  <div style="width:30%;">
+  
+    <img src="static/images/sponsor.jpeg" alt="Admin" class="rounded-circle" width="200" style="position:relative; top:10%; left:134%">
   </div>
-</div>
 
 <div class="column text_02">
-  <div style="margin-bottom: 10px; position:relative;top:10%;left:175%">Name/Company Name</div>
-  <div style="margin-bottom: 10px; position:relative;top:10%;left:179%">Individual/Group</div>
+  <div style="margin-bottom: 10px; position:relative;top:10%;left:180%;">{{sponsorName}}</div>
 </div>
 
-<div class="container">
-  <div>
-    <div class="row gutters-sm">
-      <div class="card mb-3">
-        <div class="card-body">
-          <div class="col-sm-3">
-            <div class="row">
-              <h2 class="mb-0" style="font-family: 'Open Sans', sans-serif; padding-left:18px; font-size:23px;">About</h2>
-              <br>
-              <div class="x" style="font-size:19px;padding-left: 28px;">xxx</div>
-            </div>
-            <hr>
-            <div class="row" >
-              <div class="col-sm-12">
-                <a class="btn btn-info " target="__blank" href="sponsorprofileedit" style= "font-size:16px">Edit</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="product_section layout_padding">
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h1 class="product_taital">Sponsored athletes</h1>
+        <h1 class="product_taital" style="position:relative;top:-60px;">Sponsored athletes</h1>
       </div>
     </div>
-    <div class="product_section_2 layout_padding">
+    
+    <div class="product_section_2 layout_padding" style="position:relative;top:-60px;">
       <div class="row">
-        <div class="col-lg-3 col-sm-6">
-          <div class="product_box">
-            <h4 class="bursh_text">Player name</h4>
-            <p class="lorem_text">Sport</p>
-            <img src="images/img-1.png" class="image_1">
-            <div class="btn_main">
-              <div class="buy_bt">
-                <ul>
-                  <li><a href="#">Add data</a></li>
-                  <li><a href="#">Add request</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-3 col-sm-6">
-            <div class="product_box">
-              <h4 class="bursh_text">Player name</h4>
-              <p class="lorem_text">Sport</p>
-              <img src="images/img-1.png" class="image_1">
-              <div class="btn_main">
-                <div class="buy_bt">
-                  <ul>
-                    <li><a href="#">Add data</a></li>
-                    <li><a href="#">Add request</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-3 col-sm-6">
-              <div class="product_box">
-                <h4 class="bursh_text">Player name</h4>
-                <p class="lorem_text">Sport</p>
-                <img src="images/img-1.png" class="image_1">
-                <div class="btn_main">
-                  <div class="buy_bt">
-                    <ul>
-                      <li><a href="#">Add data</a></li>
-                      <li><a href="#">Add request</a></li>
-                    </ul>
+        {% for item in docs %}
+                <div class="col-lg-4 col-sm-9">
+                  <div class="product_box" style="width: 70%;">
+                    <h4 class="bursh_text">{{item.firstname}}</h4>
+                    <p class="lorem_text">{{item.sport}}</p>
+                    <img src="static/uploads/{{item.profileimg}}" class="image_1">
+                    <div class="btn_main">
+                      <div class="buy_bt" align="center">
+                        <ul>
+                          <li><a href= {{url_for('athleteprofile',id=item._id)}}>View Profile</a></li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
+        {% endfor %}   
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
+   </div>
+    </div>
+
+    </div>
 </body>
 {% endblock main %}

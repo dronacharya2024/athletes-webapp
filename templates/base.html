@@ -6,48 +6,54 @@
 <title>{{title}}</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link href="{{ url_for('static', filename='css/templatemo_style.css') }}" rel="stylesheet" type="text/css" />
-<script language="javascript" type="text/javascript">
-function clearText(field){
 
-    if (field.defaultValue == field.value) field.value = '';
-    else if (field.value == '') field.value = field.defaultValue;
-
-}
-</script>
 </head>
 <head>
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
 	
-	<link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ url_for('static', filename='css/bootstrap-social.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ url_for('static', filename='css/template_style.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ url_for('static', filename='css/templatemo_style.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" type="text/javascript" href="{{ url_for('static', filename='js/current_page.js') }}">
-	
+   
 </head>
 {% block body %}{% endblock body %}
+   
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Simple Gray, Professional free website template</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="{{ url_for('static', filename='css/templatemo_style.css') }}" rel="stylesheet" type="text/css" />
-<script language="javascript" type="text/javascript">
-function clearText(field){
+<title>Dronacharya Shri Ramesh's Athletes</title>
 
-    if (field.defaultValue == field.value) field.value = '';
-    else if (field.value == '') field.value = field.defaultValue;
 
-}
-</script>
+<style>
+    /* Breadcrumb styling */
+    .breadcrumb1 {
+        background-color: #D4E574; /* Light background for the breadcrumb */
+        padding: 3px 8px; 
+        text-align: center; /* Centered breadcrumb, you can remove or adjust */
+        color:#000000;
+        border-radius: 8px 2px;
+        transition: color 0.3s ease, background-color 0.3s ease;
+    
+    }
+    
+    .breadcrumb1 a {
+         color:#000000;
+        background-color: #4CAF50;;
+        }
+    
+    .breadcrumb1 a:hover {
+        background-color:#4CAF50;
+        color:#000000;
+    }
+    
+    .breadcrumb1 a.active {
+        background-color: #4CAF50;
+        color:#000000;
+    }
+    </style>
 </head>
 <body>
 <div id="templatemo_header_wrapper">
@@ -61,30 +67,34 @@ function clearText(field){
             <ul>
                 <li><a href="home">Home</a></li>
                 <li><a href="requests">Requests</a></li>
-                <li><a href="viewplayers">Athletes</a></li>
+                <li> <a href= {{url_for('view_athletes')}}>Athletes</a></li>
                 <li><a href="viewsponsors">Sponsors</a></li>
                 <li><a href="viewcoaches">Coaches</a></li>
-                {% if username == null %}
-		  		<li><a href="login">Login</a></li>
+                {% if  session['username'] %}
+                <li><a href={{url_for('logout')}}>Logout</a></li>
                 {% else %}
-                <li><a href="login">Hello!</a></li>
-                {% endif %}            
-            </ul>    	
+                  <li><a href="login">Login</a></li>
+                {% endif %}      
+                     
+            </ul>    
+            {% if  session['role'] == 'coach' and session['username'] == 'superuser' %}
+            <br>
+            <a href="admintemplate"  style="position:relative;top:-40%;left:100%;color:#000000;" class="breadcrumb1"> Admin Page</a>
+            {% elif session['role'] == 'coach' %}
+            <br>
+            <a href="coachtemplate"  style="position:relative;top:-40%;left:100%;color:#000000;" class="breadcrumb1"> Coach Page</a>
+            {% elif session['role'] == 'athlete' %}
+            <br>
+            <a href="athletetemplate"  style="position:relative;top:-40%;left:100%;color:#000000;" class="breadcrumb1"> Athlete Page</a>
+         
+            {% endif %}  
 		</div> 
-    
+        
+        
     </div>
 </div>
 
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script>
-    $(function(){
-        $('a').each(function(){
-            if ($(this).prop('href') == window.location.href) {
-                $(this).addClass('active'); $(this).parents('li').addClass('active');
-            }
-        });
-    });
-</script>
+
 {% block main %}{% endblock main %}
 </body>
 </html>

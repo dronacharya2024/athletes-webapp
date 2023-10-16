@@ -2,111 +2,169 @@
 
 {% block main %}
 
-<style>
-.seemore_bt {
-    width: 50px;
-    margin: 0 auto;
-    padding-top: 60px;
-}    
-</style>
+
 <body style= "background-color:#fef4ec">
     <div class="product_section layout_padding">
         <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <h4 class="bursh_text"> Welcome Super User</h1>
-                <p class="product_text"></p>
             </div>
         </div>
         
         </div>
-        <svg width="1000" height="500" style="position:relative;top:8%;left:170px">
-            <g>
-                <rect x="5" y="20" rx="20" ry="20" width="250" height="170" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
-                <text x="90px" y="10%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Approve Coaches</text>
-                <text x="105px" y="20%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Update Coach-Athlete</text>
-                <text x="125px" y="30%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Approve Pending Requests</text>
-            </g>
-        </svg>
+        <div class="row" >
+            <div class="col-lg-3 col-sm-6">
+                <svg width="1000" height="500" style="position:relative;top:8%;left:170px">
+                    <g>
+                        <rect x="5" y="20" rx="20" ry="20" width="250" height="170" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
+                        <text x="90px" y="10%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px"> <a href="admintemplate?type=1">Approve Coaches</a></text>
+                        <text x="105px" y="20%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px"><a href="admintemplate?type=2">Update Coach-Athlete</a></text>
+                        <text x="125px" y="30%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px"><a href="admintemplate?type=3">Approve Pending Requests</a></text>
+                    </g>
+                </svg>
+         </div>
 
-        <svg width="1000" height="1000" style="position:relative;top:-501px;left:495px">
-            <g>
-                <rect x="5" y="20" rx="20" ry="20" width="500" height="400" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
-                <text x="80px" y="5%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Coach Name</text>
-                <text x="80px" y="10%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Coach Name</text>
-                <text x="80px" y="15%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Coach Name</text>
-            </g>
-            
-            <foreignObject x="200px" y="-3%" width="300" height="150">
-                <body>
-                    <div class="seemore_bt"><a href="" style="color:white">&#x2713</a></div>
-                </body>
-            </foreignObject>
-            <foreignObject x="265px" y="-3%" width="300" height="150">
-                <body>
-                    <div class="seemore_bt"><a href="" style="color:white">&#10005</a></div>
-                </body>
-            </foreignObject>
-
-            <foreignObject x="250px" y="2%" width="200" height="150">
-                <body>
-                    <div class="seemore_bt"><a href="" style="color:white">&#x2713</a></div>
-                </body>
-            </foreignObject>
-            <foreignObject x="265px" y="2%" width="300" height="150">
-                <body>
-                    <div class="seemore_bt"><a href="" style="color:white">&#10005</a></div>
-                </body>
-            </foreignObject>
-
-            <foreignObject x="250px" y="7%" width="200" height="150">
-                <body>
-                    <div class="seemore_bt"><a href="" style="color:white">&#x2713</a></div>
-                </body>
-            </foreignObject>
-            <foreignObject x="265px" y="7%" width="300" height="150">
-                <body>
-                    <div class="seemore_bt"><a href="" style="color:white">&#10005</a></div>
-                </body>
-            </foreignObject>
-        </svg>
-
-
-    </div>
-
-    <div class="row">
-        <div class="col-lg-3 col-sm-6"></div>
-    {% for item in docs %}
-                        
-    TITLE:  {{item}}  <br>  EMAIL:  {{item.email}}   
-
-    {% endfor %}
-        </div>
-    </div>
-
-
-
-    <!-- Javascript files-->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery-3.0.0.min.js"></script>
-    <script src="js/plugin.js"></script>
-    <!-- sidebar -->
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/custom.js"></script>
-    <!-- javascript --> 
-    <script src="js/owl.carousel.js"></script>
-    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>  
-    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-    <script>
-        function openNav() {
-        document.getElementById("mySidenav").style.width = "100%";
-        }
+         <div class="col-lg-6 col-sm-12" style="position:relative;top:0%;left:100px">
+        {% if request.args.get('type') == "1" %}
         
-        function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-        }
-    </script> 
+        <form  name="adminForm" id="adminForm" action="{{ url_for('process_admintemplate') }}" method="post">
+            
+            <div class="product_section_2 layout_padding">
+                <div class="row">
+                    <input type="hidden" name="type" id="type" value=1>
+                    <input type="hidden" name="coachID" id="coachID">
+                    <input type="hidden" name="acceptID" id="acceptID">
+                    <input type="hidden" name="emailID" id="emailID">
+                    {% if docs%}
+                    {% for item in docs %}
+                    <div class="col-lg-4 col-sm-5">
+                        <div class="product_box">
+                            <h4 class="bursh_text">{{item.firstname}} {{item.surname}}</h4>
+                            <p class="lorem_text">{{item.email}}</p>
+                            <img src="static/uploads/{{item.profilepic}}" class="image_1_view" width="100" height="200">
+                            <div class="btn_main">
+                                <div class="buy_bt">
+                                    <ul>
+                                        <li><a href="#" id="submitLink" onclick="submitForm1('{{item._id}}',1,'{{item.email}}')">Approve</a></li>
+                                        <li><a href="#" id="submitLink" onclick="submitForm1('{{item._id}}',0,'{{item.email}}')">Reject</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                   
+                        
+                </div>
+                {% if request.args.get('txtMsg')=="1" %}
+                 <div class="row"><div class="col-lg-6 col-sm-12"><p class="lorem_text"><br><br> Coach has been deleted Successfully</p></div></div>
+                {% endif %}
+                {% else %}
+                <div class="row" style="position:relative;top:120%;left:100px;"><div class="col-lg-6 col-sm-12"><p class="lorem_text"><br><br> No Current List Of Coaches to Approve</p></div></div>
+                {% endif %}
+    </form>
+   
+
+         {% elif request.args.get('type') == "2" %}
+
+         <form  name="adminForm2" id="adminForm2" action="{{ url_for('process_admintemplate') }}" method="post">
+            <input type="hidden" name="type" id="type" value=2>
+            <svg width="1000" height="1000" style="position:relative;top:5px;left:95px">
+                <g>
+                    <rect x="5" y="20" rx="20" ry="20" width="600" height="400" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
+                    <text x="140px" y="15%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Coach Name</text>
+                    <text x="140px" y="20%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px">Athlete Name</text>
+                </g>
+            <foreignObject x="280px" y="135px" width="300" height="150">
+                <body>
+                    <div class="dropdown">
+                        <span style="color: black; font-size:15px">
+                        <select name="coachID" id="coachID">
+                            {% for item in coachData %}
+                            <option value={{item._id}}>{{item.firstname}} {{item.surname}}</option>
+                            {% endfor %}
+                        </select>
+                        <br><br>
+                        </span>
+                        </div>       
+                                     
+                </body>
+            </foreignObject>
+            <foreignObject x="280px" y="190px" width="300" height="150">
+                <body>
+                    <div class="dropdown">
+                        <span style="color: black; font-size:15px">
+                        <select name="athleteID" id="athleteID">
+                        {% for item1 in athleteData %}
+                        <option value={{item1._id}}>{{item1.fullname}}</option>
+                        {% endfor %}
+                        </select>
+                        <br><br>
+                        </span>
+                        </div>                     
+                </body>
+            </foreignObject>
+            <foreignObject x="150px" y="290px" width="300" height="150">
+                <body>
+                      <ul class="assignbt">
+                        <li><a href="#" id="submitLink2" id="submitLink2" onclick="submitForm('adminForm2')">Assign</a></li>
+                        
+                    </ul>
+                </body>
+            </foreignObject>
+
+            {% if request.args.get('txtMsg')=="2" %}
+            <foreignObject x="100px" y="390px" width="300" height="150">
+                <body>
+                <p class="lorem_text"><br><br> Coach- Athlete has been Successfully Assigned</p>
+                 </body>
+            </foreignObject>
+            {% endif %}
+         </form>
+   
+   
+        {% elif request.args.get('type') == "3" %}
+
+         <form  name="adminForm3" id="adminForm3" action="{{ url_for('process_admintemplate') }}" method="post">
+            <input type="hidden" name="type" id="type" value=3>
+            
+         {% if requestData %} 
+         {% for item3 in requestData %}
+            <input type="hidden" name="requestID" id="requestID" value="{{item3._id}}">
+         <svg width="1500" height="180" style="position:relative;top:10%;left:-95px">
+           <g>
+               <rect x="70" y="20" rx="20" ry="20" width="850" height="100" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
+               <text x="8%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item3.request_subject}}</text>
+               <text x="17%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item3.request_amt}}</text>
+               <text x="28%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item3.request_enddate}}</text>
+                
+               <foreignObject x="45%" y="-5%" width="250" height="150">
+                   <body>
+                       <div class="seemore_bt"><a href="#" style="color:white" id="submitLink3" id="submitLink3" onclick="submitForm('adminForm3')">Approve</a></div>
+                   </body>
+               </foreignObject>
+            
+           </g>
+         </svg>
+                 {% endfor %}
+
+                 {% if request.args.get('txtMsg') == "3" %}
+                 <div class="row"><div class="col-lg-6 col-sm-12"><p class="lorem_text"><br><br>Request has been Approved</p></div></div>
+                 {% endif %}
+
+        {% else %}
+            <div class="row" align="center" style="position:relative;top:120%;left:100px;"><div class="col-lg-6 col-sm-12" align="center"><p class="lorem_text"><br><br>No current List Of Requests To Approve</p></div></div>
+        {% endif %}
+        {% endif %}
+
+
+    </div>
+
+   </div>
+</div>
+
+
+<script src="static/js/formscripts.js"></script> 
 </body>
 {% endblock main %}
