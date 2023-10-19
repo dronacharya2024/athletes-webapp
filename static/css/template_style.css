@@ -180,8 +180,7 @@ span {
 .request-form .form-control {
 	background-color: rgb(255, 255, 255);
 	border: 1px solid rgba(255, 255, 255, 0.27);
-	/*color: rgb(0, 0, 0);*/
-	color: #FFFFFF;
+	color: rgb(0, 0, 0);
 	text-decoration-color: black;
 }
 
@@ -203,7 +202,6 @@ span {
 .logo { margin: 18px; }
 
 
-/*
 
 .templatemo-create-account {
 	background-color: #fff;
@@ -287,6 +285,9 @@ span {
 }
 .templatemo-payment-form .control-label { margin-bottom: 10px; }
 .templatemo-payment-form .btn {	width: 150px; }
+
+
+
 .templatemo-select-container { padding: 0; }
 .cvv2 {
 	width: 50px;
@@ -309,7 +310,7 @@ span {
 .radio-inline+.radio-inline { margin-left: 0; }
 .templatemo-radio-container { margin-left: 15px; }
 
-*/
+
 
 /*-------------------------------------
 10. Media Queries

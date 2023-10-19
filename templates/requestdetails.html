@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<body style= "background-color:#fef4ec">
+    <div class="product_section layout_padding">
+        <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="product_taital">Our Sponsors</h1>
+                
+            </div>
+        </div>
+
+        <div class="row" >
+
+            <form  name="requestForm7" id="requestForm7" action="" method="post">
+                 <div class="container" style="position:relative;top:60px;left:-15px;width:700px;">
+                <div width="100%">
+                  <div class="row gutters-sm" >
+                    <div class="card mb-3">
+                      <div class="card-body">
+                        <div class="col-sm-14"><br>
+                        
+                          <div class="row">
+                            <div class="col-sm-3"><h4 class="mb-0">Athlete Name:</h4></div>
+                            <div class="col-sm-9 text-secondary">{{athleteData.firstname}} {{athleteData.surname}}</div>
+                          </div>
+                          <hr>  
+                          <div class="row">
+                            <div class="col-sm-3">
+                            <h4 class="mb-0">Request Subject:</h4></div>
+                            <div class="col-sm-9 text-secondary">{{requestdata.request_subject}}</div>
+                            </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-4">
+                            <h4 class="mb-0">Request Description:</h4></div>
+                            <div class="col-sm-9 text-secondary">{{requestdata.description}}</div>
+                            </div>
+                          <hr>
+                       
+                         
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                         
+        </div>
+        <div class="product_section_2 layout_padding" style="position:relative;top:80px;left:10%">
+            <div class="row">
+            {% if docs %}
+                {% for item in docs %}
+                <div class="col-lg-3 col-sm-6">
+                    <div class="view_box"><a href="sponsorprofile?sponsorName={{item.companyname}}&sponsorID={{item.sponsorID}}">
+                    <h4 class="bursh_text">{{item.companyname}} </h4>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="col-lg-6 col-sm-12" style="position:relative;top:30px;left:15%">
+                <div class="view_box" style="border:1px solid red">
+                <h4 class="bursh_text">Currently No Sponsorship  </h4>
+                </div>
+            </div>
+            {% endif %}
+            </div>
+        </div>    
+        </div>
+        </div>
+    </div>
+ 
+{% endblock main %}

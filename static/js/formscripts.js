@@ -1,21 +1,19 @@
 function fileValidation(filename) {
-
     var fileInput =
         document.getElementById(filename);
-     
-    var filePath = (fileInput.value).toLowerCase();
+         var filePath = (fileInput.value).toLowerCase();
  
     // Allowing file type
     var allowedExtensions =
             /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-     
-    if (!allowedExtensions.exec(filePath)) {
+    
+    if (!allowedExtensions.test(filePath)) {
         alert('Invalid file type. Please enter only image files.');
         fileInput.value = '';
         
     }
    
-    }
+}
    
 function submitForm(frmName) {
         document.getElementById(frmName).submit();

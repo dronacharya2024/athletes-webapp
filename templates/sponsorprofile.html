@@ -30,13 +30,13 @@
         {% for item in docs %}
                 <div class="col-lg-4 col-sm-9">
                   <div class="product_box" style="width: 70%;">
-                    <h4 class="bursh_text">{{item.firstname}}</h4>
+                    <h4 class="bursh_text">{{item.firstname}}&nbsp;{{item.surname}}</h4>
                     <p class="lorem_text">{{item.sport}}</p>
                     <img src="static/uploads/{{item.profileimg}}" class="image_1">
                     <div class="btn_main">
                       <div class="buy_bt" align="center">
                         <ul>
-                          <li><a href= {{url_for('athleteprofile',id=item._id)}}>View Profile</a></li>
+                          <li><a href= {{url_for('athleteprofile',id=item.athleteID)}}>View Profile</a></li>
                         </ul>
                       </div>
                     </div>

@@ -63,11 +63,16 @@
                             </ul>
                         </body>
                     </foreignObject>
-                    </g>
-                </svg>
+                
                     {% if request.args.get('txtMsg')=="1" %}
-                    <div class="row"><div class="col-lg-6 col-sm-12"><p class="lorem_text"><br><br>Your Password has been changed Successfully</p></div></div>
+                    <foreignObject x="20%" y="40%" width="300" height="150">
+                        <body>
+                        <p class="lorem_text" style="color:red; font-weight: bold;"><br><br>Your Password has been changed Successfully</p>
+                        </body>
+                     </foreignObject>
                    {% endif %}
+                </g>
+              </svg>
                  </form>
                  {% elif request.args.get('type') == "2" %}
                  <form  role="form"  name="athleteform" id="athleteForm" action="#" method="post" enctype="multipart/form-data">
@@ -83,7 +88,7 @@
         </div>
     </div>
     
-
     <script src="static/js/formscripts.js"></script> 
+          
 </body>
 {% endblock main %}

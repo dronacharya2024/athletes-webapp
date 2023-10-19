@@ -67,7 +67,6 @@
             <ul>
                 <li><a href="home">Home </a></li>
                 <li><a href="requests">Requests</a></li>
-<<<<<<< Updated upstream
                 <li> <a href= {{url_for('view_athletes')}}>Athletes</a></li>
                 <li><a href="viewsponsors">Sponsors</a></li>
                 <li><a href="viewcoaches">Coaches</a></li>
@@ -89,22 +88,6 @@
             <a href="athletetemplate"  style="position:relative;top:-40%;left:100%;color:#000000;" class="breadcrumb1"> Athlete Page</a>
          
             {% endif %}  
-=======
-                <li> {% if  session['role'] == 'coach' %}
-                    <a href= {{url_for('view_athletes', coachID=session['id'])}}>
-                     {% else %}
-                     <a href= {{url_for('view_athletes')}}>
-                     {% endif %}
-                     Athletes</a></li>
-                <li><a href="viewsponsors">Sponsors</a></li>
-                <li><a href="viewcoaches">Coaches</a></li>
-                {% if  session['username'] %}
-                   <li><a href={{url_for('logout')}}>Logout</a></li>
-                {% else %}
-                    <li><a href="login">Login</a></li>
-                {% endif %}            
-            </ul>    	
->>>>>>> Stashed changes
 		</div> 
         
         
