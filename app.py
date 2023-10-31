@@ -92,7 +92,6 @@ def validate_login():
         {'username': username, 'password': password, 'status': 1})
 
     if user_data:
-        global user_type
         user_type = user_data.get('user_type')
         user_id = user_data.get('_id')
 
@@ -112,9 +111,6 @@ def validate_login():
             session['role'] = user_type
             session['username'] = username
             return redirect(url_for('coachtemplate'))
-        elif user_type == 'sponsor':
-            # Redirect sponsors to requests page
-            return redirect(url_for('requests'))
 
     else:
         # return error message in login page
@@ -530,7 +526,6 @@ def sponsorprofile():
         if athlete_id:
             athleteData = db.athletes_data.find_one(
                 {"_id": ObjectId(athlete_id)})
-            print(athleteData)
             if athleteData:
                 docs.append({
                     "athleteID": athleteData.get("_id", None),
@@ -564,7 +559,7 @@ def get_coach_name(athlete_id):
     coach_id = relation["coachID"]
 
     # Query the db.coach collection using coach_id to get coach's name
-    coach = db.coach_data.find_one({"_id": coach_id})
+    coach = db.coach_data.find_one({"_id": ObjectId(coach_id)})
     if not coach:
         return None
 
@@ -615,7 +610,6 @@ def view_athletes():
 
     coachID = request.args.get('coachID')
     page = request.args.get('page', 1, type=int)
-    print(page)
     doccount = db.athletes_data.find()
     count = len(list(doccount.clone()))
     if count <= 12:
@@ -624,7 +618,6 @@ def view_athletes():
         docs = db.athletes_data.find().skip(12 * page).limit(12)
 
     title = 'Our Athletes'
-    athlete_class = 'current'
     return render_template('viewathletes.html', title=title, docs=list(docs), count=count)
 
 
@@ -724,6 +717,7 @@ def coachtemplate():
         coachID = session['id']
         approveddocs = db.request_data.find(
             {"coachID": coachID, "status": 1})
+
         return render_template('coachtemplate.html', approveddocs=approveddocs)
     elif type == "7":
         coachID = session['id']
@@ -740,20 +734,23 @@ def coachtemplate():
             sponsorReqdoc = list(sponsorReqdoc)
             sponsorIDdocs = []
             sponsorAmtdocs = []
+            sponsorReqIDdocs = []
+
             for sponsor in sponsorReqdoc:
                 sponsor_id = sponsor.get('sponsorID')
                 if sponsor_id:
                     sponsorIDdocs.append(str(sponsor_id))
                     sponsorAmtdocs.append(
                         int(sponsor.get('request_amt_recieved')))
-
+                    sponsorReqIDdocs.append(str(sponsor.get('_id')))
             sponsorAmt = sum(sponsorAmtdocs)
             amtRemaining = int(requestdoc.get("request_amt"))-sponsorAmt
         else:
             sponsorIDdocs = None
             sponsorAmtdocs = None
+            sponsorReqIDdocs = None
             amtRemaining = None
-        return render_template('coachtemplate.html', requestdoc=requestdoc, athletedoc=athletedoc, sponsordoc=sponsordoc, sponsorIDdocs=sponsorIDdocs, sponsorAmtdocs=sponsorAmtdocs, amtRemaining=amtRemaining)
+        return render_template('coachtemplate.html', requestdoc=requestdoc, athletedoc=athletedoc, sponsordoc=sponsordoc, sponsorIDdocs=sponsorIDdocs, sponsorAmtdocs=sponsorAmtdocs, sponsorReqIDdocs=sponsorReqIDdocs, amtRemaining=amtRemaining)
 
     else:
         return render_template('coachtemplate.html')
@@ -843,22 +840,27 @@ def validate_coachtemplate():
         amtRecieved1 = request.form['amtRecieved1']
         if amtRecieved1:
             sponsorID1 = request.form['sponsorID1']
+            sponsorReqID1 = request.form['sponsorReqID1']
             i = 1
         amtRecieved2 = request.form['amtRecieved2']
         if amtRecieved2:
             sponsorID2 = request.form['sponsorID2']
+            sponsorReqID2 = request.form['sponsorReqID2']
             i = i+1
         amtRecieved3 = request.form['amtRecieved3']
         if amtRecieved3:
             sponsorID3 = request.form['sponsorID3']
+            sponsorReqID3 = request.form['sponsorReqID3']
             i = i+1
         amtRecieved4 = request.form['amtRecieved4']
         if amtRecieved4:
             sponsorID4 = request.form['sponsorID4']
+            sponsorReqID4 = request.form['sponsorReqID4']
             i = i+1
         amtRecieved5 = request.form['amtRecieved5']
         if amtRecieved5:
             sponsorID5 = request.form['sponsorID5']
+            sponsorReqID5 = request.form['sponsorReqID5']
             i = i+1
         n = 1
         for n in range(1, 6):
@@ -866,6 +868,9 @@ def validate_coachtemplate():
             request_amt = request.form[request_txt]
             sponsor_txt = "sponsorID" + str(n)
             sponsorID = request.form[sponsor_txt]
+            sponsorReq_txt = "sponsorReqID" + str(n)
+            sponsorReqID = request.form[sponsorReq_txt]
+
             if request_amt != "":
                 doc = {
                     "coachID": coachID,
@@ -875,16 +880,14 @@ def validate_coachtemplate():
                     "request_amt_recieved": request_amt,
                 }
                 if actionID == "1":
-                    sponsorReqID = db.sponsor_request_data.find_one(
-                        {'sponsorID': sponsorID, 'requestID': requestID, 'athleteID': athleteID})
+
                     if sponsorReqID:
-                        sponsReqID = sponsorReqID['_id']
+                        sponsReqID = sponsorReqID
                         filter = {"_id": ObjectId(sponsReqID)}
                     else:
                         filter = {}
-
                     update_result = db.sponsor_request_data.update_one(
-                        filter, {"$set": doc}, upsert=True)
+                        filter, {"$set": doc}, upsert=False)
                 else:
                     insert_result = db.sponsor_request_data.insert_one(doc)
                 n = n+1
