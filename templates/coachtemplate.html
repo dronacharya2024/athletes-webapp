@@ -313,7 +313,6 @@
                         <text x="8%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item1.request_subject}}</text>
                         <text x="17%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item1.request_amt}}</text>
                         <text x="28%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item1.request_enddate}}</text>
-                       
                         <foreignObject x="42%" y="-6%" width="200" height="150">
                             <body>
                                 <div class="seemore_bt"><a href="coachtemplate?type=7&requestID={{item1._id}}&actionID=1"  id="submitLink1" id="submitLink1">Edit</a></div>
@@ -324,7 +323,7 @@
                                 <div class="seemore_bt"><a href="coachtemplate?type=7&requestID={{item1._id}}"  id="submitLink1" id="submitLink1">Add</a></div>
                             </body>
                         </foreignObject>
-                    
+                        
                     </g>
                 </svg>
                 {% endfor %}
@@ -378,6 +377,7 @@
                                 <div class="col-md-3">
                                 <h4 class="mb-0" style="margin-left:8px;">Amount Recieved </h4>
                                 <div class="col-md-9 text-secondary"><input type="text" class="form-control" id="amtRecieved1" name="amtRecieved1"  onblur="updateResult('{{requestdoc.request_amt}}')" value={% if sponsorAmtdocs[0] is defined %} {{sponsorAmtdocs[0]}} {% else %} "" {% endif %}>
+                                    <input type="hidden" name="sponsorReqID1" id="sponsorReqID1" value={{sponsorReqIDdocs[0]}}>  
                                 </div>
                                  </div>
                                 <div class="col-md-3">
@@ -394,8 +394,9 @@
                                         {% endfor %}                                 
                                     </select></div>
                                     </div>
-                                    <div class="col-sm-2" style="display:inline-block;position:relative;top:25px;left:40px;"><img src="static/images/plussign.jpg"   id="plusimg1" width="30" onclick="displayRow('hideDisp2','plusimg1')"></div>
-                                      
+                                    {% if request.args.get('actionID') != "1" %}
+                                        <div class="col-sm-2" style="display:inline-block;position:relative;top:25px;left:40px;"><img src="static/images/plussign.jpg"   id="plusimg1" width="30" onclick="displayRow('hideDisp2','plusimg1')"></div>
+                                    {% endif %}
                                 </div>
                               </div>
                               <hr>
@@ -403,6 +404,7 @@
                                 <div class="col-md-3">
                                 <h4 class="mb-0" style="margin-left:8px;">Amount Recieved</h4>
                                 <div class="col-md-9 text-secondary"><input type="text" class="form-control" id="amtRecieved2" name="amtRecieved2" value={% if sponsorAmtdocs[1] is defined %} {{sponsorAmtdocs[1]}} {% endif %}></div>
+                                    <input type="hidden" name="sponsorReqID2" id="sponsorReqID2" value={{sponsorReqIDdocs[1]}}>
                                 </div>
                                 <div class="col-md-3">
                                     <h4 class="mb-0" style="margin-left:8px;">Sponsor</h4>
@@ -417,15 +419,17 @@
                                         {% endfor %}                                 
                                     </select></div>
                                     </div>
+                                    {% if request.args.get('actionID') != "1" %}
                                     <div class="col-sm-2" style="display:inline-block;position:relative;top:25px;left:30px;"><img src="static/images/plussign.jpg"   id="plusimg2" width="30" onclick="displayRow('hideDisp3','plusimg2')"></div>
-                                
+                                    {% endif %}
                                 </div>
                                 <hr>
                                  <div class="row" id="hideDisp3"  style= {% if sponsorIDdocs[2] is defined %} "display:block;" {% else %}"display:none;" {% endif %}>
                                   <div class="col-md-3">
                                   <h4 class="mb-0" style="margin-left:8px;">Amount Recieved</h4>
                                   <div class="col-md-9 text-secondary"><input type="text" class="form-control" id="amtRecieved3" name="amtRecieved3" value={% if sponsorAmtdocs[2] is defined %} {{sponsorAmtdocs[2]}}{% endif %}></div>
-                                  </div>
+                                        <input type="hidden" name="sponsorReqID3" id="sponsorReqID3" value={{sponsorReqIDdocs[2]}}>
+                                    </div>
                                   <div class="col-md-3">
                                       <h4 class="mb-0" style="margin-left:8px;">Sponsor</h4>
                                       <div class="col-md-5 text-secondary">
@@ -439,13 +443,16 @@
                                           {% endfor %}                                 
                                       </select></div>
                                   </div>
-                                  <div class="col-sm-2" style="display:inline-block;position:relative;top:25px;left:30px;"><img src="static/images/plussign.jpg"   id="plusimg3" width="30" onclick="displayRow('hideDisp4','plusimg3')"></div>
-                                  </div>
+                                  {% if request.args.get('actionID') != "1" %}
+                                     <div class="col-sm-2" style="display:inline-block;position:relative;top:25px;left:30px;"><img src="static/images/plussign.jpg"   id="plusimg3" width="30" onclick="displayRow('hideDisp4','plusimg3')"></div>
+                                  {% endif %}
+                                </div>
                                   <hr>
                                   <div class="row" id="hideDisp4"  style= {% if sponsorIDdocs[3] is defined %} "display:block;" {% else %}"display:none;" {% endif %}>
                                     <div class="col-md-3">
                                     <h4 class="mb-0" style="margin-left:8px;">Amount Recieved</h4>
                                     <div class="col-md-9 text-secondary"><input type="text" class="form-control" id="amtRecieved4" name="amtRecieved4" value={% if sponsorAmtdocs[3] is defined %} {{sponsorAmtdocs[3]}}{% endif %}></div>
+                                            <input type="hidden" name="sponsorReqID4" id="sponsorReqID4" value={{sponsorReqIDdocs[3]}}>
                                     </div>
                                     <div class="col-md-3">
                                         <h4 class="mb-0" style="margin-left:8px;">Sponsor</h4>
@@ -461,13 +468,16 @@
                                             {% endfor %}                                 
                                         </select></div>
                                     </div>
+                                    {% if request.args.get('actionID') != "1" %}
                                     <div class="col-sm-2" style="display:inline-block;position:relative;top:25px;left:30px;"><img src="static/images/plussign.jpg"   id="plusimg4" width="30" onclick="displayRow('hideDisp5','plusimg4')"></div>
-                                    </div>
+                                    {% endif %}
+                                        </div>
                                     <hr>
                                     <div class="row" id="hideDisp5"  style= {% if sponsorIDdocs[4] is defined %} "display:block;" {% else %}"display:none;" {% endif %}>
                                         <div class="col-md-3">
                                         <h4 class="mb-0" style="margin-left:8px;">Amount Recieved</h4>
                                         <div class="col-md-9 text-secondary"><input type="text" class="form-control" id="amtRecieved5" name="amtRecieved5" value={% if sponsorAmtdocs[4] is defined %} {{sponsorAmtdocs[4]}}{% endif %}></div>
+                                                <input type="hidden" name="sponsorReqID5" id="sponsorReqID5" value={{sponsorReqIDdocs[4]}}>
                                         </div>
                                         <div class="col-md-3">
                                             <h4 class="mb-0" style="margin-left:8px;">Sponsor</h4>
