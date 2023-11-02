@@ -915,7 +915,8 @@ def requestdetails():
     title = "Requests"
     requestID = request.args.get('requestID')
     requestdata = db.request_data.find_one({"_id": ObjectId(requestID)})
-    requestdoc = db.sponsor_request_data.find({"requestID": requestID})
+    requestdoc = db.sponsor_request_data.distinct(
+        'sponsorID', {"requestID": requestID})
     requestdoc = list(requestdoc)
     docs = []
     if len(requestdata) > 0:
@@ -923,7 +924,7 @@ def requestdetails():
         athleteData = db.athletes_data.find_one(
             {"_id": ObjectId(athleteID)})
     for sponsor in requestdoc:
-        sponsor_id = sponsor.get('sponsorID')
+        sponsor_id = sponsor
         if sponsor_id:
             sponsorData = db.sponsor_data.find_one(
                 {"_id": ObjectId(sponsor_id)})
