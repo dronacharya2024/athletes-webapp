@@ -66,7 +66,7 @@ def login():
     Displays form for user
     """
     title = 'Login'
-    return render_template('login.html', title=title)
+    return render_template('Login.html', title=title)
 
 # validate login
 
@@ -115,7 +115,7 @@ def validate_login():
     else:
         # return error message in login page
         error = "Invalid username or password. Please try again."
-        return render_template('login.html', error=error)
+        return render_template('Login.html', error=error)
 
 
 # login page
