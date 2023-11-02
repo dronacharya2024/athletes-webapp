@@ -1,0 +1,84 @@
+
+{% extends 'base.html' %}
+
+{% block body %}
+<body class="templatemo-bg-image-1">
+{% endblock body %}
+
+{% block main %}
+<div class="container">
+	<div class="col-md-12">			
+		<form class="form-horizontal templatemo-login-form-2" role="form" action="#" method="post">
+			<div class="row">
+				<div class="col-md-12" style = "padding-top: 30px;">
+					<h1>Login</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="templatemo-one-signin col-md-12">
+					<div class="form-group">
+						<div class="col-md-12">
+							<p>{{error}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-12">		          	
+						<label for="username" class="control-label">Username</label>
+						<div class="templatemo-input-icon-container">
+							<i class="fa fa-user"></i>
+							<input type="text" class="form-control" id="username" name="username" placeholder="" required>
+						</div>		
+						           		            		            
+						</div>              
+					</div>
+					<div class="form-group">
+						<div class="col-md-12">
+						<label for="password" class="control-label">Password</label>
+						<div class="templatemo-input-icon-container">
+							<i class="fa fa-lock"></i>
+							<input type="password" class="form-control" id="password" name="password" placeholder="" required>
+						</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-md-12">
+						<input type="submit" value="LOG IN" class="btn btn-warning">
+						</div>
+					</div>
+
+					<div class="container">
+						<div class="col-md-12">			
+							<form class="form-horizontal templatemo-login-form-2" role="form" action="#" method="post">
+								<div class="row">
+									<div class="col-md-12">
+										<center>
+										</br><span>Don't have an account?</span></br>
+										<span>Sign up</span></center></br>
+									</center>	
+							
+									</div>
+								</div>
+								<div class="row" align="center">
+				
+									
+				
+									<li>
+									<button type="button" class = "sign_up_button">
+										<a href="sign_up_coach">Coach</a>
+									</button>
+									</li>
+				
+									
+								</div>	
+							</form>		      		      
+
+						</div>	
+					</div>	
+
+				</div>
+			</div>				 	
+		</form>		      		      
+	</div>
+</div>
+{% endblock main %}
