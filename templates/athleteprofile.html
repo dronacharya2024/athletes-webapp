@@ -139,6 +139,7 @@
                 </div>
               </div>
               <hr>
+              {% if  session['role'] == "athlete" %}
               <div class="row">
                 <div class="col-sm-12">
                   <ul class="assignbt">
@@ -148,6 +149,7 @@
                  
                 </div>
               </div>
+              {% endif %}
             </div>
           </div>
         </div>
