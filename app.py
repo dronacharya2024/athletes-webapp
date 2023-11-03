@@ -14,7 +14,7 @@ from email.message import EmailMessage
 
 # instantiate the app
 app = Flask(__name__)
-app.config['UPLOAD_DIRECTORY'] = 'aailneni/athletes-web-app/static/uploads/'
+app.config['UPLOAD_DIRECTORY'] = 'https://github.com/aailneni/athletes-web-app/static/uploads/'
 app.config['MAX_CONTANT_LENGTH'] = 16*500*500
 app.config['ALLOWED_EXTENSION'] = ['.jpg', '.jpeg', '.png', '.gif']
 app.config['SECRET_KEY'] = "super_secret_key"
