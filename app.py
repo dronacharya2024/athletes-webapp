@@ -11,9 +11,6 @@ from datetime import datetime
 import smtplib
 import imghdr
 from email.message import EmailMessage
-import requests
-import base64
-from github import Github
 
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
