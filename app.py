@@ -11,6 +11,15 @@ from datetime import datetime
 import smtplib
 import imghdr
 from email.message import EmailMessage
+import requests
+import base64
+from github import Github
+
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
+from googleapiclient.errors import HttpError
+import tempfile
 
 # instantiate the app
 app = Flask(__name__)
@@ -235,8 +244,7 @@ def add_coach():
 
     profilefilename = secure_filename(file.filename)
     if file:
-        file.save(os.path.join(
-            app.config['UPLOAD_DIRECTORY'], profilefilename))
+        fileVar = upload_image_drv(file)
 
     # return error if their account already exists
     if db.login_data.count_documents({'email': email}) != 0:
@@ -896,7 +904,7 @@ def validate_coachtemplate():
 
 
 @ app.route("/requests")
-def requests():
+def allrequests():
     """
     Route for GET request to requests page
     Displays page where users can view all athlete requests
@@ -946,6 +954,85 @@ def create_request():
     """
     docs = db.athletes_data.find()
     return render_template('createrequest.html', docs=docs)
+
+
+@app.route('/uploadImage')
+def uploadImage():
+    image_url = get_image_url('image1.jpg')
+    return render_template('uploadImage.html', image_url=image_url)
+
+
+def create_drive_service():
+    credentials_path = 'gdrvcredentials.json'
+    credentials = service_account.Credentials.from_service_account_file(
+        credentials_path, scopes=['https://www.googleapis.com/auth/drive'])
+    drive_service = build('drive', 'v3', credentials=credentials)
+    return drive_service
+
+
+def get_image_url(imgName):
+
+    drive_service = create_drive_service()
+    IMAGE_FILENAME = imgName
+    DRIVE_FOLDER_ID = '1O17snc953dQDn_RX_CZvHR6NUFYBkVTj'
+
+    try:
+        # Search for the image file by name in the specified folder
+        # Define the path to your Google Drive API credentials JSON file
+
+        results = drive_service.files().list(
+            q=f"'{DRIVE_FOLDER_ID}' in parents and name = '{IMAGE_FILENAME}'", fields="files(id, webContentLink)").execute()
+
+        image_url = None
+        for file in results.get('files', []):
+            image_url = file.get('webContentLink')
+            break
+
+        return image_url
+    except HttpError as e:
+        print(f"Google Drive API error: {e}")
+        return None
+
+
+app.jinja_env.globals.update(get_image_url=get_image_url)
+
+
+def upload_image_drv(imgFile):
+    drive_service = create_drive_service()
+    temp_dir = tempfile.TemporaryDirectory()
+    temp_file = imgFile
+    temp_path = os.path.join(temp_dir.name, temp_file.filename)
+    temp_file.save(temp_path)
+
+    file_metadata = {
+        'name': temp_file.filename,
+        'parents': ['1O17snc953dQDn_RX_CZvHR6NUFYBkVTj']
+    }
+
+    media = MediaFileUpload(
+        temp_path,
+        mimetype='image/jpg'
+    )
+    try:
+        uploaded_file = drive_service.files().create(
+            body=file_metadata,
+            media_body=media,
+            fields='id'
+        ).execute()
+        return f'Image uploaded with file ID: {uploaded_file.get("id")}'
+    except Exception as e:
+        # Handle any errors that occur during the upload process
+        return jsonify({"error": str(e)})
+
+
+@ app.route("/uploadImage", methods=['POST'])
+def validate_uploadImage():
+
+    # Get the uploaded image file
+    image_file = request.files['profileimg']
+
+    imgSuccess = upload_image_drv(image_file)
+    return imgSuccess
 
 
 if __name__ == '__main__':
