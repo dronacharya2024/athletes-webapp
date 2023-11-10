@@ -10,3 +10,6 @@ pymongo==4.3.3
 Werkzeug==2.3.6
 Flask-Session==0.5.0
 certifi
+google-api-python-client==2.35.0
+google-auth==2.6.0
+google-auth-oauthlib==0.4.6
