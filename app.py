@@ -647,11 +647,15 @@ def view_coaches__():
     """
     # docs = db.athletes_data.find({"coach_id":username}).sort("athlete_name", -1)
 
-    docs = db.coach_data.find()
-    title = 'Our Coaches'
-    coach_class = 'current'
+    coaches = db.coach_data.find()
 
-    return render_template('viewcoaches.html', title=title, docs=list(docs))
+    # Filter coaches based on the login_data collection
+    filtered_coaches = [
+        coach for coach in coaches if db.login_data.find_one({'_id': coach['_id'], 'status': 1, 'user_type': 'coach'})
+    ]
+    title = 'Our Coaches'
+
+    return render_template('viewcoaches.html', title=title, docs=list(filtered_coaches))
 
 # requests
 
