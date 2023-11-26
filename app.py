@@ -176,14 +176,13 @@ def process_admintemplate():
 
     if type == "1":
         acceptID = request.form['acceptID']
+        coachID = request.form['coachID']
         if acceptID == "1":
-            coachID = request.form['coachID']
-            emailID = request.form['emailID']
             db.login_data.update_one({'_id': ObjectId(coachID)}, {
                 "$set": {'status': 1}}, upsert=False)
             return redirect(url_for('admintemplate', title=title, type=1))
         elif acceptID == "0":
-
+            emailID = request.form['emailID']
             body = 'Your signup request has been rejected. Kindly contact admin'
             msg = EmailMessage()
             msg.set_content(body)
@@ -452,31 +451,25 @@ def athleteprofilesave():
     i = 0
 
     if file:
-        file.save(os.path.join(
-            app.config['UPLOAD_DIRECTORY'], profilefilename))
+        fileVar = upload_image_drv(file)
 
     if file1:
-        file1.save(os.path.join(
-            app.config['UPLOAD_DIRECTORY'], filename1))
+        fileVar1 = upload_image_drv(file1)
         i = 1
 
     if file2:
-        file2.save(os.path.join(
-            app.config['UPLOAD_DIRECTORY'], filename2))
+        fileVar2 = upload_image_drv(file2)
         i = i+1
 
     if file3:
-        file3.save(os.path.join(
-            app.config['UPLOAD_DIRECTORY'], filename3))
+        fileVar3 = upload_image_drv(file3)
         i = i+1
 
     if file4:
-        file4.save(os.path.join(
-            app.config['UPLOAD_DIRECTORY'], filename4))
+        fileVar4 = upload_image_drv(file4)
         i = i+1
     if file5:
-        file5.save(os.path.join(
-            app.config['UPLOAD_DIRECTORY'], filename5))
+        fileVar5 = upload_image_drv(file5)
         i = i+1
 
     doc = {
