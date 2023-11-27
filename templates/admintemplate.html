@@ -38,11 +38,12 @@
                     <input type="hidden" name="emailID" id="emailID">
                     {% if docs%}
                     {% for item in docs %}
+                    {% set image_url = get_image_url(item.profilepic) %}
                     <div class="col-lg-4 col-sm-5">
                         <div class="product_box">
                             <h4 class="bursh_text">{{item.firstname}} {{item.surname}}</h4>
                             <p class="lorem_text">{{item.email}}</p>
-                            <img src="static/uploads/{{item.profilepic}}" class="image_1_view" width="100" height="200">
+                            <img src={{image_url}} class="image_1_view" width="100" height="200">
                             <div class="btn_main">
                                 <div class="buy_bt">
                                     <ul>
@@ -58,10 +59,10 @@
                         
                 </div>
                 {% if request.args.get('txtMsg')=="1" %}
-                 <div class="row"><div class="col-lg-6 col-sm-12"><p class="lorem_text"><br><br> Coach has been deleted Successfully</p></div></div>
+                 <div class="row"><div class="col-lg-6 col-sm-12"><p class="lorem_text" style="color:red;"><br><br> Coach has been deleted Successfully</p></div></div>
                 {% endif %}
                 {% else %}
-                <div class="row" style="position:relative;top:120%;left:100px;"><div class="col-lg-6 col-sm-12"><p class="lorem_text"><br><br> No Current List Of Coaches to Approve</p></div></div>
+                <div class="row" style="position:relative;top:120%;left:100px;"><div class="col-lg-6 col-sm-12"><p class="lorem_text" style="color:red;"><br><br> No Current List Of Coaches to Approve</p></div></div>
                 {% endif %}
     </form>
    
@@ -128,10 +129,18 @@
 
          <form  name="adminForm3" id="adminForm3" action="{{ url_for('process_admintemplate') }}" method="post">
             <input type="hidden" name="type" id="type" value=3>
-            
+           
          {% if requestData %} 
          {% for item3 in requestData %}
             <input type="hidden" name="requestID" id="requestID" value="{{item3._id}}">
+            <input type="hidden" name="requestSubject" id="requestSubject" value="{{item3.request_subject}}">
+            <input type="hidden" name="requestAmt" id="requestAmt" value="{{item3.request_amt}}">
+            <input type="hidden" name="requestEnddate" id="requestEnddate" value="{{item3.request_enddate}}">
+            <input type="hidden" name="athleteID" id="athleteID" value="{{item3.athleteID}}">
+            <input type="hidden" name="coachID" id="coachID" value="{{item3.coachID}}">
+            <input type="hidden" name="contactName" id="contactName" value="{{item3.contact_name}}">
+            <input type="hidden" name="contactPhone" id="contactPhone" value="{{item3.contact_phone}}">
+            
          <svg width="1500" height="180" style="position:relative;top:10%;left:-95px">
            <g>
                <rect x="70" y="20" rx="20" ry="20" width="950" height="100" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
