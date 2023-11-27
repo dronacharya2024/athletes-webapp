@@ -173,10 +173,10 @@ def process_admintemplate():
     """
     title = 'Admin Template'
     type = request.form['type']
-
+    coachID = request.form['coachID']
+    athleteID = request.form['athleteID']
     if type == "1":
         acceptID = request.form['acceptID']
-        coachID = request.form['coachID']
         if acceptID == "1":
             db.login_data.update_one({'_id': ObjectId(coachID)}, {
                 "$set": {'status': 1}}, upsert=False)
@@ -207,8 +207,41 @@ def process_admintemplate():
         return redirect(url_for('admintemplate', title=title, type=2, txtMsg=2))
     elif type == "3":
         requestID = request.form['requestID']
+        requestSubject = request.form['requestSubject']
+        requestAmt = request.form['requestAmt']
+        requestEnddate = request.form['requestEnddate']
+        contactName = request.form['contactName']
+        contactPhone = request.form['contactPhone']
+
+        athleteData = db.athletes_data.find_one(
+            {"_id": ObjectId(athleteID)})
+        athleteFirstname = athleteData.get("firstname", None)
+        athleteSurname = athleteData.get("surname", None)
+
+        coachData = db.coach_data.find_one(
+            {"_id": ObjectId(coachID)})
+        coachFirstname = coachData.get("firstname", None)
+        coachSurname = coachData.get("surname", None)
+
         db.request_data.update_one({'_id': ObjectId(requestID)}, {
             "$set": {'status': 1}}, upsert=False)
+
+        sponsors = db.sponsor_data.find({}, {'email': 1, 'companyname': 1})
+
+        for sponsor in sponsors:
+            recipient_email = sponsor['email']
+            msg = EmailMessage()
+            body = f"Hello {sponsor['companyname']}, \n\n Request your kind sponsorship for  {athleteFirstname}  {athleteSurname}. Below are the details- \n\n{requestSubject}\n\n{requestAmt}\n\n Please Contact {contactName}-{contactPhone} for further details.\n\n Thanking You,\n\n  {coachFirstname} {coachSurname}"
+            msg.set_content(body)
+            msg['Subject'] = requestSubject
+        # Replace with your Gmail address
+            msg['From'] = EMAIL_ADDRESS
+            msg['To'] = recipient_email
+
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+                smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+                smtp.send_message(msg)
+
         return redirect(url_for('admintemplate', title=title, type=3, txtMsg=3))
         # sign_up_athletecoach
 
