@@ -223,8 +223,8 @@ def process_admintemplate():
         coachFirstname = coachData.get("firstname", None)
         coachSurname = coachData.get("surname", None)
 
-       # db.request_data.update_one({'_id': ObjectId(requestID)}, {
-        #    "$set": {'status': 1}}, upsert=False)
+        db.request_data.update_one({'_id': ObjectId(requestID)}, {
+            "$set": {'status': 1}}, upsert=False)
 
         sponsors = db.sponsor_data.find({}, {'email': 1, 'companyname': 1})
 
