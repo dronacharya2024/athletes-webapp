@@ -148,6 +148,12 @@
                <text x="17%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item3.request_amt}}</text>
                <text x="28%" y="39%"  fill="black" dominant-baseline="middle" text-anchor="middle" font-size="16px" id="dynamicText">{{item3.request_enddate}}</text>
                 
+               <foreignObject x="35%" y="-5%" width="200" height="150">
+                <body>
+                    <div class="seemore_bt"><a href="requestdetails?requestID={{item3._id}}" style="color:white">See More</a></div>
+                </body>
+                </foreignObject>
+
                <foreignObject x="45%" y="-5%" width="250" height="150">
                    <body>
                        <div class="seemore_bt"><a href="#" style="color:white" id="submitLink3" id="submitLink3" onclick="submitForm('adminForm3')">Approve</a></div>
