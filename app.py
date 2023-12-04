@@ -630,6 +630,21 @@ def validate_athletetemplate():
     elif type == "2":
         details = athleteprofilesave()
         return render_template('athleteprofile.html', details=details)
+    elif type == "3":
+        subject = request.form['subject']
+        journaldate = request.form['journaldate']
+        description = request.form['description']
+        doc = {
+            "subject": subject,
+            "journaldate": journaldate,
+            "description": description,
+            "athleteID": athleteID,
+            "created_at":  datetime.now(),
+        }
+        insert_result = db.journal_data.insert_one(doc)
+        return redirect(url_for('athletetemplate', type=3, txtMsg=2))
+    
+
 
 
 @ app.route("/viewathletes")

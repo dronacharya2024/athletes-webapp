@@ -80,6 +80,66 @@
                   <input type="hidden" name="type" id="type" value=2>
                       {% include "athleteprofiletemplate.html" %}
                  </form>
+                
+                 {% elif request.args.get('type') == "3" %}
+                 <form  name="requestForm3" id="requestForm3" action="{{ url_for('validate_athletetemplate') }}" method="post">
+                    <input type="hidden" name="type" id="type" value=3>
+                
+                        <div class="templatemo-one-signin col-md-15">
+                                    <div class="form-group">
+                                      <div class="col-md-12">		          	
+                                        <label for="Subject" class="control-label">Subject</label>
+                                        <div class="templatemo-input-icon-container">
+                                            <i class="fa fa-envelope"></i>
+                                            <input type="text" class="form-control" id="subject" name="subject">
+                                        </div>		            		            		            
+                                      </div>              
+                                    </div>
+                                <div class="templatemo-one-signin col-md-15">
+                                    <div class="form-group">
+                                      <div class="col-md-12">		          	
+                                        <label for="journaldate" class="control-label">Date</label>
+                                        <div class="templatemo-input-icon-container">
+                                            <i class="fa fa-user"></i>
+                                            <input type="date" class="form-control" id="journaldate" name="journaldate">
+                                        </div>		            		            		            
+                                      </div>              
+                                    </div>
+                                      <div class="form-group">
+                                        <div class="col-md-12">		          	
+                                          <label for="description" class="control-label">Description</label>
+                                          <div class="templatemo-input-icon-container">
+                                              <i class="fa fa-user"></i>
+                                              <textarea id="description" class="form-control" name="description" rows="5" cols="33"></textarea>                                             </textarea>
+                                             
+                                          </div>		            		            		            
+                                        </div>              
+                                      </div>
+                                      
+                                      
+                                    
+                                      <div class="row">
+                                        <div class="col-sm-12"> <br>
+                                            <ul class="assignbt">
+                                                <li><a href="#" id="submitLink1" id="submitLink1" onclick="submitForm('requestForm3')" >Submit Entry</a></li>
+                                                
+                                            </ul>
+                                        </div>
+                                      </div>
+                                
+                                      {% if request.args.get('txtMsg')=="2" %}
+                                      <div class="row"><div class="col-lg-6 col-sm-12"><p class="lorem_text" style="color:red; font-size: large;"><br><br> Entry has been Added</p></div></div>
+                                       {% endif %}
+
+                                </div>
+                                
+                                        
+            
+                                    </a>
+                                   
+                            </div>				 	
+                          </form>
+                
                  {% endif %}
 
 
