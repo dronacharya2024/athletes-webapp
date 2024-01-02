@@ -417,6 +417,19 @@ def athleteprofileedit():
 
     return render_template('athleteprofileedit.html', athlete=athlete, coach=coach)
 
+# athletejournal
+@ app.route("/journal")
+def journal():
+    """
+    Route for GET request to journal page
+    Displays form for user
+    """
+    title = "Athlete Journal"
+    athleteID = request.args.get('id')
+    journalData = db.journal_data.find({"athleteID": ObjectId(athleteID)})
+    return render_template('journal.html', title=title, journalData=journalData)
+
+
 # sponsorprofile
 
 

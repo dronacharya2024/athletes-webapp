@@ -5,14 +5,14 @@
 
 <body style= "background-color:#fef4ec">
     <div class="product_section layout_padding">
-        <div class="container">
+      <div class="container">
         <div class="row">
             <div class="col-sm-12" style="position:relative;top:5%;left:2%;">
                 <h1>{{title}}</h1>
             </div>
         </div>
    
-            <div class="row" style="background-color:#fef4ec"></div>
+        <div class="row" style="background-color:#fef4ec"></div>
 
           <div class="row" >
             <form  name="requestForm4" id="requestForm4" action="{{ url_for('validate_coachtemplate') }}" method="post">
@@ -20,66 +20,29 @@
                 <input type="hidden" name="actionID" id="actionID" value={{request.args.get('actionID')}}>
                 <input type="hidden" name="sponsorID" id="sponsorID" value={{request.args.get('sponsorID')}}>
                     <div class="templatemo-one-signin col-md-15">
-                                <div class="form-group">
-                                  <div class="col-md-12">		          	
-                                    <label for="E-Mail" class="control-label">E-Mail</label>
-                                    <div class="templatemo-input-icon-container">
-                                        <i class="fa fa-envelope"></i>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="" value="{{sponsordoc.email}}">
-                                    </div>		            		            		            
-                                  </div>              
-                                </div>
-                            <div class="templatemo-one-signin col-md-15">
-                                <div class="form-group">
-                                  <div class="col-md-12">		          	
-                                    <label for="username" class="control-label">Company/Individual Name</label>
-                                    <div class="templatemo-input-icon-container">
-                                        <i class="fa fa-user"></i>
-                                        <input type="text" class="form-control" id="companyname" name="companyname" placeholder="" value="{{sponsordoc.companyname}}">
-                                    </div>		            		            		            
-                                  </div>              
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-12">		          	
-                                      <label for="username" class="control-label">Phone Number</label>
-                                      <div class="templatemo-input-icon-container">
-                                          <i class="fa fa-user"></i>
-                                          <input type="text" class="form-control" id="phoneno" name="phoneno" placeholder="" value="{{sponsordoc.phoneno}}">
-                                      </div>		            		            		            
-                                    </div>              
-                                  </div>
-                                  <div class="form-group">
-                                    <div class="col-md-12">		          	
-                                      <label for="username" class="control-label">Address</label>
-                                      <div class="templatemo-input-icon-container">
-                                          <i class="fa fa-user"></i>
-                                          <textarea id="address" class="form-control" name="address" rows="5" cols="33">{{sponsordoc.address}}
-                                          </textarea>
-                                         
-                                      </div>		            		            		            
-                                    </div>              
-                                  </div>
-                                  
-                                  
-                                
-                                  <div class="row">
-                                    <div class="col-sm-12"> <br>
-                                        <ul class="assignbt">
-                                            <li><a href="#" id="submitLink1" id="submitLink1" onclick="submitForm('requestForm4')" >Submit Sponsor</a></li>
-                                            
-                                        </ul>
-                                    </div>
-                                  </div>
-                            
-                            </div>
-                            
+ 
+                      {% for item in journalData %}
+                      <svg width="1500" height="350" style="position:relative;top:10%;left:-50px">
+                      <g>
+                       <rect x="50" y="20" rx="20" ry="20" width="1000" height="250" style="fill:white;stroke:black;stroke-width:5;opacity:0.5"/>
+                       <text x="6%" y="13%"  fill="black" dominant-baseline="middle" text-anchor="start" font-size="16px" id="dynamicText">Subject:{{item.subject}}</text>
+                       <text x="6%" y="23%"  fill="black" dominant-baseline="middle" text-anchor="start" font-size="16px" id="dynamicText">Date:{{item.journaldate}}</text>
+                       <text x="6%" y="33%"  fill="black" dominant-baseline="middle" text-anchor="start" font-size="16px" id="dynamicText">Description:</text>
+                       <foreignObject x="6%" y="37%" width="100" height="150">
+                        <body>
+                            <div>{{item.description}}</div>
+                        </body>
+                        </foreignObject>
+                     </g>
+                     </svg>
+                     {% endfor %}
                                     
-        
-                                </a>
-                               
-                        </div>				 	
-                      </form>	
+                    </div>
+                            
+              </form>                  
+          </div>	
+    </div>
+</body>        			 	
+             	
 
-                      {% if request.args.get('txtMsg')=="4" %}
-                      <div class="row"><div class="col-lg-6 col-sm-12"><p class="lorem_text"><br><br> Sponsor has been Added</p></div></div>
-                       {% endif %}
+{% endblock main %}
