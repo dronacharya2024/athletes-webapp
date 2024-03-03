@@ -6,7 +6,7 @@
         <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="product_taital">Our Sponsors</h1>
+                <h1 class="product_taital">Request Details</h1>
                 
             </div>
         </div>
@@ -38,7 +38,24 @@
                             <div class="col-sm-9 text-secondary">{{requestdata.description}}</div>
                             </div>
                           <hr>
-                       
+                          <div class="row">
+                            <div class="col-sm-3">
+                            <h4 class="mb-0">RequestAmount:</h4></div>
+                            <div class="col-sm-9 text-secondary">{{requestdata.request_amt}}</div>
+                            </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                            <h4 class="mb-0">Contact:</h4></div>
+                            <div class="col-sm-9 text-secondary">{{requestdata.contact_name}}</div>
+                            </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                            <h4 class="mb-0">Contact Phone No:</h4></div>
+                            <div class="col-sm-9 text-secondary">{{requestdata.contact_phone}}</div>
+                            </div>
+                          <hr>
                          
                         </div>
                         </div>
@@ -47,8 +64,15 @@
                         </div>
                          
         </div>
-        <div class="product_section_2 layout_padding" style="position:relative;top:80px;left:10%">
-            <div class="row">
+        <div class="product_section_2 layout_padding" style="position:relative;top:80px;left:3%;">
+          <div class="row">
+          
+                <div class="col-sm-12">
+                    <h1 class="product_taital">Sponsors</h1>
+                    
+                </div>
+            </div>
+           <div class="row">
             {% if docs %}
                 {% for item in docs %}
                 <div class="col-lg-3 col-sm-6">

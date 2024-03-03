@@ -20,6 +20,16 @@ function submitForm(frmName) {
     
 }
 
+
+function submitForm2(requestID) {
+    var confirmDelete = confirm("Are you sure you want to delete this request?");
+    alert(document.getElementById('type').value);
+    if (confirmDelete) {
+        document.getElementById('requestID').value=requestID;
+        document.getElementById('requestDeleteForm').submit();
+    }
+}
+
 function submitForm1(id,acceptID,emailID) {
     document.getElementById('coachID').value=id;
     document.getElementById('acceptID').value=acceptID;
@@ -43,15 +53,15 @@ function displayRow(divName,imgName) {
 
 // Function to update the result field
 function updateResult(maxVal) {
-    text1 = document.getElementById("amtRecieved1");
-    text2 = document.getElementById("amtRecieved2");
-    text3 = document.getElementById("amtRecieved3");
-    text4 = document.getElementById("amtRecieved4");
-    text5 = document.getElementById("amtRecieved5");
+    var text1 = parseFloat(document.getElementById("amtRecieved1").value) || 0;
+    var text2 = parseFloat(document.getElementById("amtRecieved2").value) || 0;
+    var text3 = parseFloat(document.getElementById("amtRecieved3").value) || 0;
+    var text4 = parseFloat(document.getElementById("amtRecieved4").value) || 0;
+    var text5 = parseFloat(document.getElementById("amtRecieved5").value) || 0;
 
-    varSum = parseFloat(text1.value) || 0 +  parseFloat(text2.value) || 0 + parseFloat(text3.value) || 0 +  parseFloat(text4.value) || 0 +  parseFloat(text5.value) || 0;
-    
+    var varSum = text1 + text2 + text3 + text4 + text5; 
     amtPending = document.getElementById("amtPending");
     varRes = maxVal - varSum;
-    amtPending.value = Math.abs(varRes);
+    amtPending.value = varRes;
+   
 }

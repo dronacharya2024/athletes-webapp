@@ -417,6 +417,19 @@ def athleteprofileedit():
 
     return render_template('athleteprofileedit.html', athlete=athlete, coach=coach)
 
+# athletejournal
+@ app.route("/journal")
+def journal():
+    """
+    Route for GET request to journal page
+    Displays form for user
+    """
+    title = "Athlete Journal"
+    athleteID = request.args.get('id')
+    journalData = db.journal_data.find({"athleteID": ObjectId(athleteID)})
+    return render_template('journal.html', title=title, journalData=journalData)
+
+
 # sponsorprofile
 
 
@@ -630,6 +643,21 @@ def validate_athletetemplate():
     elif type == "2":
         details = athleteprofilesave()
         return render_template('athleteprofile.html', details=details)
+    elif type == "3":
+        subject = request.form['subject']
+        journaldate = request.form['journaldate']
+        description = request.form['description']
+        doc = {
+            "subject": subject,
+            "journaldate": journaldate,
+            "description": description,
+            "athleteID": athleteID,
+            "created_at":  datetime.now(),
+        }
+        insert_result = db.journal_data.insert_one(doc)
+        return redirect(url_for('athletetemplate', type=3, txtMsg=2))
+    
+
 
 
 @ app.route("/viewathletes")
@@ -685,6 +713,23 @@ def view_coaches__():
 
 # requests
 
+
+def requestCheckStatus(reqID, coachID, reqAmt):
+    requestID = str(reqID)
+    coachID = coachID
+    requestdoc = db.sponsor_request_data.find({"requestID": requestID, "coachID": coachID})
+    total_amount = 0
+    reqAmt = int(reqAmt)
+    
+    for request_data in requestdoc:
+        amount_received= int(request_data.get('request_amt_recieved'))
+        total_amount += amount_received
+
+    if total_amount >= reqAmt:
+        return  "Completed"
+    else:
+        return  "Incomplete"
+    
 
 @ app.route("/coachtemplate")
 def coachtemplate():
@@ -752,8 +797,33 @@ def coachtemplate():
         coachID = session['id']
         approveddocs = db.request_data.find(
             {"coachID": coachID, "status": 1})
+           # Initialize an empty list to store data
+        data_list = []
 
-        return render_template('coachtemplate.html', approveddocs=approveddocs)
+        # Iterate over the documents
+        for document in approveddocs:
+            # Extract required fields from the document
+            request_id = document.get('_id')
+            coachID = ObjectId(document.get('coachID'))
+            request_amt = document.get('request_amt')
+            request_subject = document.get('request_subject')
+            request_enddate = document.get('request_enddate')
+            
+            # Determine the status based on a condition
+            status = requestCheckStatus(request_id,coachID,request_amt)
+
+            # Create a dictionary containing the extracted fields and status
+            data_item = {
+                'request_id': request_id,
+                'request_amt': request_amt,
+                'request_subject': request_subject,
+                'request_enddate': request_enddate,
+                'status': status
+            }
+
+            # Append the data item to the list
+            data_list.append(data_item)
+        return render_template('coachtemplate.html', approveddocs=data_list)
     elif type == "7":
         coachID = session['id']
         requestID = request.args.get('requestID')
@@ -794,6 +864,7 @@ def coachtemplate():
 @ app.route("/coachtemplate", methods=['POST'])
 def validate_coachtemplate():
     type = request.form['type']
+    print(type)
     coachID = session['id']
 
     if type == "1":
@@ -868,6 +939,19 @@ def validate_coachtemplate():
         else:
             result = add_sponsor()
             return redirect(url_for('coachtemplate', title=title, type=4, txtMsg=4))
+        
+    elif type == "6":
+        actionID = request.form['actionID']
+        requestID = request.form['requestID']
+        result = db.request_data.delete_one({"_id":ObjectId(requestID)})
+        result1 = db.sponsor_request_data.delete_many({"requestID": requestID})
+
+        if result.deleted_count == 1:
+            txtMsg = "1"
+        else:
+            txtMsg = "0"
+        return redirect(url_for('coachtemplate', type=6, txtMsg=txtMsg))
+
     elif type == "7":
         athleteID = request.form['athleteID']
         requestID = request.form['requestID']
@@ -938,7 +1022,11 @@ def allrequests():
     """
     title = "Requests"
     docs = db.request_data.find({"status": 1})
+     
     return render_template('requests.html', docs=docs, title=title)
+
+ 
+ 
 
 
 @ app.route("/requestdetails")
