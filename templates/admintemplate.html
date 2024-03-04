@@ -43,7 +43,9 @@
                         <div class="product_box">
                             <h4 class="bursh_text">{{item.firstname}} {{item.surname}}</h4>
                             <p class="lorem_text">{{item.email}}</p>
+                            {% if image_url %}
                             <img src={{image_url}} class="image_1_view" width="100" height="200">
+                            {% endif %}
                             <div class="btn_main">
                                 <div class="buy_bt">
                                     <ul>
