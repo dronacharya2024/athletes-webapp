@@ -16,10 +16,9 @@
           <div class="column" style= "margin-left:30px;margin-top:30px;width:100%">
             <div style="margin-bottom: 10px">Age:<br><input type= "text" name= "age" id= "age" placeholder="Age"  value="{{athlete.age}}"></input></div>
             <div style="margin-bottom: 10px">Sport:<br><input type= "text" name= "sport" id= "sport" placeholder="Sport"  value="{{athlete.sport}}"></input></div>
-            <div style="margin-bottom: 10px">Rank:<br><input type= "text" name= "rank" id= "rank" placeholder="Rank"  value="{{athlete.rank}}"></input></div>
             <div style="margin-bottom: 10px" class="header_04">
               {% if athlete.profileimg %}
-              <img src="static/uploads/{{athlete.profileimg}}" alt="Current Profile Picture" width="65">
+                <img src="{{get_image_url(athlete.profileimg)}}"   alt="Current Profile Picture" width="50px">
               {% endif %}
               Edit Picture:<input type="file" name="profileimg" id="profileimg" onchange="fileValidation('profileimg');"></input></div>
           </div>
@@ -33,11 +32,11 @@
                     
     <!-- Full-width images with number text -->
     <div  style="margin-bottom: 10px"  class="header_04">Choose To Edit Your Achievement Pictures To Upload</div>
-    <div  style="display: flex; align-items: center;border:1px solid grey;margin-left:0px;margin-bottom:10px">{% if athlete.filename1 %}<img src="static/uploads/{{athlete.filename1}}" alt="File 1" width="100">&nbsp;&nbsp;{% endif %} <input type="file" name="filename1" id="filename1" onchange="fileValidation('filename1');"></input></div>
-    <div style="display: flex; align-items: center;border:1px solid grey;margin-bottom: 10p">{% if athlete.filename2 %}<img src="static/uploads/{{athlete.filename2}}" alt="File 2" width="100">&nbsp;&nbsp;{% endif %}<input type="file" name="filename2" id="filename2" onchange="fileValidation('filename2');"></input></div>
-    <div style="display: flex; align-items: center;border:1px solid grey;margin-bottom: 10px">{% if athlete.filename3 %}<img src="static/uploads/{{athlete.filename3}}" alt="File 3" width="100">&nbsp;&nbsp;{% endif %}<input type="file" name="filename3" id="filename3" onchange="fileValidation('filename3');"></input></div>
-    <div style="display: flex; align-items: center;border:1px solid grey;margin-bottom: 10px">{% if athlete.filename4 %}<img src="static/uploads/{{athlete.filename4}}" alt="File 4" width="100">&nbsp;&nbsp;{% endif %}<input type="file" name="filename4" id="filename4" onchange="fileValidation('filename4');"></input></div>
-    <div style="display: flex; align-items: center;border:1px solid grey;margin-bottom: 10px">{% if athlete.filename5 %}<img src="static/uploads/{{athlete.filename5}}" alt="File 5" width="100">&nbsp;&nbsp;{% endif %}<input type="file" name="filename5" id="filename5" onchange="fileValidation('filename5');"></input></div>
+    <div  style="display: flex; align-items: center;border:1px solid grey;margin-left:0px;margin-bottom:10px">{% if athlete.filename1 %}<img src="{{get_image_url(athlete.filename1)}}" alt="File 1" width="100">&nbsp;&nbsp;{% endif %} <input type="file" name="filename1" id="filename1" onchange="fileValidation('filename1');"></input></div>
+    <div style="display: flex; align-items: center;border:1px solid grey;margin-bottom: 10px">{% if athlete.filename2 %}<img src="{{get_image_url(athlete.filename2)}}" alt="File 2" width="100">&nbsp;&nbsp;{% endif %}<input type="file" name="filename2" id="filename2" onchange="fileValidation('filename2');"></input></div>
+    <div style="display: flex; align-items: center;border:1px solid grey;margin-bottom: 10px">{% if athlete.filename3 %}<img src="{{get_image_url(athlete.filename3)}}" alt="File 3" width="100">&nbsp;&nbsp;{% endif %}<input type="file" name="filename3" id="filename3" onchange="fileValidation('filename3');"></input></div>
+    <div style="display: flex; align-items: center;border:1px solid grey;margin-bottom: 10px">{% if athlete.filename4 %}<img src="{{get_image_url(athlete.filename4)}}" alt="File 4" width="100">&nbsp;&nbsp;{% endif %}<input type="file" name="filename4" id="filename4" onchange="fileValidation('filename4');"></input></div>
+    <div style="display: flex; align-items: center;border:1px solid grey;margin-bottom: 10px">{% if athlete.filename5 %}<img src="{{get_image_url(athlete.filename5)}}" alt="File 5" width="100">&nbsp;&nbsp;{% endif %}<input type="file" name="filename5" id="filename5" onchange="fileValidation('filename5');"></input></div>
   </div>
   
     
