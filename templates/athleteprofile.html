@@ -10,7 +10,7 @@
 
 <div class="row" style="position:relative;top:10%;left:20%">
   <div class="column" style= "width:18%">
-    {% if {{get_image_url(details.athlete.profileimg)}} %}
+    {% if get_image_url(details.athlete.profileimg) %}
     <img src="{{get_image_url(details.athlete.profileimg)}}" alt="Profile Picture" class="rounded-circle" width="150" style="position:relative; top:10%; left:19%">
     {% endif %}
   </div>
