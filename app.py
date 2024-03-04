@@ -308,7 +308,7 @@ def add_coach():
     docs = db.athletes_data.find()
     title = 'Athletes'
     athlete_class = 'current'
-    return redirect(url_for('view_athletes'))
+    return redirect(url_for('login'))
 
 
 def add_sponsor():
@@ -449,7 +449,6 @@ def athleteprofilesave():
     email = request.form['email']
     phoneno = request.form['phoneno']
     sport = request.form['sport']
-    rank = request.form['rank']
     achievements = request.form['achievements']
     bestrecord = request.form['bestrecord']
     file = request.files['profileimg']
@@ -525,7 +524,6 @@ def athleteprofilesave():
         "phoneno": phoneno,
         "email": email,
         "sport": sport,
-        "rank": rank,
         "achievements": achievements,
         "bestrecord": bestrecord,
         "profileimg": profilefilename,
@@ -1085,8 +1083,8 @@ def create_drive_service():
     return drive_service
 
 
-def get_image_url(imgName):
 
+def get_image_url(imgName):
     drive_service = create_drive_service()
     IMAGE_FILENAME = imgName
     DRIVE_FOLDER_ID = '1O17snc953dQDn_RX_CZvHR6NUFYBkVTj'
@@ -1101,6 +1099,10 @@ def get_image_url(imgName):
         image_url = None
         for file in results.get('files', []):
             image_url = file.get('webContentLink')
+            if "&export=download" in image_url:
+                 image_url = image_url.replace("&export=download", "")
+            
+            image_url = image_url.replace("uc", "thumbnail")
             break
 
         return image_url
@@ -1110,6 +1112,7 @@ def get_image_url(imgName):
 
 
 app.jinja_env.globals.update(get_image_url=get_image_url)
+
 
 
 def upload_image_drv(imgFile):

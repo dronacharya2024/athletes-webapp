@@ -18,9 +18,10 @@
                     <div class="view_box" >
                     <p class="lorem_text">{{item.firstname}}&nbsp;{{item.surname}}</p>
                     <p class="lorem_text">{{item.email}}</p>
+                    {% if image_url %}
                     <img src={{image_url}} class="image_1_view">
-                    </a>
-                    </div>
+                    {% endif %}
+                </div>
                 </div>
                 {% endfor %}
             </div>
