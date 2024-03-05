@@ -7,20 +7,20 @@
     
     <div class="row" style="position:relative;top:-25px;left:-55px;background-color:#FFFFFF;width:100%;display:flex">
       <div class="column" style= "margin-left:30px;margin-top:30px;width:70%;height:50%;">
-            <div style="margin-bottom: 10px">First Name:<input type= "text" name= "firstname" id= "firstname" placeholder="First Name"  value="{{athlete.firstname}}"></input></div>
-            <div style="margin-bottom: 10px">Surname:<input type= "text" name= "surname" id= "surname" placeholder="Surname"  value="{{athlete.surname}}"></input></div>
-             <div style="margin-bottom: 10px">Phone No:<input type= "text" name= "phoneno" id= "phoneno" placeholder="Phone No"  value="{{athlete.phoneno}}"></input></div>
-            <div style="margin-bottom: 10px">Email:<input type= "email" name= "email" id= "email" placeholder="Email"  value="{{athlete.email}}"></input></div>
+            <div style="margin-bottom: 10px">First Name:<input type= "text" name= "firstname" id= "firstname" placeholder="First Name"  value="{{athlete.firstname}}" required/></div>
+            <div style="margin-bottom: 10px">Surname:<input type= "text" name= "surname" id= "surname" placeholder="Surname"  value="{{athlete.surname}}"required/></div>
+             <div style="margin-bottom: 10px">Phone No:<input type= "text" name= "phoneno" id= "phoneno" placeholder="Phone No"  value="{{athlete.phoneno}}" required/></div>
+            <div style="margin-bottom: 10px">Email:<input type= "email" name= "email" id= "email" placeholder="Email"  value="{{athlete.email}}" required/></div>
             
           </div>
-          <div class="column" style= "margin-left:30px;margin-top:30px;width:100%">
-            <div style="margin-bottom: 10px">Age:<br><input type= "text" name= "age" id= "age" placeholder="Age"  value="{{athlete.age}}"></input></div>
-            <div style="margin-bottom: 10px">Sport:<br><input type= "text" name= "sport" id= "sport" placeholder="Sport"  value="{{athlete.sport}}"></input></div>
+          <div class="column" style= "margin-left:30px;margin-top:30px;width:100%"> 
+            <div style="margin-bottom: 10px">Age:<br><input type= "text" name= "age" id= "age" placeholder="Age"  value="{{athlete.age}}" required/></div>
+            <div style="margin-bottom: 10px">Sport:<br><input type= "text" name= "sport" id= "sport" placeholder="Sport"  value="{{athlete.sport}}" required/></div>
             <div style="margin-bottom: 10px" class="header_04">
               {% if athlete.profileimg %}
                 <img src="{{get_image_url(athlete.profileimg)}}"   alt="Current Profile Picture" width="50px">
               {% endif %}
-              Edit Picture:<input type="file" name="profileimg" id="profileimg" onchange="fileValidation('profileimg');"></input></div>
+              Edit Picture:<input type="file" name="profileimg" id="profileimg" onchange="fileValidation('profileimg');" required/></div>
           </div>
         </div>
   
