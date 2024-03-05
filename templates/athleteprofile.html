@@ -143,10 +143,12 @@
               {% if  session['role'] == "athlete" %}
               <div class="row">
                 <div class="col-sm-12">
+                  {% if  session['id'] ==  details.athlete._id %}
                   <ul class="assignbt">
-                    <li><a href="athleteprofileedit">Edit Profile</a></li>
+                    <li><a href="athletetemplate?type=2&id={{session['id'] }}">Edit Profile</a></li>
                     
-                </ul>
+                 </ul>
+                 {% endif %}
                  
                 </div>
               </div>

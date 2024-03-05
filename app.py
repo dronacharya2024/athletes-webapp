@@ -20,9 +20,7 @@ import tempfile
 
 # instantiate the app
 app = Flask(__name__)
-app.config['UPLOAD_DIRECTORY'] = 'static/uploads/'
-app.config['MAX_CONTANT_LENGTH'] = 16*500*500
-app.config['ALLOWED_EXTENSION'] = ['.jpg', '.jpeg', '.png', '.gif']
+
 app.config['SECRET_KEY'] = "super_secret_key"
 app.config['SESSION_TYPE'] = 'filesystem'
 
@@ -33,16 +31,8 @@ GENERIC_PASSWORD = "dronacharya"
 
 Session(app)
 
-'''
-# turn on debugging if in development mode
-if config['FLASK_ENV'] == 'development':
-    # turn on debugging, if in development
-    app.debug = True # debug mode
-'''
 
 # home
-
-
 @app.route("/")
 def initial():
     """
@@ -52,8 +42,6 @@ def initial():
     return redirect('/home')
 
 # home
-
-
 @app.route("/home")
 def home():
     """
@@ -63,8 +51,6 @@ def home():
     return render_template('home.html')
 
 # login page
-
-
 @app.route("/login")
 def login():
     """
@@ -74,15 +60,13 @@ def login():
     title = 'Login'
     return render_template('Login.html', title=title)
 
-# validate login
-
 
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for('home'))
 
-
+# validate login
 @app.route('/login', methods=['POST'])
 def validate_login():
     """
@@ -112,7 +96,7 @@ def validate_login():
             session['username'] = username
             return redirect(url_for('admintemplate', type=1))
         elif user_type == 'coach':
-            # Redirect coaches to viewplayerspage
+            # Redirect coaches to coachtemplate page
             session['id'] = user_id
             session['role'] = user_type
             session['username'] = username
@@ -124,7 +108,7 @@ def validate_login():
         return render_template('Login.html', error=error)
 
 
-# login page
+
 @ app.route("/admintemplate")
 def admintemplate():
     """
@@ -187,7 +171,6 @@ def process_admintemplate():
             msg = EmailMessage()
             msg.set_content(body)
             msg['Subject'] = 'Your Signup Rejected'
-            # Replace with your Gmail address
             msg['From'] = EMAIL_ADDRESS
             msg['To'] = emailID
 
@@ -234,7 +217,6 @@ def process_admintemplate():
             body = f"Hello {sponsor['companyname']}, \n\n Request your kind sponsorship for  {athleteFirstname}  {athleteSurname}. Below are the details- \n\n{requestSubject}\n\n{requestAmt}\n\n Please Contact {contactName}-{contactPhone} for further details.\n\n Thanking You,\n\n  {coachFirstname} {coachSurname}"
             msg.set_content(body)
             msg['Subject'] = requestSubject
-        # Replace with your Gmail address
             msg['From'] = EMAIL_ADDRESS
             msg['To'] = recipient_email
 
@@ -243,8 +225,7 @@ def process_admintemplate():
                 smtp.send_message(msg)
 
         return redirect(url_for('admintemplate', title=title, type=3, txtMsg=3))
-        # sign_up_athletecoach
-
+       
 
 @ app.route("/sign_up_coach")
 def sign_up_coach():
@@ -313,7 +294,7 @@ def add_coach():
 
 def add_sponsor():
     """
-    Route for POST requests to the sign up pages.
+    Route for POST requests to the sponsor pages.
     Accepts the form submission data for a new document and saves the document to the database.
     """
     email = request.form['email']
@@ -387,8 +368,6 @@ def add_athlete():
     return redirect(url_for('athleteprofileedit', username=username))
 
 # athleteprofile
-
-
 @ app.route("/athleteprofile")
 def athleteprofile():
     """
@@ -402,20 +381,6 @@ def athleteprofile():
     return render_template('athleteprofile.html', details=details)
 
 
-# athleteprofileedit
-
-
-@ app.route("/athleteprofileedit")
-def athleteprofileedit():
-    """
-    Route for GET request to athleteprofileedit page
-    Displays form for user
-    """
-    title = " Edit Profile"
-    athlete = db.athletes_data.find_one({"_id": ObjectId(session['id'])})
-    coach = get_coach_name(ObjectId(session['id']))
-
-    return render_template('athleteprofileedit.html', athlete=athlete, coach=coach)
 
 # athletejournal
 @ app.route("/journal")
@@ -429,8 +394,6 @@ def journal():
     journalData = db.journal_data.find({"athleteID": ObjectId(athleteID)})
     return render_template('journal.html', title=title, journalData=journalData)
 
-
-# sponsorprofile
 
 
 def getathlete_coachdata(athleteID):
@@ -537,17 +500,12 @@ def athleteprofilesave():
     }
 
     update_result = db.athletes_data.update_one(
-        {"_id":  ObjectId(session['id'])}, {"$set": doc})  # update a new document for user
-    # tell the browser to make a request for the /home route
-
+        {"_id":  ObjectId(session['id'])}, {"$set": doc})  
     details = getathlete_coachdata(ObjectId(session['id']))
     return details
 
 
-@ app.route('/athleteprofileedit', methods=['POST'])
-def validate_athleteprofileedit():
-    details = athleteprofilesave()
-    return render_template('athleteprofile.html', details=details)
+
 
 
 @ app.route("/sponsorprofile")
@@ -1143,14 +1101,7 @@ def upload_image_drv(imgFile):
         return jsonify({"error": str(e)})
 
 
-@ app.route("/uploadImage", methods=['POST'])
-def validate_uploadImage():
 
-    # Get the uploaded image file
-    image_file = request.files['profileimg']
-
-    imgSuccess = upload_image_drv(image_file)
-    return imgSuccess
 
 
 if __name__ == '__main__':
