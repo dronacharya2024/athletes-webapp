@@ -64,7 +64,7 @@
                         <body>
                             <div class="dropdown">
                                 <span style="color: black; font-size:15px">
-                                    <input type= "text" name= "username" id= "username" placeholder="Username"></input>
+                                    <input type= "text" name= "username" id= "username" placeholder="Username" required/>
                                 <br><br>
                                 </span>
                                 </div>       
@@ -123,7 +123,7 @@
                 <label for="amount" class="control-label">How much money do you need?</label>
                 <div class="templatemo-input-icon-container">
                     <i class="fa fa-inr" style="color: black;"></i>
-                    <input type="number" class="form-control" id="request_amt" name="request_amt" placeholder="" value="{{reqdoc.request_amt}}">
+                    <input type="number" class="form-control" id="request_amt" name="request_amt" placeholder="" value="{{reqdoc.request_amt}}" required/>
                 </div>
                 </div>
             </div>
@@ -136,7 +136,7 @@
             <div class="form-group">
                 <div class="col-md-12">
                 <label for="title" class="control-label">What is the subject of your request?</label>
-                <input type="text" class="form-control" id="request_subject" name="request_subject" placeholder="" value="{{reqdoc.request_subject}}">
+                <input type="text" class="form-control" id="request_subject" name="request_subject" placeholder="" value="{{reqdoc.request_subject}}" required/>
                 </div>
             </div>
             <div class="form-group">
@@ -151,9 +151,9 @@
                 <label for="contact" class="control-label-bigger">Who should the sponsor contact?</label>
                 <br>
                 <label for="contact-name" class="control-label">Contact name</label>
-                <input type="text" class="form-control" id="contact_name" name="contact_name" value="{{reqdoc.contact_name}}">
+                <input type="text" class="form-control" id="contact_name" name="contact_name" value="{{reqdoc.contact_name}}" required/>
                 <label for="contact-phone" class="control-label">Contact phone</label>
-                <input type="tel" class="form-control" id="contact_phone" name="contact_phone"  value="{{reqdoc.contact_phone}}">
+                <input type="tel" class="form-control" id="contact_phone" name="contact_phone"  value="{{reqdoc.contact_phone}}" required/>
                 </div>
             </div>
            
@@ -209,7 +209,7 @@
                                         <label for="E-Mail" class="control-label">E-Mail</label>
                                         <div class="templatemo-input-icon-container">
                                             <i class="fa fa-envelope"></i>
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="" value="{{sponsordoc.email}}">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="" value="{{sponsordoc.email}}" required/>
                                         </div>		            		            		            
                                       </div>              
                                     </div>
@@ -219,7 +219,7 @@
                                         <label for="username" class="control-label">Company/Individual Name</label>
                                         <div class="templatemo-input-icon-container">
                                             <i class="fa fa-user"></i>
-                                            <input type="text" class="form-control" id="companyname" name="companyname" placeholder="" value="{{sponsordoc.companyname}}">
+                                            <input type="text" class="form-control" id="companyname" name="companyname" placeholder="" value="{{sponsordoc.companyname}}" required/>
                                         </div>		            		            		            
                                       </div>              
                                     </div>
@@ -228,7 +228,7 @@
                                           <label for="username" class="control-label">Phone Number</label>
                                           <div class="templatemo-input-icon-container">
                                               <i class="fa fa-user"></i>
-                                              <input type="text" class="form-control" id="phoneno" name="phoneno" placeholder="" value="{{sponsordoc.phoneno}}">
+                                              <input type="text" class="form-control" id="phoneno" name="phoneno" placeholder="" value="{{sponsordoc.phoneno}}" required/>
                                           </div>		            		            		            
                                         </div>              
                                       </div>
@@ -396,14 +396,14 @@
                               <div class="row">
                                 <div class="col-md-3">
                                 <h4 class="mb-0" style="margin-left:8px;">Amount Recieved </h4>
-                                <div class="col-md-9 text-secondary"><input type="text" class="form-control" id="amtRecieved1" name="amtRecieved1"  onblur="updateResult('{{requestdoc.request_amt}}')" value={% if sponsorAmtdocs[0] is defined %} {{sponsorAmtdocs[0]}} {% else %} "" {% endif %}>
+                                <div class="col-md-9 text-secondary"><input type="text" class="form-control" id="amtRecieved1" name="amtRecieved1"  onblur="updateResult('{{requestdoc.request_amt}}')" value={% if sponsorAmtdocs[0] is defined %} {{sponsorAmtdocs[0]}} {% else %} "" {% endif %} required/>
                                     <input type="hidden" name="sponsorReqID1" id="sponsorReqID1" value={{sponsorReqIDdocs[0]}}>  
                                 </div>
                                  </div>
                                 <div class="col-md-3">
                                     <h4 class="mb-0" style="margin-left:8px;">Sponsor </h4>
                                     <div class="col-md-5 text-secondary">
-                                           <select id="sponsorID1" name="sponsorID1">
+                                           <select id="sponsorID1" name="sponsorID1" required>
                                         {% for item in sponsordoc %}
                                 
                                         <option value="{{item._id}}"
