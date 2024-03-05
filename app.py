@@ -158,7 +158,6 @@ def process_admintemplate():
     title = 'Admin Template'
     type = request.form['type']
     coachID = request.form['coachID']
-    athleteID = request.form['athleteID']
     if type == "1":
         acceptID = request.form['acceptID']
         if acceptID == "1":
@@ -167,16 +166,17 @@ def process_admintemplate():
             return redirect(url_for('admintemplate', title=title, type=1))
         elif acceptID == "0":
             emailID = request.form['emailID']
-            body = 'Your signup request has been rejected. Kindly contact admin'
-            msg = EmailMessage()
-            msg.set_content(body)
-            msg['Subject'] = 'Your Signup Rejected'
-            msg['From'] = EMAIL_ADDRESS
-            msg['To'] = emailID
-
-            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-                smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-                smtp.send_message(msg)
+            if emailID != "":
+                body = 'Your signup request has been rejected. Kindly contact admin'
+                msg = EmailMessage()
+                msg.set_content(body)
+                msg['Subject'] = 'Your Signup Rejected'
+                msg['From'] = EMAIL_ADDRESS
+                msg['To'] = emailID
+    
+                with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+                    smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+                    smtp.send_message(msg)
 
             result = db.coach_data.delete_one({"_id": ObjectId(coachID)})
             result = db.login_data.delete_one({"_id": ObjectId(coachID)})
@@ -189,6 +189,7 @@ def process_admintemplate():
             "$set": {'coachID': coachID}}, upsert=False)
         return redirect(url_for('admintemplate', title=title, type=2, txtMsg=2))
     elif type == "3":
+        athleteID = request.form['athleteID']
         requestID = request.form['requestID']
         requestSubject = request.form['requestSubject']
         requestAmt = request.form['requestAmt']
