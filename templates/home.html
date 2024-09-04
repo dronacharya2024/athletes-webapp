@@ -6,19 +6,57 @@
 {% endblock body %}
 
 {% block main %}
-<br><br><br><br><br><br>
+<style>
+
+.content-container {
+  color: #f2f2f2; /* Light color for readability */
+  background-color: rgba(0, 0, 0, 0.85); /* Darken the background */
+  border-radius: 8px;
+  padding: 1.5em;
+  width: 110%; /* Adjust width as needed, while maintaining padding */
+  max-width: 1200px; /* Maximum width of the content container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Shadow for depth */
+  position: relative; /* Ensure the container is positioned correctly */
+  top: 20px; /* Adjust as necessary to position the container within your layout */
+  z-index: 10; /* Ensure the container stacks on top of other elements if needed */
+}
+
+.heading {
+	 color: #FFFFFF; /* Sets the text color to white */
+ 	 text-align: justify; /* Ensures text is justified */
+	font-style: italic;
+	font-family: "Times New Roman";
+	font-size: 21px;
+	padding-left: 58px;
+	
+}
+
+.paragraph {
+	color: #FFFFFF; /* Sets the text color to white */
+  	text-align: justify; /* Ensures text is justified */
+	line-height: 40px;
+	font-family: "Times New Roman";
+	font-size: 18px;
+}
+
+</style>
+
+
+<br><br><br>
 <div class="container">
 	<div class="col-md-12">			
-		<form class="form-horizontal templatemo-login-form-2" role="form" action="#" method="post">
+		<form class="content-container" role="form" action="#" method="post">
 			<div class="row">
-				<div class="col-md-12" style = "padding-top: 30px;">
-					<h1><b>Home</b></h1>
+				<div class="col-md-12" style = "padding-top: 20px;">
+					<h1 class="heading"><b>Dhronacharya Shri Ramesh's Athletes: Where Ambition and Support Collide</b></h1>
 				</div>
 			</div>
 			<div class="row">
 				<div class="templatemo-one-signin col-md-12">
 					<div class="col-md-12">
-							<p>This is a website to bla bla bla</p>
+							<p class="paragraph">
+								Welcome to Dhronacharya Shri Ramesh's Athletes, the premier platform where determined athletes training at Gachibowli Stadium under the expert guidance of Coach Nagapuri Ramesh, a Dronacharya Awardee, can connect with sponsors ready to invest in their future. As a revered figure in athletics, Coach Ramesh has transformed raw talent into champions who've brought glory to the nation, instilling values of hard work and excellence. Our web app is inspired by his legacy, designed to support athletes in their quest for greatness, providing a place for sponsors to discover new talent and contribute towards nurturing the next generation of sports heroes. Here, every athlete's ambition is matched with the perfect opportunity, ensuring their focus remains on achieving their full potential. Join us and be a part of an athlete's journey to victory, empowering them through your sponsorship to reach new heights and continue the winning tradition that Coach Ramesh has established.
+							</p>
 					
 					</div>
 
